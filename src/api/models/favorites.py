@@ -19,15 +19,6 @@ class Favorites(db.Model):
             "id": self.id,
             "user" : self.user,
             "id_user" : self.id_user,
-            "id_planet" : self.id_planet,
-            "id_people" : self.id_people,
-            "id_starship" : self.id_starship
-        }
-    def favorites_serialize(self): #creada para serializar los favoritos en user, para evitar recursividad
-        return { 
-            "id": self.id,
-            "id_user" : self.id_user,
-            "id_people" : self.id_people,
-            "id_planet" : self.id_planet,
-            "id_starship" : self.id_starship
+            "id_lawyer" : self.id_lawyer,
+            "id_company" : self.id_company
         }
