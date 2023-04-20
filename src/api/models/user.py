@@ -24,13 +24,13 @@ class User(db.Model):
     question_comment= db.relationship("Question_comment", back_populates="user")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, user_name, password, name, last_name, email, roles):
+    def __init__(self, user_name, password, name, last_name, email, roles_id):
         self.user_name = user_name
         self.password = password
         self.name = name
         self.last_name = last_name
         self.email = email
-        self.roles = roles
+        self.roles_id = roles_id
    
 
     def __repr__(self):
@@ -42,7 +42,7 @@ class User(db.Model):
         "name" : self.name,
         "last_name" : self.last_name,
         "email" : self.email,
-        "roles": self.roles_id,
+        "roles_id": self.roles_id,
         "company": list(map(lambda company: company.serialize(), self.company )),
         "lawyer": list(map(lambda lawyer: lawyer.serialize(), self.lawyer ))
 
