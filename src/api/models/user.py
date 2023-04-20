@@ -24,7 +24,7 @@ class User(db.Model):
     question_comment= db.relationship("Question_comment", back_populates="user")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, user_name, password, name, last_name, email, roles,):
+    def __init__(self, user_name, password, name, last_name, email, roles):
         self.user_name = user_name
         self.password = password
         self.name = name
