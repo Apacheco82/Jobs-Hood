@@ -17,12 +17,11 @@ class Lawyer(db.Model):
     lawyer_review = db.relationship("Lawyer_review", back_populates= "lawyer")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, address, city, cp, col_number, data_create):
+    def __init__(self, address, city, cp, col_number):
         self.address = address
         self.city = city
         self.cp = cp
         self.col_number = col_number
-        self.data_create = datetime.utcnow()
     
     def serialize(self):
         return{

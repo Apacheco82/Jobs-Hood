@@ -16,13 +16,12 @@ class Company(db.Model):
     favs = db.relationship("Favorites", back_populates="company") 
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, address, city, cp, cif, data_create):
+    def __init__(self, address, city, cp, cif):
 
         self.address = address
         self.city = city
         self.cp = cp
         self.cif = cif
-        self.data_create = datetime.utcnow()
 
     def serialize(self):
         return{
