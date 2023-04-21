@@ -17,6 +17,7 @@ def register_company(data):
     if 'password' not in data or len(data['password']) < 8:
         return Response.response_error('Password must have at least 8 characters', 400)
 
-    resultado = Repository.register_company(data)
-        
-    return Response.response_ok(resultado.serialize(), "Company added successfully", 201)
+    if resultado is not None:
+        return Response.response_ok(resultado.serialize(), "Company added successfully", 201)
+    else:
+        return Response.response_error("Error creating the company", 400)
