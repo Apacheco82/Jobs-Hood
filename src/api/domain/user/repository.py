@@ -9,6 +9,3 @@ def create_user(user_name,password,name,last_name,email):
     db.session.commit()
     return new_user
 
-def create_user_by_role(user_name,password,name,last_name,email):
-    user_by_role = User(user_name,password,name,last_name,email)
-    return user_by_role
