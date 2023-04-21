@@ -9,6 +9,9 @@ api = Blueprint('api/user', __name__)
 
 @api.route('/worker', methods=['POST'])
 def create_user():
-    body = request.get_json()
-    return Controller.create_user(body)
+        body = request.get_json()
+        new_user = Controller.create_user(body)    
+        if isinstance(new_user, User):   
+            return jsonify(new_user.serialize()), 200
+        return jsonify(new_user)
       
