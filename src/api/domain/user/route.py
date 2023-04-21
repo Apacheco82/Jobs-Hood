@@ -13,6 +13,11 @@ def create_user():
         body = request.get_json()
         new_user = Controller.create_user(body)   
         if isinstance(new_user, User):   
-            return jsonify(new_user.serialize()), 200
-        return jsonify(Response.response_ok(new_user, "Usuario registrado correctamente!", 200))
+            return Response.response_ok(new_user.serialize(), "Usuario registrado correctamente!", 201)
+        return Response.response_error("Usuario no registrado!", 401)
+
+
+   
+
+      
       
