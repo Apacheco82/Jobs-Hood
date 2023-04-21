@@ -1,6 +1,6 @@
 import api.domain.user.repository as Repository
 import bcrypt
-from api.functions import hash_pass
+from api.functions import hash_pass, find_role
 from flask_jwt_extended import create_access_token # PARA PODER CREAR EL TOKEN
 
 def verificar_usuario(new_user):  # funcion de verificaciones para poder usarla en repetidas ocasiones
