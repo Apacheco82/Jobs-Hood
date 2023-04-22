@@ -1,7 +1,10 @@
 {
     "_meta": {
         "hash": {
+
             "sha256": "43ed146b65b7463ad87710d1de103e4f93e7e1f89fcc458e52bd77ab16a6c7b9"
+
+         
         },
         "pipfile-spec": 6,
         "requires": {
@@ -351,6 +354,7 @@
             ],
             "index": "pypi",
             "version": "==2.9.6"
+
         },
         "pyjwt": {
             "hashes": [
@@ -359,6 +363,7 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.6.0"
+
         },
         "python-dotenv": {
             "hashes": [

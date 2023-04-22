@@ -4,7 +4,6 @@ from api.functions import hash_pass, find_role, verificar_usuario
 from flask_jwt_extended import create_access_token # PARA PODER CREAR EL TOKEN
 
 
-
 def create_user(new_user):
    correct_user = verificar_usuario(new_user)
    if correct_user.get("error") is not None:
@@ -14,8 +13,3 @@ def create_user(new_user):
 
 
       
-
-
-
-
-
