@@ -27,3 +27,10 @@ def verificar_usuario(new_user):
             return {"msg": "La contraseña debe ser como máximo de 20 caracteres", "error": True, "status": 400}
 
     return new_user
+
+def verificar_login(user):  
+   if user['email'] is  None or user['email'] == "":
+      return{ "msg" : "Datos de acceso incorrectos!", "error": True,"status": 400}
+   if user['password'] is  None or user['password'] == "":
+      return{ "msg" : "Datos de acceso incorrectos!", "error": True,"status": 400}
+   return user

@@ -16,5 +16,14 @@ def create_user():
             return Response.response_ok(new_user.serialize(), "Usuario registrado correctamente!", 201)
         return Response.response_error("Usuario no registrado!", 401)
 
+@api.route('/login', methods=['POST'])
+def login_users():
+    body = request.get_json()
+    token = Controller.login_users(body)
+    if token.get('token'):
+        return jsonify(token), 200
+    return jsonify(token), token['status']
+
+
 
 
