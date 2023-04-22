@@ -18,7 +18,7 @@ def register_lawyer(data, address, city, cp, col_number):
 
     user = create_user_by_role(data, roles.id)
 
-    new_lawyer = Lawyer(data, address, city, cp, col_number)  
+    new_lawyer = Lawyer(address, city, cp, col_number)  
     
     user.lawyer.append(new_lawyer)
     

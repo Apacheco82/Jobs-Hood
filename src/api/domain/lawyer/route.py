@@ -1,17 +1,17 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models.index import db, User, Lawyer
-import api.domain.company.controller as Controller
+import api.domain.lawyer.controller as Controller
 import api.handle_response as Response
 import bcrypt
 
 lawyer_bp = Blueprint('lawyer_bp', __name__)
 
 
-@company_bp.route("/", methods= ["GET"])
+@lawyer_bp.route("/", methods= ["GET"])
 def get_lawyers():
     return Controller.get_lawyers()
 
-@company_bp.route("/", methods= ["POST"])
+@lawyer_bp.route("/", methods= ["POST"])
 def register_lawyer():
     data = request.get_json()
 

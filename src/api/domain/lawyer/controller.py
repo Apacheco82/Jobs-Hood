@@ -15,7 +15,7 @@ def register_lawyer(data):
     if new_lawyer.get("error") is not None:
         return new_lawyer
 
-    return Repository.register_lawyer(
+    return Repository.register_lawyer(data,
     data['address'], 
     data['city'], 
     data['cp'], 
