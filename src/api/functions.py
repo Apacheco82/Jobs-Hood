@@ -8,7 +8,7 @@ def find_role(description, model):
     role = model.query.filter_by(description=description).first()
     return role
 
-def verificar_usuario(new_user):
+def verify_user(new_user):
     required_fields = {
         'user_name': "El campo usuario debe estar completo",
         'email': "El campo email debe estar completo",
@@ -28,7 +28,7 @@ def verificar_usuario(new_user):
 
     return new_user
 
-def verificar_login(user):  
+def verify_login(user):  
    if user['email'] is  None or user['email'] == "":
       return{ "msg" : "Datos de acceso incorrectos!", "error": True,"status": 400}
    if user['password'] is  None or user['password'] == "":
