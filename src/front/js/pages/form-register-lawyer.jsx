@@ -19,6 +19,18 @@ export const RegistroAbogado = () => {
 		})
 
 
+    // Función que actualiza el user_name basado en el campo name
+    const updateUserName = (email) => {
+        const userName = email.replace(/\s+/g, ""); // Elimina espacios en blanco
+        setForm({...form, user_name: userName});
+    };
+
+    // Actualiza el user_name cada vez que el campo name cambia
+    useEffect(() => {
+        updateUserName(form.email);
+    }, [form.email]);
+
+
 	const handleChange = ({target}) =>{                           // el valor que se escriba en el form se sustituye en el campo name de cada apartado del objeto,
 		setRegistro({...registro ,[target.name]:target.value}) // se setean los cambios en el usestate de registro                                                    
 	}	
