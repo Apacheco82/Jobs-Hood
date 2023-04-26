@@ -37,7 +37,7 @@ export const Profile = props => {
           <div className="iconos my-1"> {data.data_create}</div>
         </div>
         <div className="col-lg-2 d-flex">
-        <i class="fa-solid fa-pen-clip fa-xl mt-3 mx-4"  title="Editar Contacto"></i>
+        <i className="fa-solid fa-pen-clip fa-xl mt-3 mx-4"  title="Editar Contacto"></i>
          
         </div>
 

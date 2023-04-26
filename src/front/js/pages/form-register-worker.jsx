@@ -7,6 +7,7 @@ import { Context } from "../store/appContext";
 import { registerUser } from "../services";  
 
 
+
 export const RegistroWorker = () => {
 	const { store, actions } = useContext(Context);
 
@@ -28,8 +29,9 @@ export const RegistroWorker = () => {
 
     const handleSubmit = async (event) =>{
 		event.preventDefault();
-		await registerUser(registro)
-        navigate("/login") 
+		const register = await registerUser(registro)
+       if (register){navigate("/login")}
+	   else {navigate("/")} // Pintar alerts entc en el front para controlar esta parte, de momento se queda con este condicional
 	}
 
 	return (

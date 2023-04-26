@@ -21,7 +21,7 @@ export const Login = props => {
     const handleSubmit = async (event) => {
         event.preventDefault();
        const isLogin =  await loginUser(login)
-       if(isLogin) { navigate("/profile")}
+       if(isLogin) { navigate("/worker/profile")}
     }
 
     return (
