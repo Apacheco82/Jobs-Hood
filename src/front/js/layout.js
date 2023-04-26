@@ -6,8 +6,6 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { RegistroWorker } from "./pages/form-register-worker.jsx";
-import { RegisterCompany } from "./pages/form-register-company.jsx";
-
 import { Login } from "./pages/login-users.jsx";
 import { RegisterCompany } from "./pages/form-register-company.jsx";
 
