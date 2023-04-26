@@ -7,6 +7,8 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { RegistroWorker } from "./pages/form-register-worker.jsx";
 import { Login } from "./pages/login-users.jsx";
+import { CompanyProfile } from "./pages/company-profile";
+
 
 
 const Layout = () => {
@@ -23,7 +25,8 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<RegistroWorker />} path="/register/worker" />
+                        <Route element={<RegistroWorker />} path="/register/worker" />                       
+                        <Route element={<CompanyProfile />} path="/company/:id" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
