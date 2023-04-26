@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../store/appContext";
+import React, { useState, useEffect} from "react";
 import { registerLawyer } from "../services";  
 
-export const RegistroAbogado = () => {
-	const { store, actions } = useContext(Context);
-
-	const [registro, setRegistro] = useState(
-		{
-			user_name: "",
+export const RegistroLawyer = () => {
+	
+	const defaultForm = {
+		user_name: "",
             password:"",
             name:"",
             last_name:"",
@@ -16,29 +13,33 @@ export const RegistroAbogado = () => {
             city: "",
             cp: "",
             col_number: "",
-		})
+	}
+
+	const [form, setForm] = useState(defaultForm)
 
 
-    // Función que actualiza el user_name basado en el campo name
+    // Función que actualiza el user_name basado en el campo email
     const updateUserName = (email) => {
-        const userName = email.replace(/\s+/g, ""); // Elimina espacios en blanco
+        const userName = email.replace(/\s+/g, ""); 
         setForm({...form, user_name: userName});
     };
 
-    // Actualiza el user_name cada vez que el campo name cambia
+    // Actualiza el user_name cada vez que el campo email cambia
     useEffect(() => {
         updateUserName(form.email);
     }, [form.email]);
 
 
-	const handleChange = ({target}) =>{                           // el valor que se escriba en el form se sustituye en el campo name de cada apartado del objeto,
-		setRegistro({...registro ,[target.name]:target.value}) // se setean los cambios en el usestate de registro                                                    
+	const handleChange = (e) =>{// el valor que se escriba en el form se sustituye en el campo name de cada apartado del objeto,
+		const value = e.target.value;
+    	const name = e.target.name;
+    	setForm({...form, [name]: value}) // se setean los cambios en el usestate de form                                                  
 	}	
 
     const handleSubmit = async (event) =>{
 		event.preventDefault();
-		await registerLawyer(registro)
-        // una vez que te registres/login apareces en tu perfil de usuario 
+		await registerLawyer(form);
+        setForm(defaultForm)
 	}
 
     return (
@@ -50,58 +51,160 @@ export const RegistroAbogado = () => {
 			</div>
 			<div className="container mt-5">
 				<h4>Datos de Acceso</h4>
-				<form onChange={handleChange} onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit}>
 					<div className="row align-items-start my-3">
 						<div className="col">
-							<label htmlFor="form-register-worker" className="form-label">Nombre de Usuario</label>
-							<input type="text" className="form-control rounded-0" placeholder="Usuario"  maxLength="20" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Nombre de Usuario
+							</label>
+							<input type="text" onChange={handleChange} 
+								className="form-control rounded-0" 
+								name="user_name"
+								placeholder="Usuario" 
+								maxLength="20" 
+								value={form.user_name}
+								required 
+							/>
 						</div>
 						<div className="col">
-							<label  htmlFor="inputPassword6" className="form-label">Contraseña</label>
-							<input type="password" className="form-control rounded-0" aria-labelledby="passwordHelpInline" placeholder="Debe tener entre 8-20 caracteres." required />
+							<label
+								htmlFor="inputPassword6" 
+								className="form-label">
+									Contraseña
+							</label>
+							<input type="password" 
+								onChange={handleChange} 
+								className="form-control rounded-0"
+								name="password"
+								aria-labelledby="passwordHelpInline" 
+								placeholder="Debe tener entre 8-20 caracteres."
+								value={form.password}
+								required 
+							/>
 						</div>
 					</div>
                     <div className="row align-items-start my-3">
 						<div className="col">
-							<label htmlFor="form-register-worker" className="form-label">Nombre</label>
-							<input type="text" className="form-control rounded-0"  maxLength="20" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Nombre
+							</label>
+							<input 
+								type="text" 
+								onChange={handleChange} 
+								className="form-control rounded-0"
+								name="name" 
+								maxLength="20"
+								value={form.name}
+								required 
+							/>
 						</div>
 						<div className="col">
-							<label htmlFor="form-register-worker" className="form-label">Apellidos</label>
-							<input type="text" className="form-control rounded-0"  maxLength="40"  />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Apellidos
+							</label>
+							<input 
+								type="text" 
+								onChange={handleChange} 
+								className="form-control rounded-0" 
+								name="last_name"
+								maxLength="40" 
+								value={form.last_name}
+							/>
 						</div>
 					</div>
 					<div className="row align-items-end my-3">
 						<div className="col">
-							<label  htmlFor="form-register-worker" className="form-label">Dirección Email</label>
-							<input type="email" className="form-control rounded-0" placeholder="name@example.com" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Dirección Email
+							</label>
+							<input 
+								type="email" 
+								onChange={handleChange} 
+								className="form-control rounded-0" 
+								name="email"
+								placeholder="name@example.com"
+								value={form.email} 
+								required 
+							/>
 						</div>
 					</div>
 					<div className="row align-items-end my-3">
 						<div className="col">
-							<label  htmlFor="form-register-worker" className="form-label">Direccón postal</label>
-							<input type="text" className="form-control rounded-0" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Dirección postal
+							</label>
+							<input 
+								type="text" 
+								onChange={handleChange} 
+								className="form-control rounded-0"
+								name="address"
+								value={form.address}
+								required 
+							/>
 						</div>
 					</div>
 					<div className="row align-items-end my-3">
 						<div className="col">
-							<label  htmlFor="form-register-worker" className="form-label">Ciudad</label>
-							<input type="text" className="form-control rounded-0" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Ciudad
+								</label>
+							<input 
+								type="text" 
+								onChange={handleChange} 
+								className="form-control rounded-0"
+								name="city"
+								value={form.city}
+								required 
+							/>
 						</div>
 					</div>
 					<div className="row align-items-end my-3">
 						<div className="col">
-							<label  htmlFor="form-register-worker" className="form-label">Código postal</label>
-							<input type="number" className="form-control rounded-0" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Código postal
+							</label>
+							<input 
+								type="number" 
+								onChange={handleChange} 
+								className="form-control rounded-0"
+								name="cp"
+								value={form.cp}
+								required 
+							/>
 						</div>
 					</div>
 					<div className="row align-items-end my-3">
 						<div className="col">
-							<label  htmlFor="form-register-worker" className="form-label">Número de colegiado</label>
-							<input type="text" className="form-control rounded-0" required />
+							<label 
+								htmlFor="form-register-worker" 
+								className="form-label">
+									Número de colegiado
+							</label>
+							<input 
+								type="text" 
+								onChange={handleChange} 
+								className="form-control rounded-0"
+								name="col_number"
+								value={form.col_number}
+								required 
+							/>
 						</div>
 					</div>
-					<input type="submit" className="btn btn-dark mx-3  rounded-0" value="Registrarme"></input>
+					<input type="submit" className="btn btn-dark mx-3 rounded-0" value="Registrarme"></input>
 				</form>
 			</div>
 

@@ -6,7 +6,7 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { RegistroWorker } from "./pages/form-register-worker.jsx";
-import { RegistroAbogado } from "./pages/form-register-lawyer"
+import { RegistroLawyer } from "./pages/form-register-lawyer"
 import { Login } from "./pages/login-users.jsx";
 
 
@@ -25,7 +25,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<RegistroWorker />} path="/register/worker" />
-                        <Route element={<RegistroAbogado />} path="/register/lawyer" />
+                        <Route element={<RegistroLawyer />} path="/register/lawyer" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
