@@ -1,35 +1,34 @@
 import React, {useEffect, useState} from "react";
-import {Tab, Nav} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
+import UserInfo from "../component/UserInfo.jsx";
+
 
 export const CompanyProfile = () => {
   const params = useParams();
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({});
   const [company, setCompany] = useState({});
-  const [activeKey, setActiveKey] = useState("#nav-home");
+ 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const companyId = params.id;
-        
-        if (!companyId) {
-          //TOKEN
-          const token = localStorage.getItem("token");
-          const companyData = getUserPrivate(token);
-          setUser(companyData);
-          setCompany(companyData.company);
-          console.log("la info", companyData);
-          setLogin(true);
-        } else {
-          //ID
-          const info = await userById(companyId);
-          setUser(info.data);
-          setCompany(info.data.company);
-          console.log("la info", info.data);
-          setLogin(false);
+        const companyId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
+
+        const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
+
+        if (!companyId) { //si no hemos usado la ruta con id, estamos entrando por TOKEN
+          const companyData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una const
+          setUser(companyData); //seteamos el useState de USER
+          setCompany(companyData.company); //seteamos el useState de COMPANY
+          setLogin(true); //seteamos el useState LOGIN a TRUE, para poder editar todos los campos del formulario
+        } else { //si hemos usado la ruta con ID
+          //primero obtenemos los datos de la empresa que se pintan en pantalla
+          const info = await userById(companyId); //llamamos a la función que obtiene un USER filtrando por su ID
+          setUser(info.data); //seteamos el useState de USER
+          setCompany(info.data.company); //seteamos el useState de COMPANY
+          setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
         }
       } catch (error) {
         console.log(error);
@@ -38,12 +37,7 @@ export const CompanyProfile = () => {
     fetchData();
   }, []);
 
-  //console.log("datos de company", company.address)
-  //console.log("todo el usuario", user)
-
-  return (
-    <>
-      {login ? <div>Estás logado</div> : <div>Ruta pública</div>}
-    </>
-  );
-}
+  return     <>
+  <UserInfo user={user} company={company} showEditButton={login} />
+</>
+};

@@ -74,7 +74,6 @@
 	},
 	"dependencies": {
 		"bootstrap": "^5.2.3",
-		"jwt-decode": "^3.1.2",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-bootstrap": "^2.7.4",
