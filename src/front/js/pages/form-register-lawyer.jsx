@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from "react";
-import { registerLawyer } from "../services";  
+import { registerLawyer } from "../services/lawyer.js";  
 
 export const RegistroLawyer = () => {
 	
 	const defaultForm = {
-		user_name: "",
+			user_name: "",
             password:"",
             name:"",
             last_name:"",
@@ -31,8 +31,7 @@ export const RegistroLawyer = () => {
 
 
 	const handleChange = (e) =>{// el valor que se escriba en el form se sustituye en el campo name de cada apartado del objeto,
-		const value = e.target.value;
-    	const name = e.target.name;
+		const {name, value} = e.target;
     	setForm({...form, [name]: value}) // se setean los cambios en el usestate de form                                                  
 	}	
 
@@ -51,20 +50,20 @@ export const RegistroLawyer = () => {
 			</div>
 			<div className="container mt-5">
 				<h4>Datos de Acceso</h4>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit} onChange={handleChange}>
 					<div className="row align-items-start my-3">
 						<div className="col">
 							<label 
 								htmlFor="form-register-worker" 
 								className="form-label">
-									Nombre de Usuario
+									Nombre
 							</label>
-							<input type="text" onChange={handleChange} 
+							<input type="text" 
 								className="form-control rounded-0" 
-								name="user_name"
-								placeholder="Usuario" 
+								name="name"
+								placeholder="Nombre" 
 								maxLength="20" 
-								value={form.user_name}
+								value={form.name}
 								required 
 							/>
 						</div>
@@ -75,46 +74,13 @@ export const RegistroLawyer = () => {
 									Contraseña
 							</label>
 							<input type="password" 
-								onChange={handleChange} 
+								 
 								className="form-control rounded-0"
 								name="password"
 								aria-labelledby="passwordHelpInline" 
 								placeholder="Debe tener entre 8-20 caracteres."
 								value={form.password}
 								required 
-							/>
-						</div>
-					</div>
-                    <div className="row align-items-start my-3">
-						<div className="col">
-							<label 
-								htmlFor="form-register-worker" 
-								className="form-label">
-									Nombre
-							</label>
-							<input 
-								type="text" 
-								onChange={handleChange} 
-								className="form-control rounded-0"
-								name="name" 
-								maxLength="20"
-								value={form.name}
-								required 
-							/>
-						</div>
-						<div className="col">
-							<label 
-								htmlFor="form-register-worker" 
-								className="form-label">
-									Apellidos
-							</label>
-							<input 
-								type="text" 
-								onChange={handleChange} 
-								className="form-control rounded-0" 
-								name="last_name"
-								maxLength="40" 
-								value={form.last_name}
 							/>
 						</div>
 					</div>
@@ -127,7 +93,7 @@ export const RegistroLawyer = () => {
 							</label>
 							<input 
 								type="email" 
-								onChange={handleChange} 
+								
 								className="form-control rounded-0" 
 								name="email"
 								placeholder="name@example.com"
@@ -145,7 +111,7 @@ export const RegistroLawyer = () => {
 							</label>
 							<input 
 								type="text" 
-								onChange={handleChange} 
+								
 								className="form-control rounded-0"
 								name="address"
 								value={form.address}
@@ -162,7 +128,7 @@ export const RegistroLawyer = () => {
 								</label>
 							<input 
 								type="text" 
-								onChange={handleChange} 
+								
 								className="form-control rounded-0"
 								name="city"
 								value={form.city}
@@ -179,7 +145,7 @@ export const RegistroLawyer = () => {
 							</label>
 							<input 
 								type="number" 
-								onChange={handleChange} 
+								 
 								className="form-control rounded-0"
 								name="cp"
 								value={form.cp}
@@ -196,7 +162,7 @@ export const RegistroLawyer = () => {
 							</label>
 							<input 
 								type="text" 
-								onChange={handleChange} 
+								 
 								className="form-control rounded-0"
 								name="col_number"
 								value={form.col_number}
