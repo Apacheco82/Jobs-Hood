@@ -62,7 +62,7 @@ export const RegistroLawyer = () => {
 								className="form-control rounded-0" 
 								name="name"
 								placeholder="Nombre" 
-								maxLength="20" 
+								maxLength="80" 
 								value={form.name}
 								required 
 							/>
@@ -80,6 +80,7 @@ export const RegistroLawyer = () => {
 								aria-labelledby="passwordHelpInline" 
 								placeholder="Debe tener entre 8-20 caracteres."
 								value={form.password}
+								maxLength="250"
 								required 
 							/>
 						</div>
@@ -97,7 +98,8 @@ export const RegistroLawyer = () => {
 								className="form-control rounded-0" 
 								name="email"
 								placeholder="name@example.com"
-								value={form.email} 
+								value={form.email}
+								maxLength="250"
 								required 
 							/>
 						</div>
@@ -115,6 +117,7 @@ export const RegistroLawyer = () => {
 								className="form-control rounded-0"
 								name="address"
 								value={form.address}
+								maxLength="100"
 								required 
 							/>
 						</div>
@@ -132,6 +135,7 @@ export const RegistroLawyer = () => {
 								className="form-control rounded-0"
 								name="city"
 								value={form.city}
+								maxLength="100"
 								required 
 							/>
 						</div>
@@ -145,7 +149,6 @@ export const RegistroLawyer = () => {
 							</label>
 							<input 
 								type="number" 
-								 
 								className="form-control rounded-0"
 								name="cp"
 								value={form.cp}
@@ -161,8 +164,7 @@ export const RegistroLawyer = () => {
 									Número de colegiado
 							</label>
 							<input 
-								type="text" 
-								 
+								type="text"
 								className="form-control rounded-0"
 								name="col_number"
 								value={form.col_number}
