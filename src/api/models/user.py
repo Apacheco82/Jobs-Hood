@@ -13,18 +13,13 @@ class User(db.Model):
     email = db.Column(db.String(250), unique=True, nullable=False)
     roles_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
     roles = db.relationship("Roles", back_populates="user") 
-    
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     company = db.relationship("Company", foreign_keys=[company_id], uselist=False)
     lawyer_id = db.Column(db.Integer, db.ForeignKey('lawyer.id'))
     lawyer = db.relationship("Lawyer", foreign_keys=[lawyer_id], uselist=False)
-
-
     favs = db.relationship("Favorites", back_populates= "user")
     review = db.relationship("Review", back_populates= "user")
-    review_comment= db.relationship("Review_comment", back_populates="user")
     lawyer_review = db.relationship("Lawyer_review", back_populates= "user")
-    lawyer_review_comment= db.relationship("Lawyer_review_comment", back_populates="user")
     question = db.relationship("Question", back_populates= "user")
     question_comment= db.relationship("Question_comment", back_populates="user")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
