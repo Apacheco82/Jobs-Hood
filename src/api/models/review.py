@@ -8,7 +8,6 @@ class Review(db.Model):
     company = db.relationship('Company', back_populates='review')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', back_populates='review')
-    review_comment = db.relationship("Review_comment", back_populates="review")
     rating = db.Column(db.Integer(), nullable=False)
     text = db.Column(db.Text)
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
