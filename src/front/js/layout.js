@@ -12,7 +12,7 @@ import { Profile } from "./pages/profile-worker.jsx";
 import { RegisterCompany } from "./pages/form-register-company.jsx";
 import { CompanyProfile } from "./pages/company-profile.jsx";
 import { LawyerProfile } from "./pages/lawyer-profile.jsx";
-import { AllLawyers } from "./pages/all-lawyers";
+import { AllLawyers } from "./pages/all-lawyers.jsx";
 import { AllCompanies } from "./pages/all-companies.jsx";
 
 
