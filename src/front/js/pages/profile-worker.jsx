@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getUserPrivate } from "../services";
 import { useNavigate } from "react-router-dom";
-import UserInfo from "../component/UserInfo.jsx";
+import UserWorker from "../component/UserWorker.jsx";
 
 export const Profile = props => {
 
@@ -26,7 +26,7 @@ export const Profile = props => {
   return (
  
 <React.Fragment>
-      <UserInfo user={data} company={data} showEditButton={true} />
+<UserWorker user={data} showEditButton={true} />
     </React.Fragment>
 
   );
