@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Filters from "../component/filters.jsx";
 import Card from "../component/cards.jsx";
 import Pagination from "../component/pagination.jsx";
 import { GetAllCompanies } from "../services/company.js";
@@ -54,7 +53,7 @@ export const AllCompanies = () => {
       <div className="container">
         <div className="row">
           <div className="col-3">
-            <Filters />
+ 
           </div>
          
           <div className="col-8 mb-3">
