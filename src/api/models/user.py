@@ -36,6 +36,8 @@ class User(db.Model):
     def __repr__(self):
         return  '%r' % self.user_name #para las relaciones, en lugar de mostrar el id
 
+
+
     def serialize(self):
         return {
         "id": self.id,

@@ -18,3 +18,15 @@ export const registerLawyer = async (user) => {
     console.log("Error al registrar el abogado", error);
   }
 };
+
+export const GetAllLawyers = async () => {
+  try {
+    const response = await fetch(`${URL}/lawyer`, {
+      method: "GET",
+      redirect: "follow",
+    });
+    return await response.json();
+  } catch (error) {
+    console.log("Error en get:", error);
+  }
+};
