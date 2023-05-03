@@ -18,8 +18,8 @@ class User(db.Model):
     lawyer_id = db.Column(db.Integer, db.ForeignKey('lawyer.id'))
     lawyer = db.relationship("Lawyer", foreign_keys=[lawyer_id], uselist=False)
     favs = db.relationship("Favorites", back_populates= "user")
-    review = db.relationship("Review", back_populates= "user")
-    lawyer_review = db.relationship("Lawyer_review", back_populates= "user")
+    written_reviews = db.relationship("Review", back_populates="author", foreign_keys="Review.author_id")
+    received_reviews = db.relationship("Review", back_populates="receiver", foreign_keys="Review.receiver_id")
     question = db.relationship("Question", back_populates= "user")
     question_comment= db.relationship("Question_comment", back_populates="user")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
@@ -46,7 +46,11 @@ class User(db.Model):
         "last_name" : self.last_name,
         "email" : self.email,
         "roles_id": self.roles_id,
+        "role": self.roles.description,
+        "written_reviews": list(map(lambda written_review : written_review.serialize_review(), self.written_reviews)),
+        "received_reviews" : list(map(lambda received_review : received_review.serialize_review(), self.received_reviews)),
         "company": self.company.serialize() if self.company else None,
         "lawyer": self.lawyer.serialize()if self.lawyer else None,
         "data_create":self.data_create
         }
+

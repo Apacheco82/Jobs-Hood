@@ -7,7 +7,7 @@ from api.models.question_comment import Question_comment
 from api.models.lawyer import Lawyer
 from api.models.favorites import Favorites
 from api.models.company import Company
-from api.models.lawyer_review import Lawyer_review
+
 
 
 

@@ -13,7 +13,6 @@ class Lawyer(db.Model):
     col_number = db.Column(db.Integer(), unique=True, nullable=False)
     favs = db.relationship("Favorites", back_populates= "lawyer")
     question = db.relationship("Question", back_populates= "lawyer")
-    lawyer_review = db.relationship("Lawyer_review", back_populates= "lawyer")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, address, city, cp, col_number): 
