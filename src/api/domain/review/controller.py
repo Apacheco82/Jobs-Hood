@@ -10,7 +10,7 @@ def post_review(user, data):
     if user['role'] == "User": #se comprueba que el usuario logado es de tipo user, por eso le pasamos user_logged.serialize() en route como param
         receiver = get_single_user(data['receiver_id'])
         receiver_serialized = receiver.serialize()
-        if receiver_serialized['role'] != "User": 
+        if receiver_serialized['role'] != "User": #para controlar que solo se puedan hacer reviews a abogados y empresas
             return Repository.post_review(data['receiver_id'], data['author_id'], data['rating'], data['text']) #pasamos los campos necesarios a repository
         return Response.response_error("no puedes hacer reseñas a otro usuario", 400)
     return Response.response_error("Usuario no es de tipo user", 404) #si el usuario no era de tipo user no le dejamos hacer el post

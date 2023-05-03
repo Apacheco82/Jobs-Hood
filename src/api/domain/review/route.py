@@ -24,5 +24,4 @@ def post_review():
         new_review = Controller.post_review(user_logged.serialize(), data) #llamamos a controller pasándole el usuario serializado y la data para luego preguntarle si es de tipo "user"
         if isinstance(new_review, Review): #si lo que devuelve controller es instancia de tipo review es que todo ha ido bien
             return Response.response_ok(new_review.serialize(), "Review creada", 201) #retornamos el json de la review 
-    #return Response.response_error("No es un usuario correcto", 400) #si no hay un usuario logado
-    return new_review
+    return new_review #para traer los mensajes de controller
