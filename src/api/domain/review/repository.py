@@ -6,8 +6,8 @@ def get_reviews():
     all_reviews = list(map(lambda review: review.serialize(), reviews))
     return all_reviews
 
-def post_review(company_id, user_id, rating, text):
-    new_review = Review(company_id, user_id, rating, text)
+def post_review(receiver_id, author_id, rating, text):
+    new_review = Review(receiver_id, author_id, rating, text)
     db.session.add(new_review)
     db.session.commit()
     return new_review

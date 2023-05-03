@@ -7,5 +7,5 @@ def get_reviews():
 
 def post_review(user, data):
     if user['role'] == "User":
-        return Repository.post_review(data['company_id'], data['user_id'], data['rating'], data['text'])
+        return Repository.post_review(data['receiver_id'], data['author_id'], data['rating'], data['text'])
     return Response.response_error("Usuario no es de tipo user", 404)
