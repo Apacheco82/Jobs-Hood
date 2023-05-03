@@ -26,7 +26,7 @@ const Layout = () => {
             <BrowserRouter basename={basename}>           
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />    
+                        <Route element={<Home/>} path="/" />    
                         <Route element={<Profile />} path="/worker/profile" />                      
                         <Route element={<CompanyProfile />} path="/company/:id" /> 
                         <Route element={<CompanyProfile />} path="/company/profile" />

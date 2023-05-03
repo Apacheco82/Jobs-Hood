@@ -3,13 +3,13 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa"; /* Para tener acceso a React-icons ejecutamos "npm install react-icons --save" */
 import { FaLinkedin } from "react-icons/fa";
 import { FaGooglePlusG } from "react-icons/fa";
+import "../../styles/footer.css";
 
 
 
 export const Footer = () => (
 	
 <footer>
-	
 		<div className="container">
 			<div className="d-flex pt-4 pb-4 footer_body">
 				<div className="social">
@@ -33,7 +33,6 @@ export const Footer = () => (
 
 			</div>
 		</div>
-	
 </footer>
 	
 );
