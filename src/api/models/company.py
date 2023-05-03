@@ -11,7 +11,7 @@ class Company(db.Model):
     city = db.Column(db.String(100), nullable=False)
     cp = db.Column(db.Integer(), nullable=False)
     cif = db.Column(db.String(10), unique=True, nullable=False)
-    review = db.relationship('Review', back_populates='company')
+    #review = db.relationship('Review', back_populates='company')
     favs = db.relationship("Favorites", back_populates="company") 
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 

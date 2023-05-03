@@ -12,6 +12,8 @@ import api.domain.user.route as api_user
 from api.routes import api
 from api.domain.company.route import company_bp
 from api.domain.lawyer.route import lawyer_bp
+from api.domain.review.route import review_bp
+from api.domain.lawyer_review.route import lawyer_review_bp
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import  get_jwt_identity, jwt_required, JWTManager
@@ -52,6 +54,9 @@ setup_commands(app)
 app.register_blueprint(api_user.api, url_prefix='/api/user')
 app.register_blueprint(company_bp, url_prefix='/api/company')
 app.register_blueprint(lawyer_bp, url_prefix='/api/lawyer')
+app.register_blueprint(review_bp, url_prefix='/api/review')
+app.register_blueprint(lawyer_review_bp, url_prefix='/api/lawyer_review')
+
 
 
 
