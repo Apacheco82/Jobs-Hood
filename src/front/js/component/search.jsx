@@ -8,7 +8,7 @@ const Search = ({setSearch}) => {
 
   return (
     <form className="d-flex justify-content-center mb-3">
-        <input type="text" placeholder='búsqueda de empresas' onChange={handleChange} />
+        <input type="text" placeholder='Búsqueda' onChange={handleChange} />
         <button type="submit"className='btn btn-success'>Buscar</button>
     </form>
   )
