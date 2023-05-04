@@ -2,3 +2,10 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models.index import db, Question_comment
 import api.domain.question_comment.controller as Controller
 import api.handle_response as Response
+
+
+question_comment_bp = Blueprint('api/question/comment', __name__)
+
+@question_comment_bp.route('/', methods = ['GET'])
+def get_comments():
+    return Controller.get_comments()
