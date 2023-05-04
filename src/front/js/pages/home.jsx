@@ -9,7 +9,7 @@ export const Home = () => {
 		<React.Fragment>
 			<div className="container-fluid d-flex" id="container">
 				<div className="w3-sidebar w3-light-grey w3-bar-block" id="side-bar">
-					<img id="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqqEpOXa576G71buDP7GFDaFvbknHumld_4g&usqp=CAU"></img>
+				<img id="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqqEpOXa576G71buDP7GFDaFvbknHumld_4g&usqp=CAU"></img>
 					<h3>Joobs Hood</h3>
 					<p>¿Qué es Jobs Hood?</p>
 				</div>

@@ -11,7 +11,10 @@ export const Navbar = () => {
 				</Link>
 				
 				<ul class="navbar-nav d-flex gap-5 me-2 mb-2 mb-lg-0">
+					<Link to="/register">
 					<button type="button" class="btn btn-outline-success">Registrarme</button>
+					</Link>
+					
 
 					<Link to="/login">
 						<button type="button" class="btn btn-outline-success">Iniciar sesión</button>

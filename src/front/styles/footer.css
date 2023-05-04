@@ -10,7 +10,7 @@ footer {
     background: #003A25;
     background: -webkit-linear-gradient(59deg, #22b47e, #003A25);
     background: linear-gradient(59deg, #22b47e, #003A25);
-    color: white;
+    color: rgb(194, 62, 62);
   }
    
 
@@ -30,7 +30,7 @@ footer {
 .privacy a,
 .contact a{
   text-decoration: none;
-  color: white;
+  color: rgb(22, 82, 42);
 }
 
 .privacy :hover,
@@ -48,7 +48,7 @@ footer {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: white;
+    background-color: rgb(138, 216, 144);
     color: #fff;
     place-items: center;
     display: grid;
