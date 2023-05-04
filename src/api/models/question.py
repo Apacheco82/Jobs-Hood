@@ -4,11 +4,11 @@ from datetime import datetime
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    lawyer_id = db.Column(db.Integer, db.ForeignKey('lawyer.id'), nullable=False)
-    lawyer = db.relationship('Lawyer', back_populates='question')
+    lawyer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    lawyer = db.relationship('User', foreign_keys=[lawyer_id], back_populates='received_questions') #receptor
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', back_populates='question')
-    question_comment = db.relationship("Question_comment", back_populates="question")
+    user = db.relationship('User', foreign_keys=[user_id], back_populates='written_questions')
+    question_comment = db.relationship("Question_comment", back_populates="question", uselist=False)
     text = db.Column(db.Text)
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -24,5 +24,6 @@ class Question(db.Model):
             'lawyer_id': self.lawyer_id,
             'user_id': self.user_id,
             'text': self.text, 
+            "question_comment": self.question_comment.serialize() if self.question_comment else None,
             "data_create":self.data_create
         }

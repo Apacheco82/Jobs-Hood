@@ -20,8 +20,9 @@ class User(db.Model):
     favs = db.relationship("Favorites", back_populates= "user")
     written_reviews = db.relationship("Review", back_populates="author", foreign_keys="Review.author_id")
     received_reviews = db.relationship("Review", back_populates="receiver", foreign_keys="Review.receiver_id")
-    question = db.relationship("Question", back_populates= "user")
-    question_comment= db.relationship("Question_comment", back_populates="user")
+    written_questions = db.relationship("Question", back_populates="user", foreign_keys="Question.user_id")
+    received_questions = db.relationship("Question", back_populates="lawyer", foreign_keys="Question.lawyer_id")
+    written_answers = db.relationship("Question_comment", back_populates="lawyer", foreign_keys="Question_comment.lawyer_id")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, user_name, password, name, last_name, email, roles_id):
@@ -47,8 +48,11 @@ class User(db.Model):
         "email" : self.email,
         "roles_id": self.roles_id,
         "role": self.roles.description,
-        "written_reviews": list(map(lambda written_review : written_review.serialize_review(), self.written_reviews)),
-        "received_reviews" : list(map(lambda received_review : received_review.serialize_review(), self.received_reviews)),
+        "written_reviews": list(map(lambda written_review : written_review.serialize(), self.written_reviews)),
+        "received_reviews" : list(map(lambda received_review : received_review.serialize(), self.received_reviews)),
+        "written_questions": list(map(lambda written_question : written_question.serialize(), self.written_questions)),
+        "received_questions" : list(map(lambda received_question : received_question.serialize(), self.received_questions)),
+        "written_answers": list(map(lambda written_answer: written_answer.serialize(), self.written_answers)),
         "company": self.company.serialize() if self.company else None,
         "lawyer": self.lawyer.serialize()if self.lawyer else None,
         "data_create":self.data_create

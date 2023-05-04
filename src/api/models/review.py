@@ -29,12 +29,4 @@ class Review(db.Model):
             "data_create":self.data_create
         }
 
-    def serialize_review(self):
-        return{
-        "id" : self.id,        
-        'author_id': self.author_id,
-        "receiver_id" : self.receiver_id,
-        "rating" : self.rating,
-        "text" : self.text,
-        "data_create" : self.data_create
-        }
+
