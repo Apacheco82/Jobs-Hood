@@ -1,0 +1,67 @@
+.logo-web {
+    max-width: 250px;
+    max-height: 50px;
+    padding: 1%;
+}
+
+.navbar {
+    background: rgb(224, 240, 223);
+    background: radial-gradient(circle, rgba(224, 240, 223, 0.9051995798319328) 54%, rgba(255, 255, 255, 1) 100%);
+}
+
+.btn-navbar {
+    --color: #1B5C3F;
+    --color2: rgb(232, 234, 235);
+    padding: 0.6em 1em;
+    background-color: transparent;
+    border-radius: 4px;
+    border: .3px solid var(--color);
+    transition: .5s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 150;
+    font-size: 12px;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    color: var(--color);
+}
+
+.btn-navbar::after,
+.btn-navbar::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: skew(90deg) translate(-50%, -50%);
+    position: absolute;
+    inset: 50%;
+    left: 25%;
+    z-index: -1;
+    transition: .5s ease-out;
+    background-color: var(--color);
+}
+
+.btn-navbar::before {
+    top: -50%;
+    left: -25%;
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn-navbar:hover::before {
+    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+}
+
+.btn-navbar:hover::after {
+    transform: skew(45deg) translate(-50%, -50%);
+}
+
+.btn-navbar:hover {
+    color: var(--color2);
+}
+
+.btn-navbar:active {
+    filter: brightness(.7);
+    transform: scale(.98);
+}

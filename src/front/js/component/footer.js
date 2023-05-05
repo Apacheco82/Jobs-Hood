@@ -11,7 +11,7 @@ export const Footer = () => (
 	
 <footer>
 		<div className="container sticky-bottom">
-			<div className="d-flex pt-4 pb-4 footer_body">
+		<div className="d-flex pt-4 pb-4 footer_body">
 				<div className="social">
 					<div className="icon-circle text-center d-flex gap-3">
 						<a href="#"><FaFacebookF className="ico facebook"/></a>

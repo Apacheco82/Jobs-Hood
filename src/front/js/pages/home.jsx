@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
+import ICONO from "/workspace/Jobs-Hood/src/front/img/icono-alas.png"
 
 export const Home = () => {
 
@@ -9,9 +10,10 @@ export const Home = () => {
 		<React.Fragment>
 			<div className="container-fluid d-flex" id="container">
 				<div className="w3-sidebar w3-light-grey w3-bar-block" id="side-bar">
-				<img id="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqqEpOXa576G71buDP7GFDaFvbknHumld_4g&usqp=CAU"></img>
-					<h3>Joobs Hood</h3>
-					<p>¿Qué es Jobs Hood?</p>
+				<img id="logo" src={ICONO}></img>
+					<h3>¿Qué es Jobs Hood?</h3>
+					<p>Jobs Hood es una página web que se enfoca en proporcionar opiniones y reseñas de empresas, con el objetivo de ayudar a los usuarios a tomar decisiones informadas sobre dónde trabajar o hacer negocios.</p>
+					<p>Además, Jobs Hood ofrece una función de contacto con abogados para ayudar a los usuarios a obtener asesoramiento legal en caso de necesitarlo.</p>
 				</div>
 				<div className="menu">
 					<div className="row">
@@ -24,8 +26,8 @@ export const Home = () => {
 									<div className="col-md-8">
 										<div className="card-body">
 											<h5 className="card-title">Empresas</h5>
-											<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-											<p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+											<p className="card-text">La página web cuenta con una amplia variedad de empresas registradas, desde pequeñas empresas locales hasta grandes corporaciones.</p>
+											
 											<Link to="/companies">
 											<button type="button" className="btn btn-outline-success"> Más Informacion</button>
 											</Link>
@@ -45,8 +47,8 @@ export const Home = () => {
 									<div className="col-md-8">
 										<div className="card-body">
 											<h5 className="card-title">Abogados</h5>
-											<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-											<p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
+											<p className="card-text"> Conéctate con abogados especializados en tu área de interés, podrás consultar cualquier problema legal que pueda surgirte.</p>
+											
 											<Link to="/lawyers">
 											<button type="button" className="btn btn-outline-success">Más Informacion</button>
 											</Link>

@@ -7,10 +7,8 @@
 */
 
 footer {
-    background: #003A25;
-    background: -webkit-linear-gradient(59deg, #22b47e, #003A25);
-    background: linear-gradient(59deg, #22b47e, #003A25);
-    color: rgb(194, 62, 62);
+  background: rgb(224, 240, 223);
+  background: radial-gradient(circle, rgba(224, 240, 223, 0.9051995798319328) 54%, rgba(255, 255, 255, 1) 100%);
   }
    
 
@@ -24,18 +22,18 @@ footer {
   display: flex;
   margin-left: auto;
   
-  gap: 100px;
+  gap: 80px;
 }
 
 .privacy a,
 .contact a{
   text-decoration: none;
-  color: rgb(22, 82, 42);
+  color: rgb(34, 82, 50);
 }
 
 .privacy :hover,
 .contact :hover{
-  scale: 1.15;
+  scale: 1;
   transition: 0.5s;
 }
 
@@ -45,8 +43,8 @@ footer {
   /*SOCİAL İCONS CIRCLE*/
 
 .icon-circle a {
-    width: 40px;
-    height: 40px;
+    width:35px;
+    height: 35px;
     border-radius: 50%;
     background-color: rgb(138, 216, 144);
     color: #fff;
@@ -55,7 +53,7 @@ footer {
 }
 
 .icon-circle a:hover {
-    background-color: #2d88d2;
+    background-color: #1B5C3F;
     transition: 0.3s;
 }
 
@@ -70,7 +68,7 @@ footer {
   /*SOCIAL ICONS*/
 
 .ico {
-    color: #006943;
+    color: #1B5C3F;
     background-color: transparent;
     font-size: 21px;
     }
