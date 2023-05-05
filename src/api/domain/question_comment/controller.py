@@ -2,10 +2,6 @@ import api.domain.question_comment.repository as Repository
 from api.domain.question.repository import get_single_question
 import api.handle_response as Response
 
-def get_comments():
-    resultado = Repository.get_comments()
-    return Response.response_ok(resultado, "Get all comments", 201)
-
 def get_single_comment(id):
     resultado = Repository.get_single_comment(id)
     if resultado is not None:

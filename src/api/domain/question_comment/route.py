@@ -8,10 +8,6 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 
 question_comment_bp = Blueprint('api/question/comment', __name__)
 
-@question_comment_bp.route('/', methods = ['GET'])
-def get_comments():
-    return Controller.get_comments()
-
 @question_comment_bp.route('/<int:id>', methods = ['GET'])
 def get_single_comment(id):
     return Controller.get_single_comment(id)
