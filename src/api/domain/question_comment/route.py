@@ -26,3 +26,7 @@ def post_question_comment(question_id):
         else:
             return new_comment
     return Response.response_error("Usuario no autorizado", 404)                                        
+
+@question_comment_bp.route('/lawyer/<int:lawyer_id>', methods = ['GET'])
+def get_comments_by_lawyer(lawyer_id):
+    return Controller.get_comments(lawyer_id)

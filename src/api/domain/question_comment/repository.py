@@ -11,3 +11,9 @@ def post_question_comment(user_id, question_id, text):
     db.session.add(new_comment)
     db.session.commit()
     return new_comment
+
+def get_comments(lawyer_id):
+    comments = Question_comment.query.filter_by(lawyer_id=lawyer_id).all()
+    print(f'comments:{comments}')
+    all_comments = list(map(lambda comment : comment.serialize(), comments))
+    return all_comments
