@@ -11,9 +11,9 @@ class Question_comment(db.Model):
     text = db.Column(db.Text)
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, id_question, id_user, text):
+    def __init__(self, id_question, lawyer_id, text):
         self.id_question = id_question
-        self.id_user = id_user
+        self.lawyer_id = lawyer_id
         self.text = text
         self.data_create = datetime.utcnow()
 
