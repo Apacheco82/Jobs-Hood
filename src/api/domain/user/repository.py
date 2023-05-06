@@ -28,3 +28,11 @@ def  get_user_private(email):
 def get_single_user(id):
     user = User.query.get(id)
     return user
+
+def update_user(id, avatar):
+    user = User.query.get(id)
+    user.avatar = avatar
+    db.session.commit()
+    return user
+
+

@@ -14,6 +14,7 @@ import { CompanyProfile } from "./pages/company-profile.jsx";
 import { LawyerProfile } from "./pages/lawyer-profile.jsx";
 import { AllLawyers } from "./pages/all-lawyers.jsx";
 import { AllCompanies } from "./pages/all-companies.jsx";
+import { Avatar } from "./component/avatar.jsx";
 
 
 const Layout = () => {
@@ -43,6 +44,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
+                    <Avatar />
             </BrowserRouter>
         </div>
     );

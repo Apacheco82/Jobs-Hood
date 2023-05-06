@@ -18,6 +18,7 @@ from api.domain.question_comment.route import question_comment_bp
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import  get_jwt_identity, jwt_required, JWTManager
+import cloudinary
 
 #from models import Person
 
@@ -29,6 +30,20 @@ jwt = JWTManager(app)
 
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
+
+#Cloudinary
+
+app.config['CLOUD_NAME'] = os.environ.get('CLOUD_NAME')
+app.config['CLOUD_API_KEY'] = os.environ.get('CLOUD_API_KEY')
+app.config['CLOUD_API_SECRET'] = os.environ.get('CLOUD_API_SECRET')
+
+cloudinary.config(
+    cloud_name = app.config['CLOUD_NAME'],
+    api_key = app.config['CLOUD_API_KEY'],
+    api_secret = app.config['CLOUD_API_SECRET'],
+    secure = True
+)
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")

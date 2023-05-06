@@ -65,3 +65,16 @@ export const userById = async (uid) => {
     console.log("Error:", error);
   }
 };
+
+export const uploadAvatar = async (body) => {
+  try {
+    const res = await fetch(`${URL}/`, {
+      method: "POST",
+      body: body,
+    });
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.log("Error Update User", err);
+  }
+};
