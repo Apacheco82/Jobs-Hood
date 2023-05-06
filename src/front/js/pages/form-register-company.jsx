@@ -121,8 +121,8 @@ export const RegisterCompany = () => {
               <label htmlFor="form-register-company" className="form-label">
                Provincia
               </label>
-             <Province onChange={handleChange} value={form.province} name="province" />
-             
+             <Province value={form.province} onChange={handleChange} name="province" />
+
             </div>
             <div className="col">
               <label htmlFor="form-register-company" className="form-label">

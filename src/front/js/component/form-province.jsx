@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 
 export const provincias = ['Alava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Avila', 'Badajoz', 'Barcelona', 'Burgos', 'Cáceres',
     'Cádiz', 'Cantabria', 'Castellón', 'Ciudad Real', 'Córdoba', 'La Coruña', 'Cuenca', 'Gerona', 'Granada', 'Guadalajara',
@@ -10,19 +10,12 @@ export const provincias = ['Alava', 'Albacete', 'Alicante', 'Almería', 'Asturia
 
 export const Province = (props) => {
 
-    const [Provincia, setProvincia] = useState('');
-
-    const handleSelect = (e) => {
-      setProvincia(e.target.value);
-      console.log(Provincia)
-    
-    };
 
     return (
         <>
             <div className="row">
                 <div className="col">
-                    <select value={Provincia} onChange={handleSelect} className="form-control" name ={props.name}>
+                    <select value={props.value} onChange={props.onChange} name ={props.name} className="form-control" >
                         <option value="" disabled>
                             Seleccione una provincia
                         </option>
