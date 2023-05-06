@@ -7,15 +7,15 @@ class Lawyer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     address = db.Column(db.String(100), nullable=False)
-    city = db.Column(db.String(100), nullable=False)
+    province = db.Column(db.String(100), nullable=False)
     cp = db.Column(db.Integer(), nullable=False)
     col_number = db.Column(db.Integer(), unique=True, nullable=False)
     favs = db.relationship("Favorites", back_populates= "lawyer")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, address, city, cp, col_number): 
+    def __init__(self, address,province, cp, col_number): 
         self.address = address
-        self.city = city
+        self.province = province
         self.cp = cp
         self.col_number = col_number
     
@@ -23,7 +23,7 @@ class Lawyer(db.Model):
         return{
         "id" : self.id,
         "address": self.address,
-        "city": self.city,
+        "province" : self.province,
         "cp": self.cp,
         "col_number": self.col_number
         }
