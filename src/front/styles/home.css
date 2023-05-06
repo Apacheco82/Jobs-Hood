@@ -8,8 +8,8 @@
     width: 30%;
     height: 100vh;
     margin-left: 0;
-    background: rgb(165, 202, 177);
-    background: linear-gradient(180deg, rgb(248, 245, 245rgb(130, 167, 146), 58, 1) 100%);
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(9,121,63,1) 100%);
     
 }
 
