@@ -68,9 +68,14 @@ export const userById = async (uid) => {
 
 export const uploadAvatar = async (body) => {
   try {
-    const res = await fetch(`${URL}/`, {
-      method: "POST",
+    const token = localStorage.getItem("token");
+    
+    const res = await fetch(`${URL}/user`, {
+      method: "PUT",
       body: body,
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
     });
     const data = await res.json();
     console.log(data);

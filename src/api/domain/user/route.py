@@ -46,14 +46,18 @@ def get_single_user(id):
         return Response.response_error("Not valid", 404) 
     return Controller.get_single_user(id)
 
-@api.route('/<int:id>', methods=['PUT'])
+
+
+@api.route('/', methods=['PUT'])
 @jwt_required()
-def update_user(id):
+def update_user():
     try:
+        user = get_jwt_identity()
+        print(user)        
         avatar = request.files['avatar']
-        body = request.form.to_dict()
-        user_update = Controller.update_user(body['user'], avatar)
-        return jsonify(user_update.serialize()), 200
+        print(avatar)
+        user_update = Controller.update_user(user, avatar)
+        return jsonify("todo ok"), 200
     except Exception as error:
         print('Error', error)
         return jsonify('Error interno'), 500
