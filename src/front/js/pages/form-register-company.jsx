@@ -37,11 +37,6 @@ export const RegisterCompany = () => {
     setForm({...form, [name]: value}); //se añade el valor al campo de nombre de input haciendo una copia del objeto
   };
 
-  const handleSelect =  (e) =>{
-    setForm({...form, province: e.target.value});
-    console.log(form.province)
-    
-  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     await companyRegister(form);
@@ -126,7 +121,7 @@ export const RegisterCompany = () => {
               <label htmlFor="form-register-company" className="form-label">
                Provincia
               </label>
-             <Province value={form.province} onChange={handleSelect} name="province" />
+             <Province value={form.province}  name="province" />
 
             </div>
             <div className="col">

@@ -30,10 +30,10 @@ export const AllCompanies = () => {
   const filteredUsers = user.filter((i) => {
     const nameMatch = i.name.toLowerCase().includes(search.toLowerCase());
     const addressMatch = i.company.address.toLowerCase().includes(search.toLowerCase());
-    const cityMatch = i.company.city.toLowerCase().includes(search.toLowerCase());
+    const provinceMatch = i.company.province.toLowerCase().includes(search.toLowerCase());
     const emailMatch = i.email.toLowerCase().includes(search.toLowerCase());
   
-    return nameMatch || addressMatch || cityMatch || emailMatch;
+    return nameMatch || addressMatch || provinceMatch || emailMatch;
   });
   
 
@@ -59,7 +59,7 @@ export const AllCompanies = () => {
           <div className="col-8 mb-3">
           <div className="row">
           {paginatedUsers.map((user, key) => (
-                <Card key={key} name={user.name} city={user.company.city} email={user.email} address={user.company.address} category={"company"} id={user.id} />
+                <Card key={key} name={user.name} province={user.company.province} email={user.email} address={user.company.address} category={"company"} id={user.id} />
               ))}
             
             </div>

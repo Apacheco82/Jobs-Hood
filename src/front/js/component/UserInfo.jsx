@@ -16,7 +16,7 @@ const UserInfo = ({ user, profile, showEditButton, isLawyer }) => {
               <div className="iconos my-1"> {user.last_name}</div>
               <div className="iconos my-1"> {user.email}</div>
               <div className="iconos my-1"> {profile.address}</div>
-              <div className="iconos my-1"> {profile.city}</div>
+              <div className="iconos my-1"> {profile.province}</div>
               <div className="iconos my-1"> {profile.cp}</div>
               {isLawyer ? (
                 <div className="iconos my-1"> {profile.col_number}</div>
