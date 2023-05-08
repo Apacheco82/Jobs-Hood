@@ -12,13 +12,13 @@ def get_lawyers():
     users_serialized = list(map(lambda user: user.serialize(), users))
     return users_serialized
 
-def register_lawyer(data, address, city, cp, col_number):
+def register_lawyer(data, address, province, cp, col_number):
 
     roles = find_role('Lawyer', Roles)
 
     user = create_user_by_role(data, roles.id)
 
-    new_lawyer = Lawyer(address, city, cp, col_number)  
+    new_lawyer = Lawyer(address, province, cp, col_number)  
     
     user.lawyer = new_lawyer
     
