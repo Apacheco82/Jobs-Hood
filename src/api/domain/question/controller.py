@@ -11,7 +11,7 @@ def post_question(user, data):
         lawyer = get_single_user(data['lawyer_id'])
         lawyer_serialized = lawyer.serialize()
         if lawyer_serialized['role'] == "Lawyer":
-            return Repository.post_question(data['lawyer_id'], data['user_id'], data['text'])
+            return Repository.post_question(data['lawyer_id'], data['user_id'], data['text'], user['user_name'])
         return Response.response_error("No se puede hacer preguntas a este tipo de usuario", 400)
     return Response.response_error("Usuario no es de tipo user", 404)
 
