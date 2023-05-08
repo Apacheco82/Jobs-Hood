@@ -6,8 +6,8 @@ def get_questions():
     all_questions = list(map(lambda question : question.serialize(), questions))
     return all_questions
 
-def post_question(lawyer_id, user_id, text):
-    new_question = Question(lawyer_id, user_id, text)
+def post_question(lawyer_id, user_id, text, user_name):
+    new_question = Question(lawyer_id, user_id, text, user_name)
     db.session.add(new_question)
     db.session.commit()
     return new_question

@@ -13,7 +13,7 @@ def post_question_comment(user, question_id, data):
     print(f"Question: {question}")
     print(f"User: {user}")
     if question and question.lawyer_id == user['id']:
-        return Repository.post_question_comment(user['id'], question_id, data['text'])
+        return Repository.post_question_comment(user['id'], question_id, data['text'], user['name'])
     return Response.response_error("Pregunta no encontrada o el usuario no tiene permiso para responder", 404)
 
 
