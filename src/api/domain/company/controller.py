@@ -16,7 +16,7 @@ def register_company(data):
 
     return Repository.register_company(data, #se crea una empresa haciendo referencia a los campos de Company
         data['address'], 
-        data['city'], 
+        data['province'], 
         data['cp'], 
         data['cif']
         )

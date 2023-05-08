@@ -12,13 +12,13 @@ def get_companies():
     users_serialized = list(map(lambda user: user.serialize(), users))
     return users_serialized
 
-def register_company(data, address, city, cp, cif):
+def register_company(data, address, province, cp, cif):
 
     roles = find_role('Company', Roles)
 
     user = create_user_by_role(data, roles.id)
 
-    new_company = Company(address, city, cp, cif)
+    new_company = Company(address, province, cp, cif)
         
     user.company = new_company
 
