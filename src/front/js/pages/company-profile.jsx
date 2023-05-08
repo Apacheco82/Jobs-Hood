@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
+import {Tab, Nav} from "react-bootstrap"; 
 import {useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
+import {getReviewPerCompany} from "../services/company.js"
 import UserInfo from "../component/UserInfo.jsx";
-
+import Review from "../component/review.jsx";
 
 export const CompanyProfile = () => {
   const params = useParams();
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({});
   const [company, setCompany] = useState({});
- 
+  const [review, setReview] = useState([]); 
+  const [activeKey, setActiveKey] = useState("#nav-home");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +31,8 @@ export const CompanyProfile = () => {
           const info = await userById(companyId); //llamamos a la función que obtiene un USER filtrando por su ID
           setUser(info.data); //seteamos el useState de USER
           setCompany(info.data.company); //seteamos el useState de COMPANY
+          const getReview = await getReviewPerCompany(companyId); 
+          setReview(getReview.data); 
           setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
         }
       } catch (error) {
@@ -39,5 +44,35 @@ export const CompanyProfile = () => {
 
   return     <>
   <UserInfo user={user} profile={company} showEditButton={login} />
+
+  <div className="container d-flex justify-content-center mt-1">
+        <Nav
+          variant="tabs"
+          activeKey={activeKey}
+          onSelect={(k) => setActiveKey(k)}
+        >
+          <Nav.Item>
+            <Nav.Link eventKey="#nav-home">Opiniones de la empresa</Nav.Link>
+          </Nav.Item>
+        </Nav>
+      </div>
+      <div className="container d-flex justify-content-center mt-1">
+        <Tab.Content>
+          <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
+            <div>
+              {" "}
+              {review.map((review, index) => (
+                <Review
+                  key={index}
+                  text={review.text}
+                  user_name={review.user_name}
+                  rating={review.rating}
+                  data={review.data_create}
+                />
+              ))}
+            </div>
+          </Tab.Pane>
+        </Tab.Content>
+      </div>
 </>
 };
