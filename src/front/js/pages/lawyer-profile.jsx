@@ -2,6 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
+import {Tab, Nav} from "react-bootstrap";
+import {getReviewPerLawyer} from "../services/lawyer"
+import Review from "../component/review.jsx";
+import Questions from "../component/questions.jsx"
 
 
 export const LawyerProfile = () => {
@@ -9,6 +13,9 @@ export const LawyerProfile = () => {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({});
   const [lawyer, setLawyer] = useState({});
+  const [review, setReview] = useState([]); 
+  const [question, setQuestion] = useState([]); 
+  const [activeKey, setActiveKey] = useState("#nav-home"); 
  
 
   useEffect(() => {
@@ -28,6 +35,12 @@ export const LawyerProfile = () => {
           const info = await userById(lawyerId); //llamamos a la función que obtiene un USER filtrando por su ID
           setUser(info.data); //seteamos el useState de USER
           setLawyer(info.data.lawyer); //seteamos el useState de COMPANY
+          console.log("la info del abogado", info); 
+          const getReview = await getReviewPerLawyer(lawyerId); 
+          setReview(getReview.data); 
+          const getQuestion = info.data.received_questions; 
+          setQuestion(getQuestion); 
+          // console.log("las questions", getQuestion);
           setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
         }
       } catch (error) {
@@ -39,5 +52,54 @@ export const LawyerProfile = () => {
 
   return     <>
   <UserInfo user={user} profile={lawyer} showEditButton={login} isLawyer={true}  />
+  <div>
+        <div className="container d-flex justify-content-center mt-1">
+          <Nav
+            variant="tabs"
+            activeKey={activeKey}
+            onSelect={(k) => setActiveKey(k)}
+          >
+            <Nav.Item>
+              <Nav.Link eventKey="#nav-home">Opiniones</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="#nav-questions">Preguntas</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </div>
+
+        <div className="container d-flex justify-content-center mt-1">
+          <Tab.Content>
+            <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
+              <div>
+                {" "}
+                {review.map((review, index) => (
+                  <Review
+                    key={index}
+                    text={review.text}
+                    user_name={review.user_name}
+                    rating={review.rating}
+                    data={review.data_create}
+                  />
+                ))}
+              </div>
+            </Tab.Pane>
+            <Tab.Pane
+              eventKey="#nav-questions"
+              active={activeKey === "#nav-questions"}
+            >
+              {question.map((question, index) => (
+                <Questions
+                  key={index}
+                  text={question.text}
+                  user_name={question.user_name}
+                  comment={question.question_comment}
+                  data={question.data_create}
+                />
+              ))}
+            </Tab.Pane>
+          </Tab.Content>
+        </div>
+      </div>
 </>
 };
