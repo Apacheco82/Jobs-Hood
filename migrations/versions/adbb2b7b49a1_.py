@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d77f05d8e803
+Revision ID: adbb2b7b49a1
 Revises: 
-Create Date: 2023-04-19 13:33:35.414982
+Create Date: 2023-05-09 19:22:21.734605
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd77f05d8e803'
+revision = 'adbb2b7b49a1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,7 @@ def upgrade():
     sa.Column('password', sa.String(length=250), nullable=False),
     sa.Column('avatar', sa.String(length=250), nullable=True),
     sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('last_name', sa.String(length=100), nullable=False),
+    sa.Column('last_name', sa.String(length=100), nullable=True),
     sa.Column('email', sa.String(length=250), nullable=False),
     sa.Column('roles_id', sa.Integer(), nullable=True),
     sa.Column('data_create', sa.DateTime(), nullable=True),
@@ -42,11 +42,10 @@ def upgrade():
     op.create_table('company',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('avatar', sa.String(length=250), nullable=True),
     sa.Column('address', sa.String(length=100), nullable=False),
-    sa.Column('city', sa.String(length=100), nullable=False),
+    sa.Column('province', sa.String(length=100), nullable=False),
     sa.Column('cp', sa.Integer(), nullable=False),
-    sa.Column('cif', sa.Integer(), nullable=False),
+    sa.Column('cif', sa.String(length=10), nullable=False),
     sa.Column('data_create', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
@@ -55,17 +54,37 @@ def upgrade():
     op.create_table('lawyer',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.Column('avatar', sa.String(length=250), nullable=True),
-    sa.Column('email', sa.String(length=250), nullable=False),
     sa.Column('address', sa.String(length=100), nullable=False),
-    sa.Column('city', sa.String(length=100), nullable=False),
+    sa.Column('province', sa.String(length=100), nullable=False),
     sa.Column('cp', sa.Integer(), nullable=False),
     sa.Column('col_number', sa.Integer(), nullable=False),
     sa.Column('data_create', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('col_number'),
-    sa.UniqueConstraint('email')
+    sa.UniqueConstraint('col_number')
+    )
+    op.create_table('question',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('lawyer_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_name', sa.String(length=80), nullable=True),
+    sa.Column('text', sa.Text(), nullable=True),
+    sa.Column('data_create', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['lawyer_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('review',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('receiver_id', sa.Integer(), nullable=False),
+    sa.Column('author_id', sa.Integer(), nullable=False),
+    sa.Column('rating', sa.Integer(), nullable=False),
+    sa.Column('text', sa.Text(), nullable=True),
+    sa.Column('user_name', sa.String(length=80), nullable=True),
+    sa.Column('data_create', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['author_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['receiver_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favorites',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -77,66 +96,15 @@ def upgrade():
     sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('lawyer_review',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('lawyer_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('rating', sa.Integer(), nullable=False),
-    sa.Column('text', sa.Text(), nullable=True),
-    sa.Column('data_create', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['lawyer_id'], ['lawyer.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('question',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('lawyer_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('text', sa.Text(), nullable=True),
-    sa.Column('data_create', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['lawyer_id'], ['lawyer.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('review',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('company_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('rating', sa.Integer(), nullable=False),
-    sa.Column('text', sa.Text(), nullable=True),
-    sa.Column('data_create', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['company_id'], ['company.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('lawyer_review_comment',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('id_lawyer_review', sa.Integer(), nullable=True),
-    sa.Column('id_user', sa.Integer(), nullable=False),
-    sa.Column('text', sa.Text(), nullable=True),
-    sa.Column('data_create', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['id_lawyer_review'], ['lawyer_review.id'], ),
-    sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
     op.create_table('question_comment',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('id_question', sa.Integer(), nullable=True),
-    sa.Column('id_user', sa.Integer(), nullable=True),
+    sa.Column('lawyer_id', sa.Integer(), nullable=True),
     sa.Column('text', sa.Text(), nullable=True),
+    sa.Column('name', sa.String(length=80), nullable=True),
     sa.Column('data_create', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['id_question'], ['question.id'], ),
-    sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('review_comment',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('id_review', sa.Integer(), nullable=True),
-    sa.Column('id_user', sa.Integer(), nullable=True),
-    sa.Column('text', sa.Text(), nullable=True),
-    sa.Column('data_create', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['id_review'], ['review.id'], ),
-    sa.ForeignKeyConstraint(['id_user'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['lawyer_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -144,13 +112,10 @@ def upgrade():
 
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
-    op.drop_table('review_comment')
     op.drop_table('question_comment')
-    op.drop_table('lawyer_review_comment')
+    op.drop_table('favorites')
     op.drop_table('review')
     op.drop_table('question')
-    op.drop_table('lawyer_review')
-    op.drop_table('favorites')
     op.drop_table('lawyer')
     op.drop_table('company')
     op.drop_table('user')
