@@ -5,8 +5,8 @@
 }
 
 .navbar {
-    background: rgb(224, 240, 223);
-    background: radial-gradient(circle, rgba(224, 240, 223, 0.9051995798319328) 54%, rgba(255, 255, 255, 1) 100%);
+    background-color: rgb(224, 240, 223);
+   
 }
 
 .btn-navbar {
