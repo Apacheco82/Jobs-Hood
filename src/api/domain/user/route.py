@@ -58,9 +58,10 @@ def update_avatar():
         print(avatar)
         user_update = Controller.update_avatar(user, avatar)
         print("USER UPDATE",user_update)
-        return jsonify("todo ok"), 200
+        return Response.response_ok(user_update.serialize(), "Avatar actualizado", 200)
+        
     except Exception as error:
         print('Error', error)
-        return jsonify('Error interno'), 500
+        return Response.response_error("Error al actualizar el avatar", 400)
 
 

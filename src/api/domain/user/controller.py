@@ -62,6 +62,7 @@ def update_avatar(user, avatar):
     print(img)
     url_avatar = img['secure_url']
     print('URL IMAGE', img['secure_url'])
+    
     return Repository.update_avatar(user['id'], img)
     
 
