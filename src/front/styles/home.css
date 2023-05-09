@@ -1,85 +1,28 @@
-/*
-    home.css: This website contains selectors only used in home.css
+#container {
+    margin: 0px;
+    padding: 0px;
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
-
-footer {
-    background: #003A25;
-    background: -webkit-linear-gradient(59deg, #22b47e, #003A25);
-    background: linear-gradient(59deg, #22b47e, #003A25);
-    color: white;
-    margin-top:100px;
-  }
-   
-
-
-.footer_body {
-  display: flex;
-  justify-content: flex-start;
 }
 
-.priv_contact {
-  display: flex;
-  margin-left: auto;
-  
-  gap: 100px;
+#side-bar {
+    width: 30%;
+    height: 100vh;
+    margin-left: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(9,121,63,1) 100%);
+    
 }
 
-.privacy a,
-.contact a{
-  text-decoration: none;
-  color: white;
-}
-
-.privacy :hover,
-.contact :hover{
-  scale: 1.15;
-  transition: 0.5s;
-}
-
-
-  
-  
-  /*SOCİAL İCONS CIRCLE*/
-
-.icon-circle a {
-    width: 40px;
-    height: 40px;
+#logo {
     border-radius: 50%;
-    background-color: white;
-    color: #fff;
-    place-items: center;
-    display: grid;
+    border: 3px solid;
+    border-color: rgb(71, 71, 70);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.icon-circle a:hover {
-    background-color: #2d88d2;
-    transition: 0.3s;
+.menu {
+    margin-left: 10%;
+    margin-top: 8%;
 }
-
-.icon-circle a:hover .ico{
-    background-color: transparent;
-    color: white;
-    rotate: 360deg;
-    transition: 0.3s;
-}
-
-
-  /*SOCIAL ICONS*/
-
-.ico {
-    color: #006943;
-    background-color: transparent;
-    font-size: 21px;
-    }
-  
-.icon-circle a:hover .ico{
-      background-color: transparent;
-      color: white;
-      rotate: 360deg;
-      transition: 0.3s;
-}
-  
