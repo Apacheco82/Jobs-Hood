@@ -133,20 +133,7 @@ export const RegistroLawyer = () => {
 							<Province value={form.province} name="province" />
 
 						</div>
-						<div className="col">
-							<label htmlFor="form-register-company" className="form-label">
-								CIF
-							</label>
-							<input
-								type="text"
-								name="cif"
-								value={form.cif}
-								className="form-control rounded-0"
-								placeholder="CIF"
-								maxLength="10"
-								required
-							/>
-						</div>
+						
 						</div>
 						<div className="row align-items-end my-3">
 							<div className="col">

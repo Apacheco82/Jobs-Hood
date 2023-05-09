@@ -47,3 +47,12 @@ def get_single_user(id):
     return Controller.get_single_user(id)
 
 
+@api.route("/edit/<int:id>", methods=["PUT"])
+@jwt_required()
+def edit_user(id):
+    user_logged = get_jwt_identity()
+    edit_user = Controller.edit_user(id, user_logged['id'])
+    if isinstance(edit_user, User):  
+        return jsonify(edit_user.serialize_user()), 200
+    else:
+       return Response.response_error("xd", 400) ##el error del postman es este el que retorna 
