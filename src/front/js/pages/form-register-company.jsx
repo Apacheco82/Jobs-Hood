@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {companyRegister} from "../services/company";
 import { useNavigate } from "react-router-dom";
-
+import { Province } from "../component/form-province.jsx";
 
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
   last_name: "",
   email: "",
   password: "",
-  city: "",
+  province: "",
   cif: "",
   address: "",
   cp: "",
@@ -117,18 +117,12 @@ export const RegisterCompany = () => {
           </div>
           <div className="row align-items-end my-3">
             <div className="col">
+            
               <label htmlFor="form-register-company" className="form-label">
-                Ciudad
+               Provincia
               </label>
-              <input
-                type="text"
-                name="city"
-                value={form.city}
-                className="form-control rounded-0"
-                placeholder="Ciudad"
-                maxLength="100"
-                required
-              />
+             <Province value={form.province}  name="province" />
+
             </div>
             <div className="col">
               <label htmlFor="form-register-company" className="form-label">

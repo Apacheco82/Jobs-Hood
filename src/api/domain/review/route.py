@@ -25,3 +25,7 @@ def post_review():
         if isinstance(new_review, Review): #si lo que devuelve controller es instancia de tipo review es que todo ha ido bien
             return Response.response_ok(new_review.serialize(), "Review creada", 201) #retornamos el json de la review 
     return new_review #para traer los mensajes de controller
+
+@review_bp.route('/<string:review_type>/<int:id>', methods = ['GET'])
+def get_reviews_by_type_and_id(review_type, id):
+    return Controller.get_reviews(review_type, id)

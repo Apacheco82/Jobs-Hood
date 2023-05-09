@@ -11,6 +11,10 @@ def post_review(user, data):
         receiver = get_single_user(data['receiver_id']) #nos traemos el usuario al que le estamos haciendo la review llamando a la funcion get_single_user de User
         receiver_serialized = receiver.serialize() #serializamos el usuario recibido porque tenemos que acceder a su rol
         if receiver_serialized['role'] != "User": #para controlar que solo se puedan hacer reviews a abogados y empresas
-            return Repository.post_review(data['receiver_id'], data['author_id'], data['rating'], data['text']) #pasamos los campos necesarios a repository
+            return Repository.post_review(data['receiver_id'], data['author_id'], data['rating'], data['text'], user['user_name']) #pasamos los campos necesarios a repository
         return Response.response_error("no puedes hacer reseñas a otro usuario", 400)
     return Response.response_error("Usuario no es de tipo user", 404) #si el usuario no era de tipo user no le dejamos hacer el post
+
+def get_reviews(review_type, id):
+    resultado = Repository.get_reviews(review_type, id)
+    return Response.response_ok(resultado, "Get all reviews for {0} with id: {1}".format(review_type, id), 200)

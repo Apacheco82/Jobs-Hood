@@ -14,7 +14,7 @@ const cards = (props) => {
           <p className="card-text">
             {props.address}
           </p>
-          <p className="card-text">{props.city}
+          <p className="card-text">{props.province}
             </p>
             <p className="card-text">{props.cp}</p>
             <p className="card-text">{props.email}</p>
