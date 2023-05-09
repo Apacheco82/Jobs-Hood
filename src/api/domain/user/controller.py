@@ -56,11 +56,12 @@ def get_single_user(id):
     else:
         return Response.response_error("Not found", 404)
 
-def update_user(user, avatar):
+def update_avatar(user, avatar):
+   
     img = upload(avatar)
     print(img)
     url_avatar = img['secure_url']
     print('URL IMAGE', img['secure_url'])
-    #return Repository.update_user(url_avatar)
-    return url_avatar
+    return Repository.update_avatar(user['id'], img)
+    
 

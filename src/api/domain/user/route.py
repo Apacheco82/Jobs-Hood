@@ -48,15 +48,16 @@ def get_single_user(id):
 
 
 
-@api.route('/', methods=['PUT'])
+@api.route('/update_avatar', methods=['PUT'])
 @jwt_required()
-def update_user():
+def update_avatar():
     try:
         user = get_jwt_identity()
         print(user)        
-        avatar = request.files['avatar']
+        avatar = request.files['avatar'] # Es el avatar que pasamos en el form.append en el handleClick 
         print(avatar)
-        user_update = Controller.update_user(user, avatar)
+        user_update = Controller.update_avatar(user, avatar)
+        print("USER UPDATE",user_update)
         return jsonify("todo ok"), 200
     except Exception as error:
         print('Error', error)

@@ -70,7 +70,7 @@ export const uploadAvatar = async (body) => {
   try {
     const token = localStorage.getItem("token");
     
-    const res = await fetch(`${URL}/user`, {
+    const res = await fetch(`${URL}/user/update_avatar`, {
       method: "PUT",
       body: body,
       headers: {

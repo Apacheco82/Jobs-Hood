@@ -29,9 +29,9 @@ def get_single_user(id):
     user = User.query.get(id)
     return user
 
-def update_user(id, avatar):
+def update_avatar(id, avatar):
     user = User.query.get(id)
-    user.avatar = avatar
+    user.avatar = avatar['secure_url']
     db.session.commit()
     return user
 

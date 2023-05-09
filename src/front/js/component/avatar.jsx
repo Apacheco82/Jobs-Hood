@@ -23,7 +23,8 @@ export const Avatar = () => {
       };
     
     const handleClick = () => {
-        const form = new FormData();
+        const form = new FormData(); //Objeto que contiene lo que le mandamos (avatar)
+        console.log(form);
         form.append("avatar", file);
         uploadAvatar(form);
       };
