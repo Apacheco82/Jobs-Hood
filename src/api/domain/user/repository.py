@@ -30,7 +30,7 @@ def get_single_user(id):
     user = User.query.get(id)
     return user
 
-def edit_user(id):
+def edit_user_worker(id):
     user = User.query.get(id)
     if user is None:
      return Response.response_error("Usuario no encontrado!", 404)
@@ -44,4 +44,6 @@ def edit_user(id):
         user.email = info['email']
         db.session.commit()
 
-    return user.serialize_user()
+    return user
+
+

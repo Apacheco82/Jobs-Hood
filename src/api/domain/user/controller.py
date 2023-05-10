@@ -54,11 +54,10 @@ def get_single_user(id):
     else:
         return Response.response_error("Not found", 404)
 
-def edit_user(id ,logged_id):
-   print(id)
-   print(logged_id)
+def edit_user_worker(id ,logged_id):
+   
    if (logged_id == id):
-      edit = Repository.edit_user(id)
+      edit = Repository.edit_user_worker(id)
       return Response.response_ok(edit, "Usuario modifiacado correctamente!", 200) 
    else:
       return Response.response_error("Error al editar usuario!", 400)
