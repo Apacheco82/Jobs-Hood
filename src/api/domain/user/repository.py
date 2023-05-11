@@ -1,8 +1,9 @@
 
 from api.models.index import db, User, Roles
-from api.functions import find_role
+from flask import request
+from api.functions import find_role, hash_pass
 import bcrypt
-
+import api.handle_response as Response
 
 def get_users():
     users = User.query.all()
@@ -28,3 +29,33 @@ def  get_user_private(email):
 def get_single_user(id):
     user = User.query.get(id)
     return user
+
+def edit_user(id):
+    user = User.query.get(id) # Se busca el user por id 
+    if user is None:
+     return Response.response_error("Usuario no encontrado!", 404)
+    else:                           # Si se encuentra el user.id se modificaran los datos con al data que pasemos
+        info = request.get_json()
+        user.user_name = info['user_name']
+        password = hash_pass(info['password'])
+        user.password = password.decode()
+        user.name = info['name']
+        user.last_name = info['last_name']
+        user.email = info['email']
+        db.session.commit()
+
+    return user
+
+def edit_user_by_role(id,info):
+    user = User.query.get(id)
+    if user is None:
+        return Response.response_error("Usuario no encontrado!", 404)
+    else:
+            user.user_name = info['user_name']     
+            user.name = info['name']
+            user.last_name = info['last_name']
+            user.email = info['email']
+         
+    return user
+
+

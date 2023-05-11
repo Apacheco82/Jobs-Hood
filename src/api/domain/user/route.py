@@ -47,3 +47,12 @@ def get_single_user(id):
     return Controller.get_single_user(id)
 
 
+@api.route("/edit/<int:id>", methods=["PUT"])
+@jwt_required()
+def edit_user(id):
+    user = User.query.get(id)
+    user_logged = get_jwt_identity()
+    if Controller.edit_user(id, user_logged['id']):
+        return Response.response_ok(user.serialize_user(), "Usuario editado correctamente!",200)
+    else:
+       return Response.response_error("Error al guardar los datos!", 400) 
