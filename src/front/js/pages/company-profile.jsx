@@ -3,7 +3,7 @@ import {Tab, Nav} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
 import {getReviewPerCompany} from "../services/company.js";
-import {createReview} from "../services/review.js";
+import {createReview, checkReview} from "../services/review.js";
 import UserInfo from "../component/UserInfo.jsx";
 import Review from "../component/review.jsx";
 import WriteReview from "../component/WriteReview.jsx";
@@ -26,7 +26,7 @@ export const CompanyProfile = () => {
   const [activeKey, setActiveKey] = useState("#nav-home");
   const [canWrite, setCanWrite] = useState(false);
   const [opinion, setOpinion] = useState(initialState);
-  const [showAlert, setShowAlert] = useState(false);
+  const [buttonLogin, setButtonLogin] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,9 +49,15 @@ export const CompanyProfile = () => {
           const getReview = await getReviewPerCompany(companyId);
           setReview(getReview.data);
           setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
-          const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
-          if (role === "User") {
-            setCanWrite(true);
+          if (!token) {
+            setButtonLogin(true);
+          } else {
+            const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
+            const user = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
+            const userHasReview = checkReview(user, companyId);
+            if (role === "User" && !userHasReview) {
+              setCanWrite(true);
+            }
           }
         }
       } catch (error) {
@@ -86,10 +92,7 @@ export const CompanyProfile = () => {
 
   return (
     <>
-      <UserInfo 
-      user={user} 
-      profile={company} 
-      showEditButton={login} />
+      <UserInfo user={user} profile={company} showEditButton={login} />
 
       <div className="container d-flex justify-content-center mt-1">
         <Nav
@@ -107,16 +110,17 @@ export const CompanyProfile = () => {
           <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
             <div>
               {" "}
-              {canWrite ? (
-                <WriteReview
-                  reviewChange={reviewChange}
-                  reviewSubmit={reviewSubmit}
-                />
-              ) : (
+              {buttonLogin && (
                 <LinkButton
                   direction={"/login"}
                   text={"Inicia sesión para poder dar tu opinión"}
                   type={"button"}
+                />
+              )}
+              {canWrite && (
+                <WriteReview
+                  reviewChange={reviewChange}
+                  reviewSubmit={reviewSubmit}
                 />
               )}
               {review.map((review, index) => (

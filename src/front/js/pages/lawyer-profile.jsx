@@ -4,7 +4,7 @@ import {userById, getUserPrivate} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
 import {Tab, Nav} from "react-bootstrap";
 import {getReviewPerLawyer} from "../services/lawyer";
-import {createReview} from "../services/review.js";
+import {createReview, checkReview} from "../services/review.js";
 import Review from "../component/review.jsx";
 import Questions from "../component/questions.jsx";
 import WriteReview from "../component/WriteReview.jsx";
@@ -28,6 +28,8 @@ export const LawyerProfile = () => {
   const [activeKey, setActiveKey] = useState("#nav-home");
   const [canWrite, setCanWrite] = useState(false);
   const [opinion, setOpinion] = useState(initialState);
+  const [buttonLogin, setButtonLogin] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,9 +57,15 @@ export const LawyerProfile = () => {
           setQuestion(getQuestion);
           // console.log("las questions", getQuestion);
           setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
-          const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
-          if (role === "User") {
-            setCanWrite(true);
+          if (!token) {
+            setButtonLogin(true);
+          } else {
+            const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
+            const user = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
+            const userHasReview = checkReview(user, lawyerId);
+            if (role === "User" && !userHasReview) {
+              setCanWrite(true);
+            }
           }
         }
       } catch (error) {
@@ -119,18 +127,19 @@ export const LawyerProfile = () => {
             <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
               <div>
                 {" "}
-                {canWrite ? (
-                <WriteReview
-                  reviewChange={reviewChange}
-                  reviewSubmit={reviewSubmit}
-                />
-              ) : (
+                {buttonLogin && (
                 <LinkButton
                   direction={"/login"}
                   text={"Inicia sesión para poder dar tu opinión"}
                   type={"button"}
                 />
-                )}
+              )}
+              {canWrite && (
+                <WriteReview
+                  reviewChange={reviewChange}
+                  reviewSubmit={reviewSubmit}
+                />
+              )}
                 {review.map((review, index) => (
                   <Review
                     key={index}
