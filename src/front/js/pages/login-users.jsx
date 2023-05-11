@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {loginUser, getUserPrivate} from "../services";
 import {useParams} from "react-router-dom";
+import LinkButton from "../component/LinkButton.jsx";
 
 export const Login = (props) => {
   const params = useParams();
@@ -23,6 +24,7 @@ export const Login = (props) => {
     if (isLogin) {
       const token = localStorage.getItem("token");
       const user = await getUserPrivate(token);
+      localStorage.setItem("role", user.role); //seteamos el rol del usuario al localstorage para usarlo en otras páginas como companyProfile
       if (user.company) {
         navigate("/company/profile");
       } else if (user.lawyer) {
@@ -76,6 +78,22 @@ export const Login = (props) => {
           ></input>
         </div>
       </form>
+      <div className="container mt-2 p-3">
+        <div className="col-8">
+          <div className="row">
+            <div className="alert alert-success" role="alert">
+              ¿No estás registrado? Crea tu cuenta para poder acceder a nuestros
+              servicios!
+            </div>
+          </div>
+          <div className="row">
+            <LinkButton
+              direction={"/register"}
+              text={"Ir a la página de registro"}
+            />
+          </div>
+        </div>
+      </div>
     </React.Fragment>
   );
 };
