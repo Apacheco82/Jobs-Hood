@@ -50,6 +50,7 @@ const WriteReview = ({reviewChange, reviewSubmit}) => {
                   className="form-control"
                   id="exampleFormControlTextarea1"
                   rows="3"
+                  maxlength="700"
                   required
                 ></textarea>
               </div>
