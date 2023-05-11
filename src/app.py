@@ -18,13 +18,14 @@ from api.domain.question_comment.route import question_comment_bp
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import  get_jwt_identity, jwt_required, JWTManager
+from datetime import timedelta
 
-#from models import Person
 
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config["JWT_SECRET_KEY"] = os.environ["JWT_SECRET_KEY"]  # Change this!
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 jwt = JWTManager(app)
 
 ENV = os.getenv("FLASK_ENV")

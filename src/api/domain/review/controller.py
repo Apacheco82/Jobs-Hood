@@ -15,6 +15,6 @@ def post_review(user, data):
         return Response.response_error("no puedes hacer reseñas a otro usuario", 400)
     return Response.response_error("Usuario no es de tipo user", 404) #si el usuario no era de tipo user no le dejamos hacer el post
 
-def get_reviews(review_type, id):
-    resultado = Repository.get_reviews(review_type, id)
+def get_reviews_by_type_and_id(review_type, id):
+    resultado = Repository.get_reviews_by_type_and_id(review_type, id)
     return Response.response_ok(resultado, "Get all reviews for {0} with id: {1}".format(review_type, id), 200)
