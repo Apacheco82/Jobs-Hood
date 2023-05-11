@@ -28,4 +28,4 @@ def post_review():
 
 @review_bp.route('/<string:review_type>/<int:id>', methods = ['GET'])
 def get_reviews_by_type_and_id(review_type, id):
-    return Controller.get_reviews(review_type, id)
+    return Controller.get_reviews_by_type_and_id(review_type, id)

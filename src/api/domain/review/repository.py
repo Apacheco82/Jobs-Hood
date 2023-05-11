@@ -12,7 +12,7 @@ def post_review(receiver_id, author_id, rating, text,user_name ):
     db.session.commit()
     return new_review
 
-def get_reviews(review_type, user_id):
+def get_reviews_by_type_and_id(review_type, user_id):
     user = User.query.get(user_id)
     if not user:
         return []
