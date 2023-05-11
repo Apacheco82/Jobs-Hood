@@ -1,8 +1,10 @@
 from api.models.index import db, User, Company, Roles
 from api.domain.user.controller import create_user_by_role
+from api.domain.user.repository import edit_user_by_role
 from flask import request, jsonify
 import bcrypt
 from api.functions import hash_pass, find_role
+import api.handle_response as Response
 
 
 def get_companies():
@@ -28,28 +30,24 @@ def register_company(data, address, province, cp, cif):
     return user
 
 def edit_user_company(id):
-    user = User.query.get(id)
-    company = Company.query.get(id) # por id o por modelo ? 
-  #donde poner el commit 
-    if user is None:
-     return Response.response_error("Usuario no encontrado!", 404)
+    roles = find_role('Company', Roles)
+    user = edit_user_by_role(id, roles.id)
+    company = Company.query.get(id)
+    if company is None:
+        return Response.response_error("Empresa no encontrada!",404)
     else:
         info = request.get_json()
-        user.user_name = info['user_name']
-        password = hash_pass(info['password'])
-        user.password = password.decode()
-        user.name = info['name']
-        user.last_name = info['last_name']
-        user.email = info['email']
+        company.address = info['address']
+        company.province = info['province']
+        company.cp = info['cp']
+        company.cif = info['cif']
 
-    if user.roles =='Company':
-        data = request.get_json()
-        company.address = data['address']
-        company.province = data['province']
-        company.cp = data['cp']
-        company.cif = data['cif']
-    else:
-        return Response.response_error("Fallo al modificar datos de la empresa!",400)
+    return company
 
+    user.company = company
+
+    db.session.add(user)
+    db.session.commit()
 
     return user
+

@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, get_jwt
 from api.models.index import db, User, Company
 import api.domain.company.controller as Controller
 import api.handle_response as Response
@@ -20,3 +21,13 @@ def register_company():
         return Response.response_ok(new_company.serialize(), "New company added successfully", 201)
    
     return new_company
+
+@company_bp.route("/edit/<int:id>", methods=["PUT"])
+@jwt_required()
+def edit_user_company(id):
+    user = User.query.get(id)
+    user_logged = get_jwt_identity()
+    if Controller.edit_user_company(id, user_logged['id']):
+        return Response.response_ok(user.serialize_user(), "Usuario editado correctamente!",200)
+    else:
+       return Response.response_error("Error al guardar los datos!", 400) 
