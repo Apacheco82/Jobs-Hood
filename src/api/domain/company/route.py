@@ -22,12 +22,13 @@ def register_company():
    
     return new_company
 
-@company_bp.route("/edit/<int:id>", methods=["PUT"])
+@company_bp.route("/edit", methods=["PUT"])
 @jwt_required()
-def edit_user_company(id):
+def edit_user_company():
     user_logged = get_jwt_identity()
-    company =  Controller.edit_user_company(id, user_logged["company"]['id'], user_logged['id']) # la id del company
-    if company:
-        return Response.response_ok(company.serialize(),  "Usuario editado correctamente!",200)
+    info = request.get_json()
+    user  =  Controller.edit_user_company(user_logged["id"],info) 
+    if user:
+        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente!",200)
     else:
         return Response.response_error("Error al guardar los datos!", 400) 

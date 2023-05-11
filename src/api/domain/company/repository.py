@@ -14,6 +14,9 @@ def get_companies():
     users_serialized = list(map(lambda user: user.serialize(), users))
     return users_serialized
 
+def get_company_by_user_id(user_id):
+    return Company.query.filter_by(user_id = user_id).first()
+
 def register_company(data, address, province, cp, cif):
 
     roles = find_role('Company', Roles)
@@ -29,22 +32,15 @@ def register_company(data, address, province, cp, cif):
 
     return user
 
-def edit_user_company(id):
-    roles = find_role('Company', Roles)
-    user = edit_user_by_role(id, roles.id)
-    company = Company.query.get(user.company.id)
+def edit_user_company(info, company):
+   
+    company.address = info['address']
+    company.province = info['province']
+    company.cp = info['cp']
 
-    if company is None:
-        return Response.response_error("Empresa no encontrada!",404)
-    else:
-        info = request.get_json()
-        company.address = info['address']
-        company.province = info['province']
-        company.cp = info['cp']
-        company.cif = info['cif']
 
    
     db.session.commit()
 
-    return user
+    return company
 

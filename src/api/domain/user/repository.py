@@ -46,20 +46,16 @@ def edit_user(id):
 
     return user
 
-def edit_user_by_role(id, roles_id):
+def edit_user_by_role(id,info):
     user = User.query.get(id)
     if user is None:
         return Response.response_error("Usuario no encontrado!", 404)
     else:
-            info = request.get_json()
-            user.user_name = info['user_name']
-            password = hash_pass(info['password'])
-            user.password = password.decode()
+            user.user_name = info['user_name']     
             user.name = info['name']
             user.last_name = info['last_name']
             user.email = info['email']
-            user.roles_id = roles_id
-            
+         
     return user
 
 

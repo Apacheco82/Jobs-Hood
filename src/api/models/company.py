@@ -14,8 +14,7 @@ class Company(db.Model):
     favs = db.relationship("Favorites", back_populates="company") 
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __repr__(self):
-        return  '%r' % self.id #para las relaciones, en lugar de mostrar el id
+   
 
 
     def __init__(self, address,province, cp, cif):
