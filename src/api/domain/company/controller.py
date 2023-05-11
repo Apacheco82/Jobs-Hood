@@ -21,11 +21,11 @@ def register_company(data):
         data['cif']
         )
     
-def edit_user_company(id ,logged_id):
+def edit_user_company(id ,logged_id, user_id):
    
    if (logged_id == id):
-      edit = Repository.edit_user_company(id) # se puede coger solo un parametro? 
-      return Response.response_ok(edit, "Usuario modifiacado correctamente!", 200) 
+      edit = Repository.edit_user_company(user_id)  
+      return edit
    else:
-      return Response.response_error("Error al editar usuario!", 400)
+      return None
  

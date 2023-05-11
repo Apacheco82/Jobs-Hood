@@ -25,9 +25,9 @@ def register_company():
 @company_bp.route("/edit/<int:id>", methods=["PUT"])
 @jwt_required()
 def edit_user_company(id):
-    user = User.query.get(id)
     user_logged = get_jwt_identity()
-    if Controller.edit_user_company(id, user_logged['id']):
-        return Response.response_ok(user.serialize_user(), "Usuario editado correctamente!",200)
+    company =  Controller.edit_user_company(id, user_logged["company"]['id'], user_logged['id']) # la id del company
+    if company:
+        return Response.response_ok(company.serialize(),  "Usuario editado correctamente!",200)
     else:
-       return Response.response_error("Error al guardar los datos!", 400) 
+        return Response.response_error("Error al guardar los datos!", 400) 

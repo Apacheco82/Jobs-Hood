@@ -32,7 +32,8 @@ def register_company(data, address, province, cp, cif):
 def edit_user_company(id):
     roles = find_role('Company', Roles)
     user = edit_user_by_role(id, roles.id)
-    company = Company.query.get(id)
+    company = Company.query.get(user.company.id)
+
     if company is None:
         return Response.response_error("Empresa no encontrada!",404)
     else:
@@ -42,11 +43,7 @@ def edit_user_company(id):
         company.cp = info['cp']
         company.cif = info['cif']
 
-    return company
-
-    user.company = company
-
-    db.session.add(user)
+   
     db.session.commit()
 
     return user
