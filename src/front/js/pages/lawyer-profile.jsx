@@ -139,6 +139,7 @@ export const LawyerProfile = () => {
 
             <div className="container d-flex justify-content-center mt-1">
               <Tab.Content>
+                
                 <Tab.Pane
                   eventKey="#nav-home"
                   active={activeKey === "#nav-home"}
@@ -189,6 +190,7 @@ export const LawyerProfile = () => {
                     />
                   ))}
                 </Tab.Pane>
+
               </Tab.Content>
             </div>
           </div>
