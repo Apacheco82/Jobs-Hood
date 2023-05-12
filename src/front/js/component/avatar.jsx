@@ -31,12 +31,13 @@ export const Avatar = () => {
     
   
     return (
-      <div className="container">
-        <p>Añada una imagen</p>
-        <img src={fileUrl}></img>
-        <input type="file" onChange={handleChange}></input>
+      <div className="container input-group mb-3">
         
-        <button onClick={handleClick}>Enviar</button>
+        <img src={fileUrl}></img>
+
+        <input className="form-control" type="file" onChange={handleChange} ></input>
+        
+        <button className="btn btn-primary" onClick={handleClick}>Enviar</button>
       </div>
     );
   };
