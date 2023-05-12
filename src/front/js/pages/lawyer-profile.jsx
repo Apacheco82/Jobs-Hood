@@ -9,7 +9,6 @@ import Review from "../component/review.jsx";
 import Questions from "../component/questions.jsx";
 import WriteReview from "../component/WriteReview.jsx";
 import WriteQuestion from "../component/WriteQuestion.jsx";
-import WriteQuestion from "../component/WriteQuestion.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 
