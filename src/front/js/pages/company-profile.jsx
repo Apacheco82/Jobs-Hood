@@ -8,6 +8,7 @@ import UserInfo from "../component/UserInfo.jsx";
 import Review from "../component/review.jsx";
 import WriteReview from "../component/WriteReview.jsx";
 import LinkButton from "../component/LinkButton.jsx";
+import Spinner from "../component/Spinner.jsx";
 
 const initialState = {
   receiver_id: 0,
@@ -27,6 +28,7 @@ export const CompanyProfile = () => {
   const [canWrite, setCanWrite] = useState(false);
   const [opinion, setOpinion] = useState(initialState);
   const [buttonLogin, setButtonLogin] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,12 +37,15 @@ export const CompanyProfile = () => {
         const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
 
         if (!companyId) {
+          setSpinner(true);
           //si no hemos usado la ruta con id, estamos entrando por TOKEN
           const companyData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una const
           setUser(companyData); //seteamos el useState de USER
           setCompany(companyData.company); //seteamos el useState de COMPANY
           setLogin(true); //seteamos el useState LOGIN a TRUE, para poder editar todos los campos del formulario
+          setSpinner(false);
         } else {
+          setSpinner(true);
           //si hemos usado la ruta con ID
           //primero obtenemos los datos de la empresa que se pintan en pantalla
           const info = await userById(companyId); //llamamos a la función que obtiene un USER filtrando por su ID
@@ -49,6 +54,7 @@ export const CompanyProfile = () => {
           const getReview = await getReviewPerCompany(companyId);
           setReview(getReview.data);
           setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
+          setSpinner(false);
           if (!token) {
             setButtonLogin(true);
           } else {
@@ -65,7 +71,7 @@ export const CompanyProfile = () => {
       }
     };
     fetchData();
-  }, [opinion]);
+  }, []);
 
   const reviewChange = (e) => {
     const {name, value} = e.target;
@@ -75,6 +81,7 @@ export const CompanyProfile = () => {
 
   const reviewSubmit = async (e) => {
     e.preventDefault();
+    setSpinner(true);
     const userToken = localStorage.getItem("token");
     const userData = await getUserPrivate(userToken);
     const myOpinion = {
@@ -88,54 +95,66 @@ export const CompanyProfile = () => {
     const response = await createReview(myOpinion);
     //console.log("response",response)
     setCanWrite(false);
+    const newReviews = [...review, response.data];
+    setReview(newReviews); // Actualizar la lista de revisiones
+    //console.log("review", response.data)
+    setSpinner(false);
   };
 
   return (
     <>
-      <UserInfo user={user} profile={company} showEditButton={login} />
+      {spinner ? (
+        <Spinner />
+      ) : (
+        <>
+          <UserInfo user={user} profile={company} showEditButton={login} />
 
-      <div className="container d-flex justify-content-center mt-1">
-        <Nav
-          variant="tabs"
-          activeKey={activeKey}
-          onSelect={(k) => setActiveKey(k)}
-        >
-          <Nav.Item>
-            <Nav.Link eventKey="#nav-home">Opiniones de la empresa</Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </div>
-      <div className="container d-flex justify-content-center mt-1">
-        <Tab.Content>
-          <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
-            <div>
-              {" "}
-              {buttonLogin && (
-                <LinkButton
-                  direction={"/login"}
-                  text={"Inicia sesión para poder dar tu opinión"}
-                  type={"button"}
-                />
-              )}
-              {canWrite && (
-                <WriteReview
-                  reviewChange={reviewChange}
-                  reviewSubmit={reviewSubmit}
-                />
-              )}
-              {review.map((review, index) => (
-                <Review
-                  key={index}
-                  text={review.text}
-                  user_name={review.user_name}
-                  rating={review.rating}
-                  data={review.data_create}
-                />
-              ))}
-            </div>
-          </Tab.Pane>
-        </Tab.Content>
-      </div>
+          <div className="container d-flex justify-content-center mt-1">
+            <Nav
+              variant="tabs"
+              activeKey={activeKey}
+              onSelect={(k) => setActiveKey(k)}
+            >
+              <Nav.Item>
+                <Nav.Link eventKey="#nav-home">
+                  Opiniones de la empresa
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </div>
+          <div className="container d-flex justify-content-center mt-1">
+            <Tab.Content>
+              <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
+                <div>
+                  {" "}
+                  {buttonLogin && (
+                    <LinkButton
+                      direction={"/login"}
+                      text={"Inicia sesión para poder dar tu opinión"}
+                      type={"button"}
+                    />
+                  )}
+                  {canWrite && (
+                    <WriteReview
+                      reviewChange={reviewChange}
+                      reviewSubmit={reviewSubmit}
+                    />
+                  )}
+                  {review.map((review, index) => (
+                    <Review
+                      key={index}
+                      text={review.text}
+                      user_name={review.user_name}
+                      rating={review.rating}
+                      data={review.data_create}
+                    />
+                  ))}
+                </div>
+              </Tab.Pane>
+            </Tab.Content>
+          </div>
+        </>
+      )}
     </>
   );
 };
