@@ -20,6 +20,8 @@ export const createReview = async (data) => {
 
 export const checkReview = (user, receiverId) => {
   const reviews = user["written_reviews"];
-  return reviews.some((receiver) => receiver["receiver_id"] == receiverId); //reviews.some() devuelve true si encuentra un receiver con receiver_id igual a receiverId, y false en caso contrario
+  if (reviews && reviews.length > 0) {
+    return reviews.some((receiver) => receiver["receiver_id"] == receiverId); //reviews.some() devuelve true si encuentra un receiver con receiver_id igual a receiverId, y false en caso contrario
+  }
+  return false;
 };
-
