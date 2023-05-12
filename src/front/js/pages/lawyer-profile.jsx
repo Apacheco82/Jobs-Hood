@@ -8,6 +8,8 @@ import {createReview, checkReview} from "../services/review.js";
 import Review from "../component/review.jsx";
 import Questions from "../component/questions.jsx";
 import WriteReview from "../component/WriteReview.jsx";
+import WriteQuestion from "../component/WriteQuestion.jsx";
+import WriteQuestion from "../component/WriteQuestion.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 
@@ -30,6 +32,7 @@ export const LawyerProfile = () => {
   const [canWrite, setCanWrite] = useState(false);
   const [opinion, setOpinion] = useState(initialState);
   const [buttonLogin, setButtonLogin] = useState(false);
+
   const [spinner, setSpinner] = useState(false);
 
   useEffect(() => {
@@ -144,18 +147,18 @@ export const LawyerProfile = () => {
                   <div>
                     {" "}
                     {buttonLogin && (
-                      <LinkButton
-                        direction={"/login"}
-                        text={"Inicia sesión para poder dar tu opinión"}
-                        type={"button"}
-                      />
-                    )}
-                    {canWrite && (
-                      <WriteReview
-                        reviewChange={reviewChange}
-                        reviewSubmit={reviewSubmit}
-                      />
-                    )}
+                        <LinkButton
+                          direction={"/login"}
+                          text={"Inicia sesión para poder dar tu opinión"}
+                          type={"button"}
+                        />
+                      )}
+                      {canWrite && (
+                        <WriteReview
+                          reviewChange={reviewChange}
+                          reviewSubmit={reviewSubmit}
+                        />
+                      )}
                     {review.map((review, index) => (
                       <Review
                         key={index}
@@ -167,11 +170,17 @@ export const LawyerProfile = () => {
                     ))}
                   </div>
                 </Tab.Pane>
-                <Tab.Pane
+    
+            <Tab.Pane
                   eventKey="#nav-questions"
                   active={activeKey === "#nav-questions"}
                 >
-                  {question.map((question, index) => (
+                  {canWrite && (
+                <WriteQuestion
+                //questionChange={questionChange}
+                //questionSubmit={questionSubmit}
+              />)}
+              {question.map((question, index) => (
                     <Questions
                       key={index}
                       text={question.text}
