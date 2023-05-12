@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {companyRegister} from "../services/company";
-import { useNavigate } from "react-router-dom";
-import  Form  from "../component/Form.jsx";
-
+import {useNavigate} from "react-router-dom";
+import Form from "../component/Form.jsx";
+import Spinner from "../component/Spinner.jsx";
 
 const initialState = {
   user_name: "",
@@ -18,7 +18,8 @@ const initialState = {
 
 export const RegisterCompany = () => {
   const [form, setForm] = useState(initialState);
-	const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [spinner, setSpinner] = useState(false);
 
   // Función que actualiza el user_name basado en el campo email
   const updateUserName = (email) => {
@@ -39,20 +40,31 @@ export const RegisterCompany = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSpinner(true);
     await companyRegister(form);
-    setForm(initialState)
-    if (companyRegister){navigate("/login")}
-    else {navigate("/")} //provisional, aquí se pondrán alerts de bootstrap en pantalla para controlar errores
+    setForm(initialState);
+    setSpinner(false);
+    if (companyRegister) {
+      navigate("/login");
+    } else {
+      navigate("/");
+    } //provisional, aquí se pondrán alerts de bootstrap en pantalla para controlar errores
   };
 
   return (
     <>
-<Form
-  userType="company" 
-  form={form}
-  handleChange={handleChange}
-  handleSubmit={handleSubmit}
-/>		
+      {spinner ? (
+        <Spinner />
+      ) : (
+        <>
+          <Form
+            userType="company"
+            form={form}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+        </>
+      )}
     </>
   );
 };
