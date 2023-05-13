@@ -1,46 +1,44 @@
-
-import React, {  useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext.js";
 import { Province } from "../component/form-province.jsx";
 import LinkButton from "../component/LinkButton.jsx";
-import { editLawyer } from "../services/lawyer.js";
+import { editUser } from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
 
 
 
 
-
-export const EditProfileLawyer = () => {
+export const EditProfileWorker = () => {
 
 
   const { store, actions } = useContext(Context);
   const [spinner, setSpinner] = useState(false);
 
-  const [editedLawyer, setEditedLawyer] = useState({
+  const [editedWorker, setEditedWorker] = useState({
+    user_name: store.user.user_name,
     name: store.user.name,
+    last_name: store.user.last_name,
     email: store.user.email,
-    address: store.user.lawyer.address,
-    province: store.user.lawyer.province,
-    cp: store.user.lawyer.cp
+    
   });
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setEditedLawyer((prevState) => ({
+    setEditedWorker((prevState) => ({
       ...prevState,
       [name]: value
     }));
   };
 
   const handleSubmit = async (event) => {
-    setSpinner(true);
+    setSpinner(true)
     event.preventDefault();
-    await editLawyer(editedLawyer);
-    setEditedLawyer(store.user);
-    setSpinner(false);
+    await editUser(editedWorker);
+    setEditedWorker(store.user)
+    setSpinner(false)
   };
 
-  
 
   return (
     <>
@@ -51,30 +49,30 @@ export const EditProfileLawyer = () => {
 
               <div className="col">
                 <label htmlFor="form-register-company" className="form-label">
-                  Nombre del abogado o Buffette
+                  Nombre de Usuario
+                </label>
+                <input
+                  onChange={handleChange}
+                  defaultValue={store.user.user_name}
+                  type="text"
+                  name="user_name"
+                  title="Please enter a valid name"
+                  className="form-control rounded-0"
+                  maxLength="20"
+                />
+              </div>
+
+              <div className="col">
+                <label htmlFor="form-register-company" className="form-label">
+                  Nombre
                 </label>
                 <input
                   onChange={handleChange}
                   defaultValue={store.user.name}
                   type="text"
                   name="name"
-                  title="Please enter a valid name"
                   className="form-control rounded-0"
-                  maxLength="80"
-                />
-              </div>
-
-              <div className="col">
-                <label htmlFor="form-register-company" className="form-label">
-                  Dirección
-                </label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={store.user.lawyer.address}
-                  type="text"
-                  name="address"
-                  className="form-control rounded-0"
-                  maxLength="100"
+                  maxLength="30"
 
                 />
               </div>
@@ -82,7 +80,23 @@ export const EditProfileLawyer = () => {
             <div className="row align-items-start my-3">
               <div className="col">
                 <label htmlFor="form-register-company" className="form-label">
-                  Dirección Email
+                  Apellidos
+                </label>
+                <input
+                  onChange={handleChange}
+                  defaultValue={store.user.last_name}
+                  type="text"
+                  name="last_name"
+                  className="form-control rounded-0"
+                  maxLength="100"
+                />
+              </div>
+            </div>
+            <div className="row align-items-end my-3">
+            
+              <div className="col">
+                <label htmlFor="form-register-company" className="form-label">
+                 Dirección Email
                 </label>
                 <input
                   onChange={handleChange}
@@ -91,30 +105,6 @@ export const EditProfileLawyer = () => {
                   name="email"
                   className="form-control rounded-0"
                   maxLength="250"
-                />
-              </div>
-            </div>
-            <div className="row align-items-end my-3">
-              <div className="col">
-
-                <label htmlFor="form-register-company" className="form-label">
-                  Provincia
-                </label>
-                <Province handleChange={handleChange} name="province" />
-
-              </div>
-
-              <div className="col">
-                <label htmlFor="form-register-company" className="form-label">
-                  Código postal
-                </label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={store.user.lawyer.cp}
-                  type="text"
-                  name="cp"
-                  className="form-control rounded-0"
-                  maxLength="5"
 
                 />
               </div>
@@ -125,7 +115,7 @@ export const EditProfileLawyer = () => {
                 className="btn btn-dark mx-3  rounded-0"
                 value="Guardar Cambios"
               ></input>
-              <LinkButton direction="/lawyer/profile" text="Cancelar" />
+              <LinkButton direction="/worker/profile" text="Cancelar" />
             </div>
 
           </form>

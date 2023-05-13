@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserWorker = ({ user, showEditButton}) => {
+const UserWorker = ({ user, showEditButton , onClick}) => {
   return (
     <div className="row h-100 justify-content-center align-items-center">
       <div className="card" style={{ width: "80%" }}>
@@ -11,8 +11,9 @@ const UserWorker = ({ user, showEditButton}) => {
             </div>
             <div className="col-lg-7">
               <p id="nombre-contacto">
-                <strong>{user.name}</strong>
+                <strong>{user.user_name}</strong>
               </p>
+              <div className="iconos my-1"> {user.name}</div>
               <div className="iconos my-1"> {user.last_name}</div>
               <div className="iconos my-1"> {user.email}</div>
 
@@ -20,7 +21,7 @@ const UserWorker = ({ user, showEditButton}) => {
             </div>
             {showEditButton && (
               <div className="col-lg-2 d-flex">
-                <i className="fa-solid fa-pen-clip fa-xl mt-3 mx-4" title="Editar Contacto"></i>
+                <i className="fa-solid fa-pen-clip fa-xl mt-3 mx-4" onClick ={onClick}title="Editar Contacto"></i>
               </div>
             )}
           </div>
