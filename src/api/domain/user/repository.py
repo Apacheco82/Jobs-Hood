@@ -30,16 +30,12 @@ def get_single_user(id):
     user = User.query.get(id)
     return user
 
-def edit_user(id,info):
-   
-    user = User.query.get(id)
-    if user is None:
-        return Response.response_error("Usuario no encontrado!", 404)
-    else:
-            user.user_name = info['user_name']     
-            user.name = info['name']
-            user.last_name = info['last_name']
-            user.email = info['email']
+def edit_user(user,info):
+    
+    user.user_name = info['user_name']     
+    user.name = info['name']
+    user.last_name = info['last_name']
+    user.email = info['email']
 
     db.session.commit()
          
@@ -49,10 +45,8 @@ def edit_user_by_role(id,info):
     user = User.query.get(id)
     if user is None:
         return Response.response_error("Usuario no encontrado!", 404)
-    else:
-            user.user_name = info['user_name']     
+    else:    
             user.name = info['name']
-            user.last_name = info['last_name']
             user.email = info['email']
          
     return user

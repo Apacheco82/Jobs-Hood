@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React, {useEffect, useState, useContext} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
 import {Tab, Nav} from "react-bootstrap";
@@ -10,6 +10,7 @@ import Questions from "../component/questions.jsx";
 import WriteReview from "../component/WriteReview.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
+import { Context } from "../store/appContext.js";
 
 const initialState = {
   receiver_id: 0,
@@ -22,7 +23,6 @@ const initialState = {
 export const LawyerProfile = () => {
   const params = useParams();
   const [login, setLogin] = useState(false);
-  const [user, setUser] = useState({});
   const [lawyer, setLawyer] = useState({});
   const [review, setReview] = useState([]);
   const [question, setQuestion] = useState([]);
@@ -31,6 +31,10 @@ export const LawyerProfile = () => {
   const [opinion, setOpinion] = useState(initialState);
   const [buttonLogin, setButtonLogin] = useState(false);
   const [spinner, setSpinner] = useState(false);
+  
+
+  const navigate = useNavigate();
+  const {store,actions} = useContext(Context );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +46,8 @@ export const LawyerProfile = () => {
         if (!lawyerId) {
           setSpinner(true);
           //si no hemos usado la ruta con id, estamos entrando por TOKEN
-          const lawyerData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una const
-          setUser(lawyerData); //seteamos el useState de USER
+          const lawyerData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una cons
+          actions.setUser(lawyerData)
           setLawyer(lawyerData.lawyer); //seteamos el useState de COMPANY
           setLogin(true); //seteamos el useState LOGIN a TRUE, para poder editar todos los campos del formulario
           setSpinner(false);
@@ -52,7 +56,7 @@ export const LawyerProfile = () => {
           //si hemos usado la ruta con ID
           //primero obtenemos los datos de la empresa que se pintan en pantalla
           const info = await userById(lawyerId); //llamamos a la función que obtiene un USER filtrando por su ID
-          setUser(info.data); //seteamos el useState de USER
+          actions.setUser(info.data); //seteamos el useState de USER
           setLawyer(info.data.lawyer); //seteamos el useState de COMPANY
           //console.log("la info del abogado", info);
           const getReview = await getReviewPerLawyer(lawyerId);
@@ -107,6 +111,10 @@ export const LawyerProfile = () => {
     setSpinner(false);
   };
 
+  const handleEdit = async() =>{  
+    navigate('/edit/profile-lawyer')
+  }
+
   return (
     <>
       {spinner ? (
@@ -114,9 +122,10 @@ export const LawyerProfile = () => {
       ) : (
         <>
           <UserInfo
-            user={user}
+            user={store.user}
             profile={lawyer}
             showEditButton={login}
+            onClick ={handleEdit}
             isLawyer={true}
           />
           <div>

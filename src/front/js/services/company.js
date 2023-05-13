@@ -1,5 +1,11 @@
 import {URL} from ".";
 
+
+const HEADERS = {
+  "Content-Type": "application/json",
+};
+
+
 export const companyRegister = async (data) => {
 
   try {

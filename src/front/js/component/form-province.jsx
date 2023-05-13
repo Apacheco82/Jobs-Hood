@@ -15,7 +15,7 @@ export const Province = (props) => {
         <>
             <div className="row">
                 <div className="col">
-                    <select value={props.value}  name ={props.name} className="form-control" >
+                    <select value={props.value}  name ={props.name} className="form-control" onChange ={props.handleChange} >
                         <option value="" disabled selected>
                             Seleccione una provincia
                         </option>
