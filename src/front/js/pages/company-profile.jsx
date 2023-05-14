@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {Tab, Nav} from "react-bootstrap";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
 import {getReviewPerCompany} from "../services/company.js";
 import {createReview, checkReview} from "../services/review.js";
@@ -9,6 +9,7 @@ import Review from "../component/review.jsx";
 import WriteReview from "../component/WriteReview.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
+import { Context } from "../store/appContext.js";
 
 const initialState = {
   receiver_id: 0,
@@ -21,7 +22,6 @@ const initialState = {
 export const CompanyProfile = () => {
   const params = useParams();
   const [login, setLogin] = useState(false);
-  const [user, setUser] = useState({});
   const [company, setCompany] = useState({});
   const [review, setReview] = useState([]);
   const [activeKey, setActiveKey] = useState("#nav-home");
@@ -29,6 +29,9 @@ export const CompanyProfile = () => {
   const [opinion, setOpinion] = useState(initialState);
   const [buttonLogin, setButtonLogin] = useState(false);
   const [spinner, setSpinner] = useState(false);
+
+  const navigate = useNavigate();
+  const {store,actions} = useContext(Context );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +43,7 @@ export const CompanyProfile = () => {
           setSpinner(true);
           //si no hemos usado la ruta con id, estamos entrando por TOKEN
           const companyData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una const
-          setUser(companyData); //seteamos el useState de USER
+          actions.setUser(companyData)
           setCompany(companyData.company); //seteamos el useState de COMPANY
           setLogin(true); //seteamos el useState LOGIN a TRUE, para poder editar todos los campos del formulario
           setSpinner(false);
@@ -49,7 +52,7 @@ export const CompanyProfile = () => {
           //si hemos usado la ruta con ID
           //primero obtenemos los datos de la empresa que se pintan en pantalla
           const info = await userById(companyId); //llamamos a la función que obtiene un USER filtrando por su ID
-          setUser(info.data); //seteamos el useState de USER
+          actions.setUser(info.data); //seteamos el useState de USER
           setCompany(info.data.company); //seteamos el useState de COMPANY
           const getReview = await getReviewPerCompany(companyId);
           setReview(getReview.data);
@@ -101,13 +104,17 @@ export const CompanyProfile = () => {
     setSpinner(false);
   };
 
+  const handleEdit = async() =>{  
+    navigate('/edit/profile-company')
+  }
+
   return (
     <>
       {spinner ? (
         <Spinner />
       ) : (
         <>
-          <UserInfo user={user} profile={company} showEditButton={login} />
+          <UserInfo  onClick ={handleEdit} user={store.user} profile={company} showEditButton={login} />
 
           <div className="container d-flex justify-content-center mt-1">
             <Nav

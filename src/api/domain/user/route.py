@@ -44,15 +44,18 @@ def get_user_private():
 def get_single_user(id):
     if not isinstance(id, int):
         return Response.response_error("Not valid", 404) 
-    return Controller.get_single_user(id)
+    user = Controller.get_single_user(id)
+    return Response.response_ok(user.serialize(), "tu usuario, gracias", 200)
 
 
-@api.route("/edit/<int:id>", methods=["PUT"])
+@api.route("/edit", methods=["PUT"])
 @jwt_required()
-def edit_user(id):
-    user = User.query.get(id)
+def edit_user():
     user_logged = get_jwt_identity()
-    if Controller.edit_user(id, user_logged['id']):
-        return Response.response_ok(user.serialize_user(), "Usuario editado correctamente!",200)
+    info = request.get_json()
+    user = Controller.edit_user(user_logged["id"],info)
+   
+    if user:
+        return Response.response_ok(user.serialize_only_user() , "Usuario editado correctamente!",200)
     else:
        return Response.response_error("Error al guardar los datos!", 400) 
