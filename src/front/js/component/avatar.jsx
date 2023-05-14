@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { uploadAvatar } from "../services/user.js"
+import {FaUpload} from "react-icons/fa";
 
 
 export const Avatar = () => {
@@ -34,10 +35,13 @@ export const Avatar = () => {
       <div className="container input-group mb-3">
         
         <img src={fileUrl}></img>
-
-        <input className="form-control" type="file" onChange={handleChange} ></input>
+        <label className="file" for="file">
+          <span className="file_ico"><FaUpload/></span>
+          <span className="file_text">Elija una imagen</span> 
+        </label>
+        <input id="file" type="file" onChange={handleChange} ></input>
         
-        <button className="btn btn-primary" onClick={handleClick}>Enviar</button>
+        <button className="" onClick={handleClick}>Enviar</button>
       </div>
     );
   };

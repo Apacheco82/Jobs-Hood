@@ -82,4 +82,57 @@ footer {
       rotate: 360deg;
       transition: 0.3s;
 }
+
+
+  /*AVATAR*/
+
+input[type="file"] {
+    display: none; /*Aqui ocultamos el texto que aparece por defecto en estetipo de input*/
+}
+
+.file {
+  background: #008353;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  outline: none;
+  padding: 1rem 50px;
+  position: relative;
+  transition: all 0.3s;
+  vertical-align: middle;
+
+  &:hover {
+    background-color: #006943;
+  };
+
+  &:hover .file_ico {
+    transform: translateY(0);
+    transition: 0.5s;
+  }
+
+  &:hover .file_text {
+    transform: translateY(100px);
+  }
+}
+
+.file .file_text {
+  font-size: 18px;
+  transition: 0.5s;
+}
+
+.file .file_ico {
+  position: absolute;
+  font-size: 24px;
+  transform: translateY(100px);
+}
+
+
+
+
   
