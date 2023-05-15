@@ -48,7 +48,6 @@ export const LawyerProfile = () => {
       return info.data;
     } //perfil privado
     const lawyerData = await getUserPrivate();
-   // console.log(lawyerData);
     return lawyerData;
   };
 
@@ -56,14 +55,13 @@ export const LawyerProfile = () => {
     const fetchData = async () => {
       try {
         const lawyerId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
-        //setSpinner(true);
+        setSpinner(true);
         const screenUser = await getInfoUser();
         actions.setUser(screenUser);
         setLawyer(screenUser.lawyer);
         setReview(screenUser.received_reviews);
         setQuestion(screenUser.received_questions);
-        //console.log(screenUser)
-        //setSpinner(false);
+       
         if (token) {
           const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
           const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
@@ -75,11 +73,8 @@ export const LawyerProfile = () => {
           if (role === "User" && !userHasAsk) {
             setCanAsk(true);
           }
-          console.log("antes del if abogado", loggedUser)
-          if (lawyerId == loggedUser["id"]) {
-            console.log("puede responder", loggedUser)
-          }
         }
+        setSpinner(false);
       } catch (error) {
         console.log(error);
       }
@@ -90,7 +85,6 @@ export const LawyerProfile = () => {
 
   const reviewChange = (e) => {
     const {name, value} = e.target;
-    //console.log(value)
     setOpinion({...opinion, [name]: value});
   };
 
@@ -106,17 +100,14 @@ export const LawyerProfile = () => {
       user_name: userData.user_name,
     };
     setOpinion(myOpinion);
-    //console.log("my opinion",myOpinion)
     const response = await createReview(myOpinion);
     const newReviews = [...review, response.data];
     setReview(newReviews); // Actualizar la lista de revisiones
-    //console.log("review", response.data)
     setCanWrite(false);
     setSpinner(false);
   };
   const questionChange = (e) => {
     const {name, value} = e.target;
-    //console.log(value)
     setAsk({...ask, [name]: value});
   };
 
@@ -125,7 +116,6 @@ export const LawyerProfile = () => {
     setSpinner(true);
     const userToken = localStorage.getItem("token");
     const userData = await getUserPrivate(userToken);
-    //console.log(userData)
     const myQuestion = {
       ...ask,
       lawyer_id: params.id,
