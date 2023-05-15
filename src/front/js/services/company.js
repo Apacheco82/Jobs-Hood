@@ -29,14 +29,3 @@ export const GetAllCompanies = async () => {
   }
 };
 
-export const getReviewPerCompany = async (id) => {
-  try {
-    const response = await fetch(`${URL}/review/company/${id}`, {
-      method: "GET",
-      redirect: "follow",
-    });
-    return await response.json();
-  } catch (error) {
-    console.log("error", error);
-  }
-};

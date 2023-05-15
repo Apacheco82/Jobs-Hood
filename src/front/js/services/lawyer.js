@@ -30,15 +30,3 @@ export const GetAllLawyers = async () => {
     console.log("Error en get:", error);
   }
 };
-
-export const getReviewPerLawyer = async (id) => {
-  try {
-    const response = await fetch(`${URL}/review/lawyer/${id}`, {
-      method: "GET",
-      redirect: "follow",
-    });
-    return await response.json();
-  } catch (error) {
-    console.log("error", error);
-  }
-};
