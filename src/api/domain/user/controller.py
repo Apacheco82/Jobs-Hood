@@ -56,7 +56,6 @@ def get_single_user(id):
     else:
         return Response.response_error("Not found", 404)
 
-<<<<<<< HEAD
 def update_avatar(user, avatar):
    
     img = upload(avatar)
@@ -67,7 +66,6 @@ def update_avatar(user, avatar):
     return Repository.update_avatar(user['id'], img)
     
 
-=======
 def edit_user(user_id,info):
    user = get_single_user(user_id)
    if user is None:
@@ -78,4 +76,3 @@ def edit_user(user_id,info):
    
   
  
->>>>>>> cb62c2e682417b2c24e4dad9662f0838c6c68b8e

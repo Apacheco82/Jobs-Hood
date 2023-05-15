@@ -32,6 +32,7 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>           
                     <Navbar />
+                    <Avatar />
                     <Routes>
                         <Route element={<Home/>} path="/" />    
                         <Route element={<Profile />} path="/worker/profile" />                      
@@ -52,7 +53,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
-                    <Avatar />
+                    
             </BrowserRouter>
         </div>
     );

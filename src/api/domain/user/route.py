@@ -48,7 +48,6 @@ def get_single_user(id):
     return Response.response_ok(user.serialize(), "tu usuario, gracias", 200)
 
 
-<<<<<<< HEAD
 
 @api.route('/update_avatar', methods=['PUT'])
 @jwt_required()
@@ -67,7 +66,6 @@ def update_avatar():
         return Response.response_error("Error al actualizar el avatar", 400)
 
 
-=======
 @api.route("/edit", methods=["PUT"])
 @jwt_required()
 def edit_user():
@@ -79,4 +77,3 @@ def edit_user():
         return Response.response_ok(user.serialize_only_user() , "Usuario editado correctamente!",200)
     else:
        return Response.response_error("Error al guardar los datos!", 400) 
->>>>>>> cb62c2e682417b2c24e4dad9662f0838c6c68b8e
