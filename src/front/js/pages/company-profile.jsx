@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from "react";
 import {Tab, Nav} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
-import {getReviewPerCompany} from "../services/company.js";
+// import {getReviewPerCompany} from "../services/company.js";
 import {createReview, checkReview} from "../services/review.js";
 import UserInfo from "../component/UserInfo.jsx";
 import Review from "../component/review.jsx";
@@ -54,7 +54,7 @@ export const CompanyProfile = () => {
           const info = await userById(companyId); //llamamos a la función que obtiene un USER filtrando por su ID
           actions.setUser(info.data); //seteamos el useState de USER
           setCompany(info.data.company); //seteamos el useState de COMPANY
-          const getReview = await getReviewPerCompany(companyId);
+          // const getReview = await getReviewPerCompany(companyId);
           setReview(getReview.data);
           setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
           setSpinner(false);
