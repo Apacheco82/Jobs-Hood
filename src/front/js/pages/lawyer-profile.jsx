@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React, {useEffect, useState, useContext} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
 import {Tab, Nav} from "react-bootstrap";
@@ -11,10 +11,11 @@ import WriteReview from "../component/WriteReview.jsx";
 import WriteQuestion from "../component/WriteQuestion.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
+import { Context } from "../store/appContext.js";
 
 export const LawyerProfile = () => {
   const params = useParams();
-  const [user, setUser] = useState({});
+  const [login, setLogin] = useState(false);
   const [lawyer, setLawyer] = useState({});
   const [review, setReview] = useState([]);
   const [question, setQuestion] = useState([]);
@@ -35,6 +36,10 @@ export const LawyerProfile = () => {
     text: "",
   });
   const [spinner, setSpinner] = useState(false);
+  
+
+  const navigate = useNavigate();
+  const {store,actions} = useContext(Context );
 
   const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
   //console.log(token)
@@ -59,21 +64,39 @@ export const LawyerProfile = () => {
         setUser(userAlgo);
         setLawyer(userAlgo.lawyer);
 
-        setReview(userAlgo.received_reviews);
-        setQuestion(userAlgo.received_questions);
-        //setSpinner(false);
-
-        const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
-        const userLogged = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
-
-        
-        const userHasReview = checkReview(userLogged, lawyerId);
-        if (role === "User" && !userHasReview) {
-          setCanWrite(true);
-        }
-        const userHasAsk = checkQuestion(userLogged, lawyerId);
-        if (role === "User" && !userHasAsk) {
-          setCanAsk(true);
+        if (!lawyerId) {
+          setSpinner(true);
+          //si no hemos usado la ruta con id, estamos entrando por TOKEN
+          const lawyerData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una cons
+          actions.setUser(lawyerData)
+          setLawyer(lawyerData.lawyer); //seteamos el useState de COMPANY
+          setLogin(true); //seteamos el useState LOGIN a TRUE, para poder editar todos los campos del formulario
+          setSpinner(false);
+        } else {
+          setSpinner(true);
+          //si hemos usado la ruta con ID
+          //primero obtenemos los datos de la empresa que se pintan en pantalla
+          const info = await userById(lawyerId); //llamamos a la función que obtiene un USER filtrando por su ID
+          actions.setUser(info.data); //seteamos el useState de USER
+          setLawyer(info.data.lawyer); //seteamos el useState de COMPANY
+          //console.log("la info del abogado", info);
+          const getReview = await getReviewPerLawyer(lawyerId);
+          setReview(getReview.data);
+          const getQuestion = info.data.received_questions;
+          setQuestion(getQuestion);
+          // console.log("las questions", getQuestion);
+          setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
+          setSpinner(false);
+          if (!token) {
+            setButtonLogin(true);
+          } else {
+            const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
+            const user = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
+            const userHasReview = checkReview(user, lawyerId);
+            if (role === "User" && !userHasReview) {
+              setCanWrite(true);
+            }
+          }
         }
       } catch (error) {
         console.log(error);
@@ -109,31 +132,9 @@ export const LawyerProfile = () => {
     setSpinner(false);
   };
 
-  const questionChange = (e) => {
-    const {name, value} = e.target;
-    //console.log(value)
-    setAsk({...ask, [name]: value});
-  };
-
-  const questionSubmit = async (e) => {
-    e.preventDefault();
-    setSpinner(true);
-    const userToken = localStorage.getItem("token");
-    const userData = await getUserPrivate(userToken);
-    //console.log(userData)
-    const myQuestion = {
-      ...ask,
-      lawyer_id: params.id,
-      user_id: userData.id,
-      user_name: userData.user_name,
-    };
-    setAsk(myQuestion);
-    const response = await createQuestion(myQuestion);
-    const newQuestion = [...question, response.data];
-    setQuestion(newQuestion); // Actualizar la lista de preguntas
-    setCanAsk(false);
-    setSpinner(false);
-  };
+  const handleEdit = async() =>{  
+    navigate('/edit/profile-lawyer')
+  }
 
   return (
     <>
@@ -142,9 +143,10 @@ export const LawyerProfile = () => {
       ) : (
         <>
           <UserInfo
-            user={user}
+            user={store.user}
             profile={lawyer}
-            showEditButton={!params.id}
+            showEditButton={login}
+            onClick ={handleEdit}
             isLawyer={true}
           />
           <div>

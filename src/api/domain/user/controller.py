@@ -50,17 +50,17 @@ def get_single_user(id):
       
     resultado = Repository.get_single_user(id)
     if resultado is not None:
-        return Response.response_ok(resultado.serialize(), "tu usuario, gracias", 200)
+        return resultado
     else:
         return Response.response_error("Not found", 404)
 
-def edit_user(id ,logged_id):
-   
-   if (logged_id == id):
-      edit = Repository.edit_user(id)
-      return Response.response_ok(edit, "Usuario modifiacado correctamente!", 200) 
-   else:
-      return Response.response_error("Error al editar usuario!", 400)
+def edit_user(user_id,info):
+   user = get_single_user(user_id)
+   if user is None:
+      return None
+   edit = Repository.edit_user(user, info)
+   return edit
+ 
    
   
  
