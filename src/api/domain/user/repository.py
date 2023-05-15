@@ -1,8 +1,9 @@
 
 from api.models.index import db, User, Roles
-from api.functions import find_role
+from flask import request, jsonify
+from api.functions import find_role, hash_pass
 import bcrypt
-
+import api.handle_response as Response
 
 def get_users():
     users = User.query.all()
@@ -29,10 +30,32 @@ def get_single_user(id):
     user = User.query.get(id)
     return user
 
+<<<<<<< HEAD
 def update_avatar(id, avatar):
     user = User.query.get(id)
     user.avatar = avatar['secure_url']
     db.session.commit()
+=======
+def edit_user(user,info):
+    
+    user.user_name = info['user_name']     
+    user.name = info['name']
+    user.last_name = info['last_name']
+    user.email = info['email']
+
+    db.session.commit()
+         
+    return user
+
+def edit_user_by_role(id,info):
+    user = User.query.get(id)
+    if user is None:
+        return Response.response_error("Usuario no encontrado!", 404)
+    else:    
+            user.name = info['name']
+            user.email = info['email']
+         
+>>>>>>> cb62c2e682417b2c24e4dad9662f0838c6c68b8e
     return user
 
 

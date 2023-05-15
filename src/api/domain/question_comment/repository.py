@@ -6,8 +6,8 @@ def get_single_comment(id):
     question = Question_comment.query.get(id)
     return question
 
-def post_question_comment(user_id, question_id, text):
-    new_comment = Question_comment(id_question=question_id, lawyer_id=user_id, text=text)
+def post_question_comment(user_id, question_id, text, name):
+    new_comment = Question_comment(question_id, user_id, text, name)
     db.session.add(new_comment)
     db.session.commit()
     return new_comment

@@ -26,6 +26,7 @@ def post_question():
             return Response.response_ok(new_question.serialize(), "Pregunta creada", 201)
     return new_question
 
+
 @question_bp.route('/<int:id>', methods = ['GET'])
 def get_single_question(id):
     return Controller.get_single_question(id)

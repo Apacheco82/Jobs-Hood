@@ -1,7 +1,7 @@
 import api.domain.lawyer.repository as Repository
 import api.handle_response as Response
 from api.functions import verify_user
-
+import api.domain.user.repository as UserRepository
 
 
 def get_lawyers():
@@ -17,7 +17,18 @@ def register_lawyer(data):
 
     return Repository.register_lawyer(data,
     data['address'], 
-    data['city'], 
+    data['province'], 
     data['cp'], 
     data['col_number']
     )
+
+def edit_user_lawyer(user_id,info):
+ 
+    lawyer = Repository.get_lawyer_by_user_id(user_id)
+    if lawyer is None:
+        return None
+    if user_id == lawyer.user_id:
+        user =  UserRepository.edit_user_by_role(user_id, info)
+        edited_lawyer = Repository.edit_user_lawyer(info, lawyer)
+        return user 
+    return None

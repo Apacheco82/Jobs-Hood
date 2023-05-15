@@ -3,4 +3,3 @@ export const URL = "https://3001-apacheco82-jobshood-izgqb04ytcd.ws-eu97.gitpod.
 
 
 export * from "../services/user.js";
-

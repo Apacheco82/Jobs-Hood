@@ -12,7 +12,7 @@ question_comment_bp = Blueprint('api/question/comment', __name__)
 def get_single_comment(id):
     return Controller.get_single_comment(id)
 
-@question_comment_bp.route('/<int:question_id>/comment', methods=['POST'])
+@question_comment_bp.route('/<int:question_id>', methods=['POST'])
 @jwt_required()
 def post_question_comment(question_id):
     data = request.get_json()

@@ -13,10 +13,8 @@ class User(db.Model):
     email = db.Column(db.String(250), unique=True, nullable=False)
     roles_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
     roles = db.relationship("Roles", back_populates="user") 
-    company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
-    company = db.relationship("Company", foreign_keys=[company_id], uselist=False)
-    lawyer_id = db.Column(db.Integer, db.ForeignKey('lawyer.id'))
-    lawyer = db.relationship("Lawyer", foreign_keys=[lawyer_id], uselist=False)
+    company = db.relationship("Company", back_populates='user', uselist=False)
+    lawyer = db.relationship("Lawyer", back_populates='user', uselist=False)
     favs = db.relationship("Favorites", back_populates= "user")
     written_reviews = db.relationship("Review", back_populates="author", foreign_keys="Review.author_id")
     received_reviews = db.relationship("Review", back_populates="receiver", foreign_keys="Review.receiver_id")
@@ -58,4 +56,22 @@ class User(db.Model):
         "lawyer": self.lawyer.serialize()if self.lawyer else None,
         "data_create":self.data_create
         }
+    def serialize_user(self):
+        return {
+            "id": self.id,
+            "user_name": self.user_name,
+            "name": self.name,
+            "last_name": self.last_name,
+            "email": self.email,
+            "company": self.company.serialize() if self.company else None,
+           "lawyer": self.lawyer.serialize()if self.lawyer else None,
+            }
 
+    def serialize_only_user(self):
+        return {
+            "id": self.id,
+            "user_name": self.user_name,
+            "name": self.name,
+            "last_name": self.last_name,
+            "email": self.email,
+            }

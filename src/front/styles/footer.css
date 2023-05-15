@@ -1,0 +1,83 @@
+/*
+    home.css: This website contains selectors only used in home.css
+
+    All pages share the styles on index.css but you should create 
+    one more css for each page that will contain the selected used 
+    on that page only (the ones not reused in other pages).
+*/
+
+footer {
+
+  }
+   
+
+
+.footer_body {
+  display: flex;
+  justify-content: flex-start;
+  background: rgb(224, 240, 223);
+  background: radial-gradient(circle, rgba(224, 240, 223, 0.9051995798319328) 54%, rgba(255, 255, 255, 1) 100%);
+}
+
+.priv_contact {
+  display: flex;
+  margin-left: auto;
+  
+  gap: 80px;
+}
+
+.privacy a,
+.contact a{
+  text-decoration: none;
+  color: rgb(34, 82, 50);
+}
+
+.privacy :hover,
+.contact :hover{
+  scale: 1;
+  transition: 0.5s;
+}
+
+
+  
+  
+  /*SOCİAL İCONS CIRCLE*/
+
+.icon-circle a {
+    width:35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: rgb(138, 216, 144);
+    color: #fff;
+    place-items: center;
+    display: grid;
+}
+
+.icon-circle a:hover {
+    background-color: #1B5C3F;
+    transition: 0.3s;
+}
+
+.icon-circle a:hover .ico{
+    background-color: transparent;
+    color: white;
+    rotate: 360deg;
+    transition: 0.3s;
+}
+
+
+  /*SOCIAL ICONS*/
+
+.ico {
+    color: #1B5C3F;
+    background-color: transparent;
+    font-size: 21px;
+    }
+  
+.icon-circle a:hover .ico{
+      background-color: transparent;
+      color: white;
+      rotate: 360deg;
+      transition: 0.3s;
+}
+  

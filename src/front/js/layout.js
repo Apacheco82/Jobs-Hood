@@ -15,6 +15,10 @@ import { LawyerProfile } from "./pages/lawyer-profile.jsx";
 import { AllLawyers } from "./pages/all-lawyers.jsx";
 import { AllCompanies } from "./pages/all-companies.jsx";
 import { Avatar } from "./component/avatar.jsx";
+import { Register } from "./pages/register.jsx";
+import { EditProfileLawyer} from "./pages/edit-profile-lawyer.jsx"
+import { EditProfileCompany} from "./pages/edit-profile-company.jsx"
+import { EditProfileWorker} from "./pages/edit-profile-worker.jsx"
 
 
 const Layout = () => {
@@ -29,7 +33,7 @@ const Layout = () => {
             <BrowserRouter basename={basename}>           
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />    
+                        <Route element={<Home/>} path="/" />    
                         <Route element={<Profile />} path="/worker/profile" />                      
                         <Route element={<CompanyProfile />} path="/company/:id" /> 
                         <Route element={<CompanyProfile />} path="/company/profile" />
@@ -37,10 +41,14 @@ const Layout = () => {
                         <Route element={<LawyerProfile />} path="/lawyer/:id" /> 
                         <Route element={<LawyerProfile />} path="/lawyer/profile" />
                         <Route element={<AllLawyers />} path="/lawyers" />
+                        <Route element={<Register/>} path="/register" />
                         <Route element={<RegistroWorker />} path="/register/worker" />
                         <Route element={<RegisterCompany />} path="/register/company" />
                         <Route element={<RegistroLawyer />} path="/register/lawyer" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<EditProfileLawyer />} path="/edit/profile-lawyer" />
+                        <Route element={<EditProfileCompany />} path="/edit/profile-company" />
+                        <Route element={<EditProfileWorker />} path="/edit/profile-worker" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
