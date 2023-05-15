@@ -36,12 +36,12 @@ export const Avatar = () => {
         
         <img src={fileUrl}></img>
         <label className="file" for="file">
+          <span className="file_text">Elija una imagen</span>
           <span className="file_ico"><FaUpload/></span>
-          <span className="file_text">Elija una imagen</span> 
         </label>
         <input id="file" type="file" onChange={handleChange} ></input>
         
-        <button className="" onClick={handleClick}>Enviar</button>
+        <button className="send_file" onClick={handleClick}>Enviar</button>
       </div>
     );
   };

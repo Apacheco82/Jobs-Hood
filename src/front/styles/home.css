@@ -6,6 +6,7 @@
     on that page only (the ones not reused in other pages).
 */
 
+
 footer {
     background: #003A25;
     background: -webkit-linear-gradient(59deg, #22b47e, #003A25);
@@ -91,46 +92,82 @@ input[type="file"] {
 }
 
 .file {
-  background: #008353;
-  border: none;
-  border-radius: 5px;
+  width: 140px;
+  height: 50px;
+  background-color: #006540;
   color: #fff;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+  border: none;
   outline: none;
-  padding: 1rem 50px;
+  cursor: pointer;
   position: relative;
-  transition: all 0.3s;
-  vertical-align: middle;
-
-  &:hover {
-    background-color: #006943;
-  };
-
-  &:hover .file_ico {
-    transform: translateY(0);
-    transition: 0.5s;
-  }
-
-  &:hover .file_text {
-    transform: translateY(100px);
-  }
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
 }
 
-.file .file_text {
-  font-size: 18px;
-  transition: 0.5s;
+.file span {
+  
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: top 0.5s;
+
 }
 
-.file .file_ico {
+.file_text {
+  font-size: 12px;
   position: absolute;
-  font-size: 24px;
-  transform: translateY(100px);
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
 }
+
+.file_ico {
+  font-size: 20px;
+  position: absolute;
+  width: 100%;
+  top: 150%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.file:hover {
+  background-color: #009b62;
+}
+
+.file:hover .file_text {
+  top: -100%;
+}
+
+.file:hover .file_ico {
+  top: 50%;
+}
+
+button {
+  width: fit-content;
+  min-width: 100px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2.5px solid #E0E1E4;
+  box-shadow: 0px 0px 20px -20px;
+  cursor: pointer;
+  background-color: white;
+  transition: all 0.2s ease-in-out 0ms;
+  user-select: none;
+}
+
+button:hover {
+  background-color: #F2F2F2;
+  box-shadow: 0px 0px 20px -18px;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+
+
 
 
 
