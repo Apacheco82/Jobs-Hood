@@ -25,6 +25,11 @@
   margin-top: 8%;
 }
 
+.container-question{
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
 
   /*AVATAR*/
 
@@ -110,8 +115,3 @@ button:active .send {
 
 
 
-
-
-
-
-  

@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 const Review = (props) => {
   return (
     <div className="col-8 mt-2 d-flex justify-content-center">
-      <div className="card" style={{width: "50rem"}}>
+      <div className="card card-stars" >
         <ReactStars
           value={props.rating}
           count={5}
