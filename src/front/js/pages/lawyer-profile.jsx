@@ -237,6 +237,13 @@ export const LawyerProfile = () => {
                     />
                   )}
 
+                  {canAsk && (
+                    <WriteQuestion
+                      questionChange={questionChange}
+                      questionSubmit={questionSubmit}
+                    />
+                  )}
+
                   <div className="container">
                     {question.map((question, index) => (
                       <div className="container container-question m-1 p-1" key={index}>
