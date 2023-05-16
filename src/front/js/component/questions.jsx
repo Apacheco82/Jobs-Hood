@@ -1,35 +1,24 @@
 import React from "react";
 
-const Questions = (props) => {
+const Questions = ({text, user_name, data}) => {
+
   return (
-<div className="col-8 mt-2">
-  <div className="card">
-    <div className="card-body">
-      <div className="row">
-        <div className="col-12">
-          <div className="text-left">
-            <p>{props.text}</p>
-            <p>{props.user_name}</p>
-            <p>{props.data}</p>
-          </div>
-        </div>
-        {props.comment &&
-          typeof props.comment === "object" && (
+    <div className="col-8 mt-2 d-flex justify-content-center">
+      <div className="card card-stars">
+        <div className="card-body">
+          <div className="row">
             <div className="col-12">
-              <div className="card">
-                <div className="card-body text-end">
-                  <p>{props.comment.text}</p>
-                  <p>{props.comment.name}</p>
-                  <p>{props.comment.data_create}</p>
-                </div>
+              <div className="text-left">
+                <p>{text}</p>
+                <p>{user_name}</p>
+                <p>{data}</p>
               </div>
             </div>
-          )}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
   );
 };
 
-export default Questions;
+export default Questions; 
