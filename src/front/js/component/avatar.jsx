@@ -32,18 +32,30 @@ export const Avatar = () => {
     
   
     return (
-      <div className="container input-group mb-3">
+      <div className="input-group d-flex flex-column gap-2 align-items-start mb-3 avatar_container">
         
-        <img src={fileUrl}></img>
-        <label className="file" for="file">
-          <span className="file_text">Elija una imagen</span>
-          <span className="file_ico"><FaUpload/></span>
-        </label>
-        <input id="file" type="file" onChange={handleChange} ></input>
-        
-        <button className="send_button" onClick={handleClick}>
-          <span className="send">Enviar</span> 
-        </button>
+        <div className="row preview">
+          <div className="col-12">
+            <img src={fileUrl}></img>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+
+            <label className="file" for="file">
+              <span className="file_text">Elija una imagen</span>
+              <span className="file_ico"><FaUpload/></span>
+            </label>
+            <input id="file" type="file" onChange={handleChange} ></input>
+            
+          </div>
+          <div className="col">
+            <button className="send_button" onClick={handleClick}>
+              <span className="send">Enviar</span> 
+            </button>
+
+          </div>
+        </div>
       </div>
     );
   };

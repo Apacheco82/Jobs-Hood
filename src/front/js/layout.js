@@ -14,7 +14,6 @@ import { CompanyProfile } from "./pages/company-profile.jsx";
 import { LawyerProfile } from "./pages/lawyer-profile.jsx";
 import { AllLawyers } from "./pages/all-lawyers.jsx";
 import { AllCompanies } from "./pages/all-companies.jsx";
-import { Avatar } from "./component/avatar.jsx";
 import { Register } from "./pages/register.jsx";
 import { EditProfileLawyer} from "./pages/edit-profile-lawyer.jsx"
 import { EditProfileCompany} from "./pages/edit-profile-company.jsx"
@@ -32,7 +31,6 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>           
                     <Navbar />
-                    <Avatar />
                     <Routes>
                         <Route element={<Home/>} path="/" />    
                         <Route element={<Profile />} path="/worker/profile" />                      
