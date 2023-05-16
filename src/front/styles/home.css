@@ -103,8 +103,9 @@ button:hover {
   box-shadow: 0px 0px 20px -18px;
 }
 
-button:active {
-  transform: scale(0.95);
+button:active .send {
+  font-size: 18px;
+  transition: 0.1s;
 }
 
 

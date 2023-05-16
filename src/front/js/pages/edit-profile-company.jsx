@@ -4,6 +4,7 @@ import { Province } from "../component/form-province.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import { editCompany } from "../services/company.js";
 import Spinner from "../component/Spinner.jsx";
+import Avatar from "../component/avatar.jsx"
 
 
 
@@ -64,6 +65,7 @@ export const EditProfileCompany = () => {
                             </div>
 
                             <div className="col">
+                                <Avatar />
                                 <label htmlFor="form-register-company" className="form-label">
                                     Dirección
                                 </label>

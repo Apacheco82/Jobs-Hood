@@ -41,7 +41,11 @@ export const Avatar = () => {
         </label>
         <input id="file" type="file" onChange={handleChange} ></input>
         
-        <button className="send_file" onClick={handleClick}>Enviar</button>
+        <button className="send_button" onClick={handleClick}>
+          <span className="send">Enviar</span> 
+        </button>
       </div>
     );
   };
+
+export default Avatar;

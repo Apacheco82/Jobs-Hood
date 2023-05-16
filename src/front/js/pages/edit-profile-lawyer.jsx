@@ -5,6 +5,7 @@ import { Province } from "../component/form-province.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import { editLawyer } from "../services/lawyer.js";
 import Spinner from "../component/Spinner.jsx";
+import Avatar from "../component/avatar.jsx"
 
 
 
@@ -47,6 +48,12 @@ export const EditProfileLawyer = () => {
       {spinner ? (<Spinner />) : (
         <div className="container my-5"> <h1> Edición de Usuario</h1>
           <form onSubmit={handleSubmit}>
+
+            <div className="row my-3">
+              <div className="col">
+                <Avatar />
+              </div>
+            </div>
             <div className="row align-items-start my-3">
 
               <div className="col">
