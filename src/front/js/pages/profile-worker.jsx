@@ -7,53 +7,46 @@ import { Context } from "../store/appContext.js";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const  params = useParams();
   const {store,actions} = useContext(Context );
   
 
   const [spinner, setSpinner] = useState(false);
  
 
+  // let token = localStorage.getItem("token"); 
 
-  async function getProfile() {
-    let token = localStorage.getItem("token");  // alcance de la funcion. duda
-    if (token) {
-      setSpinner(true)
-      const dataFromFetch = await getUserPrivate();
-      console.log("DATA PRIVADA CON TOKEN",dataFromFetch)
-      actions.setUser(dataFromFetch);
-      console.log("EL STORE USER",store.user)
-      setSpinner(false)
-      return dataFromFetch;
-    }
-    navigate("/login");
-  }
+  const getInfoUser = async () => {
+    if (params.id) {
+      //perfil publico
+      const info = await userById(params.id); //llamamos a la función que obtiene un USER filtrando por su ID
+      return info.data;
+    } //perfil privado
+    const workerData = await getUserPrivate();
+    return workerData;
+  };
 
   const handleEdit = async() =>{  
     navigate('/edit/profile-worker')
   }
 
-  useEffect(() => { // notas: consultar mañana ya que no carga la info 
-    const fetchData = async () => {
-      const workerId = id;
-      if(!workerId){
-        await getProfile();
-      }else{
-        setSpinner(true);
-        const workerInfo = await userById(workerId);
-        console.log("EL WORKER INFOOO",workerInfo)
-        actions.setUser(workerInfo.data);
-        setSpinner(false)
-        return workerInfo
-      }
-      
+  const fetchData = async () => {
+
+    setSpinner(true);
+    const infoWorker = await getInfoUser();
+    actions.setUser(infoWorker)
+    setSpinner(false)
+  }
+
+  useEffect(() => { 
+    
     fetchData();
-  }}, [id]);
+  }, []);
 
   
   return ( <>
     {spinner  ? (<Spinner />) : ( <React.Fragment>
-    <UserWorker   onClick = {handleEdit}  user={store.user} userPrivate= {!id} showEditButton={!id} />
+    <UserWorker   onClick = {handleEdit}  user={store.user} userPrivate= {!params.id} showEditButton={!params.id} />
   </React.Fragment>)}
  
   </>
