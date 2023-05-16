@@ -71,6 +71,8 @@ def update_avatar():
 def edit_user():
     user_logged = get_jwt_identity()
     info = request.get_json()
+    avatar = request.files['avatar']
+    user_update = Controller.update_avatar(user, avatar)
     user = Controller.edit_user(user_logged["id"],info)
    
     if user:

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { uploadAvatar } from "../services/user.js"
 import {FaUpload} from "react-icons/fa";
+import "../../styles/avatar.css";
 
 
 export const Avatar = () => {
