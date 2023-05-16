@@ -53,35 +53,35 @@ export const LawyerProfile = () => {
     return lawyerData;
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const lawyerId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
-        setSpinner(true);
-        const screenUser = await getInfoUser();
-        actions.setUser(screenUser);
-        setLawyer(screenUser.lawyer);
-        setReview(screenUser.received_reviews);
-        setQuestion(screenUser.received_questions);
+  const fetchData = async () => {
+    try {
+      const lawyerId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
+      setSpinner(true);
+      const screenUser = await getInfoUser();
+      actions.setUser(screenUser);
+      setLawyer(screenUser.lawyer);
+      setReview(screenUser.received_reviews);
+      setQuestion(screenUser.received_questions);
 
 
-        if (token) {
-          const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
-          const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
-          const userHasReview = checkReview(loggedUser, lawyerId);
-          if (role === "User" && !userHasReview) {
-            setCanWrite(true);
-          }
-          if (role === "User") {
-            setCanAsk(true);
-          }
+      if (token) {
+        const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
+        const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
+        const userHasReview = checkReview(loggedUser, lawyerId);
+        if (role === "User" && !userHasReview) {
+          setCanWrite(true);
         }
-        setSpinner(false);
-      } catch (error) {
-        console.log(error);
+        if (role === "User") {
+          setCanAsk(true);
+        }
       }
-    };
+      setSpinner(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -145,10 +145,10 @@ export const LawyerProfile = () => {
       user_id: userData.id,
       name: userData.name,
     };
-    setAnswer(myAnswer);
     const response = await createAnswer(myAnswer, store.questionId);
+    setAnswer(myAnswer);
     actions.setQuestionId(0);
-    setSpinner(false);
+    await fetchData()
   };
 
   //console.log(respuesta)
@@ -228,12 +228,6 @@ export const LawyerProfile = () => {
                       direction={"/login"}
                       text={"Inicia sesión para poder dar tu opinión"}
                       type={"button"}
-                    />
-                  )}
-                  {canAsk && (
-                    <WriteQuestion
-                      questionChange={questionChange}
-                      questionSubmit={questionSubmit}
                     />
                   )}
 
