@@ -4,6 +4,7 @@ import { Province } from "../component/form-province.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import { editUser } from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
+import { useNavigate} from "react-router-dom";
 
 
 
@@ -12,6 +13,7 @@ export const EditProfileWorker = () => {
 
 
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
 
   const [editedWorker, setEditedWorker] = useState({
@@ -37,6 +39,7 @@ export const EditProfileWorker = () => {
     await editUser(editedWorker);
     setEditedWorker(store.user)
     setSpinner(false)
+    navigate("/worker/profile")
   };
 
 

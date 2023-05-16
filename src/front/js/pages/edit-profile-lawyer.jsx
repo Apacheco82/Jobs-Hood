@@ -6,6 +6,8 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editLawyer } from "../services/lawyer.js";
 import Spinner from "../component/Spinner.jsx";
 import Avatar from "../component/avatar.jsx"
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -15,6 +17,7 @@ export const EditProfileLawyer = () => {
 
 
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
 
   const [editedLawyer, setEditedLawyer] = useState({
@@ -39,6 +42,7 @@ export const EditProfileLawyer = () => {
     await editLawyer(editedLawyer);
     setEditedLawyer(store.user);
     setSpinner(false);
+    navigate("/lawyer/profile")
   };
 
   

@@ -5,6 +5,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editCompany } from "../services/company.js";
 import Spinner from "../component/Spinner.jsx";
 import Avatar from "../component/avatar.jsx"
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,6 +14,7 @@ export const EditProfileCompany = () => {
 
 
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [spinner, setSpinner] = useState(false);
 
     const [editedCompany, setEditedCompany] = useState({
@@ -38,6 +40,8 @@ export const EditProfileCompany = () => {
         await editCompany(editedCompany);
         setEditedCompany(store.user)
         setSpinner(false)
+        navigate("/company/profile")
+        
 
     };
 
