@@ -2,83 +2,72 @@ import React, {useEffect, useState, useContext} from "react";
 import {Tab, Nav} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
 import {userById, getUserPrivate} from "../services";
-// import {getReviewPerCompany} from "../services/company.js";
 import {createReview, checkReview} from "../services/review.js";
 import UserInfo from "../component/UserInfo.jsx";
 import Review from "../component/review.jsx";
 import WriteReview from "../component/WriteReview.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
-import { Context } from "../store/appContext.js";
-
-const initialState = {
-  receiver_id: 0,
-  author_id: 0,
-  rating: 0,
-  text: "",
-  user_name: "",
-};
+import {Context} from "../store/appContext.js";
 
 export const CompanyProfile = () => {
   const params = useParams();
-  const [login, setLogin] = useState(false);
   const [company, setCompany] = useState({});
   const [review, setReview] = useState([]);
   const [activeKey, setActiveKey] = useState("#nav-home");
   const [canWrite, setCanWrite] = useState(false);
-  const [opinion, setOpinion] = useState(initialState);
-  const [buttonLogin, setButtonLogin] = useState(false);
+  const [opinion, setOpinion] = useState({
+    receiver_id: 0,
+    author_id: 0,
+    rating: 0,
+    text: "",
+    user_name: "",
+  });
   const [spinner, setSpinner] = useState(false);
-
   const navigate = useNavigate();
-  const {store,actions} = useContext(Context );
+  const {store, actions} = useContext(Context);
+
+  const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
+
+  const getInfoUser = async () => {
+    if (params.id) {
+      //perfil publico
+      const info = await userById(params.id); //llamamos a la función que obtiene un USER filtrando por su ID
+      return info.data;
+    } //perfil privado
+    const companyData = await getUserPrivate();
+    return companyData;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const companyId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
-        const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
+        setSpinner(true);
+        const screenUser = await getInfoUser();
+        actions.setUser(screenUser);
+        setCompany(screenUser.company);
+        setReview(screenUser.received_reviews);
 
-        if (!companyId) {
-          setSpinner(true);
-          //si no hemos usado la ruta con id, estamos entrando por TOKEN
-          const companyData = await getUserPrivate(token); //se llama a la función que obtiene los datos de usuario a partir del token y los guardamos en una const
-          actions.setUser(companyData)
-          setCompany(companyData.company); //seteamos el useState de COMPANY
-          setLogin(true); //seteamos el useState LOGIN a TRUE, para poder editar todos los campos del formulario
-          setSpinner(false);
-        } else {
-          setSpinner(true);
-          //si hemos usado la ruta con ID
-          //primero obtenemos los datos de la empresa que se pintan en pantalla
-          const info = await userById(companyId); //llamamos a la función que obtiene un USER filtrando por su ID
-          actions.setUser(info.data); //seteamos el useState de USER
-          setCompany(info.data.company); //seteamos el useState de COMPANY
-          // const getReview = await getReviewPerCompany(companyId);
-          setReview(getReview.data);
-          setLogin(false); //seteamos el useState de LOGIN a FALSE, porque no vamos a poder editar los campos del formulario
-          setSpinner(false);
-          if (!token) {
-            setButtonLogin(true);
-          } else {
-            const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
-            const user = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
-            const userHasReview = checkReview(user, companyId);
-            if (role === "User" && !userHasReview) {
-              setCanWrite(true);
-            }
+        if (token) {
+          const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
+          const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
+          const userHasReview = checkReview(loggedUser, companyId);
+          if (role === "User" && !userHasReview) {
+            setCanWrite(true);
           }
         }
+        setSpinner(false);
       } catch (error) {
         console.log(error);
       }
     };
+
     fetchData();
   }, []);
 
   const reviewChange = (e) => {
     const {name, value} = e.target;
-    //console.log(value)
     setOpinion({...opinion, [name]: value});
   };
 
@@ -94,19 +83,16 @@ export const CompanyProfile = () => {
       user_name: userData.user_name,
     };
     setOpinion(myOpinion);
-    //console.log("my opinion",myOpinion)
     const response = await createReview(myOpinion);
-    //console.log("response",response)
     setCanWrite(false);
     const newReviews = [...review, response.data];
     setReview(newReviews); // Actualizar la lista de revisiones
-    //console.log("review", response.data)
     setSpinner(false);
   };
 
-  const handleEdit = async() =>{  
-    navigate('/edit/profile-company')
-  }
+  const handleEdit = async () => {
+    navigate("/edit/profile-company");
+  };
 
   return (
     <>
@@ -114,7 +100,12 @@ export const CompanyProfile = () => {
         <Spinner />
       ) : (
         <>
-          <UserInfo  onClick ={handleEdit} user={store.user} profile={company} showEditButton={login} />
+          <UserInfo
+            onClick={handleEdit}
+            user={store.user}
+            profile={company}
+            showEditButton={!params.id}
+          />
 
           <div className="container d-flex justify-content-center mt-1">
             <Nav
@@ -134,7 +125,7 @@ export const CompanyProfile = () => {
               <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
                 <div>
                   {" "}
-                  {buttonLogin && (
+                  {!token && (
                     <LinkButton
                       direction={"/login"}
                       text={"Inicia sesión para poder dar tu opinión"}
