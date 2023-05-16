@@ -4,11 +4,13 @@ import {userById, getUserPrivate} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
 import {Tab, Nav} from "react-bootstrap";
 import {createReview, checkReview} from "../services/review.js";
-import {createQuestion, checkQuestion} from "../services/question";
+import {createQuestion, createAnswer} from "../services/question";
 import Review from "../component/review.jsx";
 import Questions from "../component/questions.jsx";
+import Answers from "../component/Answers.jsx";
 import WriteReview from "../component/WriteReview.jsx";
 import WriteQuestion from "../component/WriteQuestion.jsx";
+import WriteAnswer from "../component/WriteAnswer.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
@@ -37,9 +39,9 @@ export const LawyerProfile = () => {
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
   const {store, actions} = useContext(Context);
+  const [answer, setAnswer] = useState({});
 
   const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
-  //console.log(token)
 
   const getInfoUser = async () => {
     if (params.id) {
@@ -51,35 +53,35 @@ export const LawyerProfile = () => {
     return lawyerData;
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const lawyerId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
-        setSpinner(true);
-        const screenUser = await getInfoUser();
-        actions.setUser(screenUser);
-        setLawyer(screenUser.lawyer);
-        setReview(screenUser.received_reviews);
-        setQuestion(screenUser.received_questions);
-       
-        if (token) {
-          const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
-          const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
-          const userHasReview = checkReview(loggedUser, lawyerId);
-          if (role === "User" && !userHasReview) {
-            setCanWrite(true);
-          }
-          const userHasAsk = checkQuestion(loggedUser, lawyerId);
-          if (role === "User" && !userHasAsk) {
-            setCanAsk(true);
-          }
-        }
-        setSpinner(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const lawyerId = params.id; //parámetro que puede llegar o no desde la URL (ver layout.js)
+      setSpinner(true);
+      const screenUser = await getInfoUser();
+      actions.setUser(screenUser);
+      setLawyer(screenUser.lawyer);
+      setReview(screenUser.received_reviews);
+      setQuestion(screenUser.received_questions);
 
+
+      if (token) {
+        const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
+        const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
+        const userHasReview = checkReview(loggedUser, lawyerId);
+        if (role === "User" && !userHasReview) {
+          setCanWrite(true);
+        }
+        if (role === "User") {
+          setCanAsk(true);
+        }
+      }
+      setSpinner(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -91,8 +93,7 @@ export const LawyerProfile = () => {
   const reviewSubmit = async (e) => {
     e.preventDefault();
     setSpinner(true);
-    const userToken = localStorage.getItem("token");
-    const userData = await getUserPrivate(userToken);
+    const userData = await getUserPrivate(token);
     const myOpinion = {
       ...opinion,
       receiver_id: params.id,
@@ -114,8 +115,7 @@ export const LawyerProfile = () => {
   const questionSubmit = async (e) => {
     e.preventDefault();
     setSpinner(true);
-    const userToken = localStorage.getItem("token");
-    const userData = await getUserPrivate(userToken);
+    const userData = await getUserPrivate(token);
     const myQuestion = {
       ...ask,
       lawyer_id: params.id,
@@ -125,10 +125,33 @@ export const LawyerProfile = () => {
     setAsk(myQuestion);
     const response = await createQuestion(myQuestion);
     const newQuestion = [...question, response.data];
-    setQuestion(newQuestion); // Actualizar la lista de preguntas
+    setQuestion(newQuestion)
     setCanAsk(false);
     setSpinner(false);
   };
+
+  const answerChange = (e) => {
+    const {name, value} = e.target;
+    setAnswer({...answer, [name]: value});
+  };
+
+  const answerSubmit = async (e) => {
+    e.preventDefault();
+    setSpinner(true);
+    const userData = await getUserPrivate(token);
+    const myAnswer = {
+      ...answer,
+      question_id: store.questionId,
+      user_id: userData.id,
+      name: userData.name,
+    };
+    const response = await createAnswer(myAnswer, store.questionId);
+    setAnswer(myAnswer);
+    actions.setQuestionId(0);
+    await fetchData()
+  };
+
+  //console.log(respuesta)
 
   const handleEdit = async () => {
     navigate("/edit/profile-lawyer");
@@ -207,21 +230,37 @@ export const LawyerProfile = () => {
                       type={"button"}
                     />
                   )}
+
                   {canAsk && (
                     <WriteQuestion
                       questionChange={questionChange}
                       questionSubmit={questionSubmit}
                     />
                   )}
-                  {question.map((question, index) => (
-                    <Questions
-                      key={index}
-                      text={question.text}
-                      user_name={question.user_name}
-                      comment={question.question_comment}
-                      data={question.data_create}
-                    />
-                  ))}
+
+                  <div className="container">
+                    {question.map((question, index) => (
+                      <div className="container container-question m-1 p-1" key={index}>
+                        <Questions
+                          text={question.text}
+                          user_name={question.user_name}
+                          data={question.data_create}
+                        />
+
+                        {question.question_comment && (
+                          <Answers comment={question.question_comment} />
+                        )}
+
+                        {!params.id && !question.question_comment && (
+                          <WriteAnswer
+                            answerChange={answerChange}
+                            answerSubmit={answerSubmit}
+                            questionId={question.id}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </Tab.Pane>
               </Tab.Content>
             </div>
