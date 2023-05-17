@@ -17,13 +17,13 @@ def get_companies():
 def get_company_by_user_id(user_id):
     return Company.query.filter_by(user_id = user_id).first()
 
-def register_company(data, address, province, cp, cif):
+def register_company(data, address, province, cif):
 
     roles = find_role('Company', Roles)
 
     user = create_user_by_role(data, roles.id)
 
-    new_company = Company(address, province, cp, cif)
+    new_company = Company(address, province, cif)
         
     user.company = new_company
 
@@ -36,7 +36,6 @@ def edit_user_company(info, company):
    
     company.address = info['address']
     company.province = info['province']
-    company.cp = info['cp']
 
 
    
