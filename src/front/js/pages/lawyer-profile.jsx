@@ -14,6 +14,7 @@ import WriteAnswer from "../component/WriteAnswer.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
+import AverageRating from "../component/AverageRating.jsx";
 
 export const LawyerProfile = () => {
   const params = useParams();
@@ -62,7 +63,6 @@ export const LawyerProfile = () => {
       setLawyer(screenUser.lawyer);
       setReview(screenUser.received_reviews);
       setQuestion(screenUser.received_questions);
-
 
       if (token) {
         const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
@@ -125,7 +125,7 @@ export const LawyerProfile = () => {
     setAsk(myQuestion);
     const response = await createQuestion(myQuestion);
     const newQuestion = [...question, response.data];
-    setQuestion(newQuestion)
+    setQuestion(newQuestion);
     setCanAsk(false);
     setSpinner(false);
   };
@@ -148,7 +148,7 @@ export const LawyerProfile = () => {
     const response = await createAnswer(myAnswer, store.questionId);
     setAnswer(myAnswer);
     actions.setQuestionId(0);
-    await fetchData()
+    await fetchData();
   };
 
   //console.log(respuesta)
@@ -194,6 +194,7 @@ export const LawyerProfile = () => {
                 >
                   <div>
                     {" "}
+                    <AverageRating reviews={review} />
                     {!token && (
                       <LinkButton
                         direction={"/login"}
@@ -241,7 +242,10 @@ export const LawyerProfile = () => {
 
                   <div className="container">
                     {question.map((question, index) => (
-                      <div className="container container-question m-1 p-1" key={index}>
+                      <div
+                        className="container container-question m-1 p-1"
+                        key={index}
+                      >
                         <Questions
                           text={question.text}
                           user_name={question.user_name}

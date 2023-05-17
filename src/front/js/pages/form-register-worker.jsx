@@ -7,10 +7,12 @@ import {Context} from "../store/appContext";
 import {registerUser} from "../services";
 import FormUser from "../component/FormUser.jsx";
 import Spinner from "../component/Spinner.jsx";
+import LinkButton from "../component/LinkButton.jsx";
 
 export const RegistroWorker = () => {
   const {store, actions} = useContext(Context);
   const [spinner, setSpinner] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   const navigate = useNavigate();
 
@@ -33,7 +35,11 @@ export const RegistroWorker = () => {
     const register = await registerUser(registro);
     setSpinner(false);
     if (register) {
-      navigate("/login");
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+        navigate("/login");
+      }, 3000);
     } else {
       navigate("/");
     } // Pintar alerts entc en el front para controlar esta parte, de momento se queda con este condicional
@@ -45,7 +51,17 @@ export const RegistroWorker = () => {
         <Spinner />
       ) : (
         <>
-          <FormUser handleChange={handleChange} handleSubmit={handleSubmit} />
+          {" "}
+          <div className="d-flex justify-content-center m-5">
+            {alert && (
+              <div className="alert alert-success" role="alert">
+                Usuario creado correctamente
+              </div>
+            )}
+          </div>
+          <div className="card d-flex justify-content-between m-5">
+            <FormUser handleChange={handleChange} handleSubmit={handleSubmit} />
+          </div>
         </>
       )}
     </>

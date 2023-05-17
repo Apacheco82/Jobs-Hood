@@ -9,6 +9,8 @@ import WriteReview from "../component/WriteReview.jsx";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
+import AverageRating from "../component/AverageRating.jsx";
+
 
 export const CompanyProfile = () => {
   const params = useParams();
@@ -125,6 +127,9 @@ export const CompanyProfile = () => {
               <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
                 <div>
                   {" "}
+
+                  <AverageRating reviews={review} />
+
                   {!token && (
                     <LinkButton
                       direction={"/login"}
