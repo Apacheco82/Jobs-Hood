@@ -1,44 +1,55 @@
 import React, {useState, useEffect,useContext} from "react";
-import {getUserPrivate} from "../services";
-import {useNavigate} from "react-router-dom";
+import {getUserPrivate, userById} from "../services";
+import {useNavigate, useParams} from "react-router-dom";
 import UserWorker from "../component/UserWorker.jsx";
 import Spinner from "../component/Spinner.jsx";
 import { Context } from "../store/appContext.js";
 
-export const Profile = (props) => {
+export const Profile = () => {
   const navigate = useNavigate();
+  const  params = useParams();
   const {store,actions} = useContext(Context );
-
+  
 
   const [spinner, setSpinner] = useState(false);
-  
-  async function getProfile() {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setSpinner(true)
-      const dataFromFetch = await getUserPrivate();
-      actions.setUser(dataFromFetch);
-      setSpinner(false)
-      return dataFromFetch;
-    }
-    navigate("/login");
-  }
+ 
+
+  // let token = localStorage.getItem("token"); 
+
+  const getInfoUser = async () => {
+    if (params.id) {
+      //perfil publico
+      const info = await userById(params.id); //llamamos a la función que obtiene un USER filtrando por su ID
+      return info.data;
+    } //perfil privado
+    const workerData = await getUserPrivate();
+    return workerData;
+  };
 
   const handleEdit = async() =>{  
     navigate('/edit/profile-worker')
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      getProfile();
-    };
+  const fetchData = async () => {
+
+    setSpinner(true);
+    const infoWorker = await getInfoUser();
+    actions.setUser(infoWorker)
+    setSpinner(false)
+  }
+
+  useEffect(() => { 
+    
     fetchData();
   }, []);
 
+  
   return ( <>
-    {spinner ? (<Spinner />): ( <React.Fragment>
-    <UserWorker onClick = {handleEdit} user={store.user} showEditButton={true} />
+    {spinner  ? (<Spinner />) : ( <React.Fragment>
+    <UserWorker   onClick = {handleEdit}  user={store.user} userPrivate= {!params.id} showEditButton={!params.id} />
   </React.Fragment>)}
+ 
   </>
   );
 };
+

@@ -1,5 +1,5 @@
                                         
-![api jobshood ](JobsHood_Esquema_API.png) 
+![api jobshood ](API_JOBS_HOOD.png) 
 
 # WebApp boilerplate with React JS and Flask API
 
