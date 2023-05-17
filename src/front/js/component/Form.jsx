@@ -136,20 +136,6 @@ const Form = ({form, handleChange, handleSubmit, userType}) => {
                 />
               </div>
             )}
-            <div className="col">
-              <label htmlFor="form-register-company" className="form-label">
-                Código postal
-              </label>
-              <input
-                type="text"
-                name="cp"
-                value={form.cp}
-                className="form-control rounded-0"
-                placeholder="Código postal"
-                maxLength="5"
-                required
-              />
-            </div>
           </div>
           <input
             type="submit"

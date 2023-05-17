@@ -13,7 +13,6 @@ export const RegistroLawyer = () => {
     email: "",
     address: "",
     province: "",
-    cp: "",
     col_number: "",
   };
 
