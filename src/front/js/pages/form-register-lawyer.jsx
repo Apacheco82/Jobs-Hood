@@ -20,6 +20,7 @@ export const RegistroLawyer = () => {
   const [form, setForm] = useState(initialState);
   const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
+  const [alert, setAlert] = useState(false);
 
   // Función que actualiza el user_name basado en el campo email
   const updateUserName = (email) => {
@@ -38,14 +39,18 @@ export const RegistroLawyer = () => {
     setForm({...form, [name]: value}); // se setean los cambios en el usestate de form
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setSpinner(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSpinner(false);
     await registerLawyer(form);
     setForm(initialState);
     setSpinner(false);
     if (registerLawyer) {
-      navigate("/login");
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+        navigate("/login");
+      }, 3000);
     } else {
       navigate("/");
     } //provisional, aquí se pondrán alerts de bootstrap en pantalla para controlar errores
@@ -57,12 +62,21 @@ export const RegistroLawyer = () => {
         <Spinner />
       ) : (
         <>
-          <Form
-            userType="lawyer"
-            form={form}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-          />
+          <div className="d-flex justify-content-center m-5">
+            {alert && (
+              <div className="alert alert-success" role="alert">
+                Usuario creado correctamente
+              </div>
+            )}
+          </div>
+          <div className="card d-flex justify-content-between m-5">
+            <Form
+              userType="lawyer"
+              form={form}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </>
       )}
     </>
