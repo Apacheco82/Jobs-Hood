@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import UserWorker from "../component/UserWorker.jsx";
 import Spinner from "../component/Spinner.jsx";
 import { Context } from "../store/appContext.js";
+import Review from "../component/review.jsx";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export const Profile = () => {
   
 
   const [spinner, setSpinner] = useState(false);
+  const [userReviews, setUserReviews] = useState([]);
  
 
   // let token = localStorage.getItem("token"); 
@@ -35,6 +37,8 @@ export const Profile = () => {
     setSpinner(true);
     const infoWorker = await getInfoUser();
     actions.setUser(infoWorker)
+    console.log(infoWorker)
+    setUserReviews(infoWorker.written_reviews)
     setSpinner(false)
   }
 
@@ -47,6 +51,19 @@ export const Profile = () => {
   return ( <>
     {spinner  ? (<Spinner />) : ( <React.Fragment>
     <UserWorker   onClick = {handleEdit}  user={store.user} userPrivate= {!params.id} showEditButton={!params.id} />
+    <div className="container">
+      <h4> Opiniones del usuario :</h4>
+    {userReviews.map((review, index) => (
+                    <Review
+                      key={index}
+                      text={review.text}
+                      user_name={review.user_name}
+                      rating={review.rating}
+                      data={review.data_create}
+                    />
+                  ))}
+    </div>
+    
   </React.Fragment>)}
  
   </>
