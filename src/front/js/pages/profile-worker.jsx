@@ -37,7 +37,6 @@ export const Profile = () => {
     setSpinner(true);
     const infoWorker = await getInfoUser();
     actions.setUser(infoWorker)
-    console.log(infoWorker)
     setUserReviews(infoWorker.written_reviews)
     setSpinner(false)
   }
