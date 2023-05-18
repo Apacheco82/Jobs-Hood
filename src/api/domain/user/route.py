@@ -58,7 +58,7 @@ def update_avatar():
         avatar = request.files['avatar'] # Es el avatar que pasamos en el form.append en el handleClick 
         print(avatar)
         user_update = Controller.update_avatar(user, avatar)
-        print("USER UPDATE",user_update)
+        print("USER UPDATE", user_update)
         return Response.response_ok(user_update.serialize(), "Avatar actualizado", 200)
         
     except Exception as error:

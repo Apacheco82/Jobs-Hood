@@ -33,14 +33,18 @@ def get_single_user(id):
 def update_avatar(id, avatar):
     user = User.query.get(id)
     user.avatar = avatar['secure_url']
+    
     db.session.commit()
 
-def edit_user(user,info):
+    return user
+
+def edit_user(user, info):
     
     user.user_name = info['user_name']     
     user.name = info['name']
     user.last_name = info['last_name']
     user.email = info['email']
+    user.avatar = info['secure_url']
     user.avatar = info['avatar']
 
     db.session.commit()
