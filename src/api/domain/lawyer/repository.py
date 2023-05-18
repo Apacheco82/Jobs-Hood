@@ -15,13 +15,13 @@ def get_lawyers():
 def get_lawyer_by_user_id(user_id):
     return Lawyer.query.filter_by(user_id = user_id).first()
 
-def register_lawyer(data, address, province, cp, col_number):
+def register_lawyer(data, address, province, col_number):
 
     roles = find_role('Lawyer', Roles)
 
     user = create_user_by_role(data, roles.id)
 
-    new_lawyer = Lawyer(address, province, cp, col_number)  
+    new_lawyer = Lawyer(address, province, col_number)  
     
     user.lawyer = new_lawyer
     
@@ -34,7 +34,7 @@ def edit_user_lawyer(info, lawyer):
    
     lawyer.address = info['address']
     lawyer.province = info['province']
-    lawyer.cp = info['cp']
+
 
 
    

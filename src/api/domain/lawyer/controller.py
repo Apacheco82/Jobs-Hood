@@ -17,8 +17,7 @@ def register_lawyer(data):
 
     return Repository.register_lawyer(data,
     data['address'], 
-    data['province'], 
-    data['cp'], 
+    data['province'],  
     data['col_number']
     )
 

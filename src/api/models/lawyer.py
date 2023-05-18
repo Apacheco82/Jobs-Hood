@@ -9,15 +9,13 @@ class Lawyer(db.Model):
     user = db.relationship('User', back_populates='lawyer')
     address = db.Column(db.String(100), nullable=False)
     province = db.Column(db.String(100), nullable=False)
-    cp = db.Column(db.Integer(), nullable=False)
     col_number = db.Column(db.Integer(), unique=True, nullable=False)
     favs = db.relationship("Favorites", back_populates= "lawyer")
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, address,province, cp, col_number): 
+    def __init__(self, address,province, col_number): 
         self.address = address
         self.province = province
-        self.cp = cp
         self.col_number = col_number
     
     def serialize(self):
@@ -25,6 +23,5 @@ class Lawyer(db.Model):
         "id" : self.id,
         "address": self.address,
         "province" : self.province,
-        "cp": self.cp,
         "col_number": self.col_number
         }
