@@ -12,8 +12,7 @@ const initialState = {
   password: "",
   province: "",
   cif: "",
-  address: "",
-  cp: "",
+  address: ""
 };
 
 export const RegisterCompany = () => {

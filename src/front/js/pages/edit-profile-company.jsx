@@ -21,7 +21,6 @@ export const EditProfileCompany = () => {
         email: store.user.email,
         address: store.user.company.address,
         province: store.user.company.province,
-        cp: store.user.company.cp
     });
 
 
@@ -107,20 +106,6 @@ export const EditProfileCompany = () => {
 
                             </div>
 
-                            <div className="col">
-                                <label htmlFor="form-register-company" className="form-label">
-                                    Código postal
-                                </label>
-                                <input
-                                    onChange={handleChange}
-                                    defaultValue={store.user.company.cp}
-                                    type="text"
-                                    name="cp"
-                                    className="form-control rounded-0"
-                                    maxLength="5"
-
-                                />
-                            </div>
                         </div>
                         <div className="d-flex">
                             <input
