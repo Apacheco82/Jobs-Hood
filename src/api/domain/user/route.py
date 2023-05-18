@@ -18,7 +18,7 @@ def create_user():
         body = request.get_json()
         new_user = Controller.create_user(body)   
         if isinstance(new_user, User):   
-            return Response.response_ok(new_user.serialize(), "Usuario registrado correctamente!", 201)
+            return Response.response_ok(new_user.serialize(), "Usuario registrado correctamente", 201)
         return new_user #para que recoja el error de la funcion validar_usuario
 
 @api.route('/login', methods=['POST'])
@@ -74,8 +74,19 @@ def edit_user():
     avatar = request.files['avatar']
     user_update = Controller.update_avatar(user, avatar)
     user = Controller.edit_user(user_logged["id"],info)
-   
     if user:
-        return Response.response_ok(user.serialize_only_user() , "Usuario editado correctamente!",200)
+        return Response.response_ok(user.serialize_only_user() , "Usuario editado correctamente",200)
     else:
-       return Response.response_error("Error al guardar los datos!", 400) 
+       return Response.response_error("Error al guardar los datos", 400) 
+
+@api.route("/check", methods= ["POST"])
+def check():
+    data = request.get_json()
+    print("---------------------",data.get('cif'))
+    if data.get('col_number') is not None:
+        result = Controller.check_lawyer(data)
+    elif data.get('cif') is not None:
+        result = Controller.check_company(data)
+    else:
+        result = Controller.check_worker(data)
+    return result

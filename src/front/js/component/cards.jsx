@@ -1,36 +1,38 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 
-
-const cards = (props) => {
-
+const Cards = ({ name, province, email, address, category, id, averageRating }) => {
   return (
-
-<div className="col-4 mt-2">
-<div className="card" style={{width: "18rem"}}>
+    <div className="col-4 mt-2">
+      <div className="card" style={{ width: "18rem" }}>
         <img className="card-img-top" src="..." alt="Card image cap"></img>
         <div className="card-body">
-          <h5 className="card-title">{props.name}</h5>
-          <p className="card-text">
-            {props.address}
-          </p>
-          <p className="card-text">{props.province}
-            </p>
-            <p className="card-text">{props.cp}</p>
-            <p className="card-text">{props.email}</p>
-            <p className="card-text">{props.cif}</p>
+          <h5 className="card-title">{name}</h5>
+          <div>
+            <ReactStars
+              count={5}
+              size={24}
+              activeColor="#ffd700"
+              color="#ddd"
+              edit={false}
+              isHalf={true}
+              value={averageRating}
+            />
+          </div>
+          <p className="card-text">{address}</p>
+          <p className="card-text">{province}</p>
+          <p className="card-text">{email}</p>
 
-            <Link to={`/${props.category}/${props.id}`}>
+          <Link to={`/${category}/${id}`}>
             <button type="button" className="btn btn-success">
               Info
             </button>
           </Link>
-
         </div>
       </div>
-</div>
-
+    </div>
   );
 };
 
-export default cards;
+export default Cards;

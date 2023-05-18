@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {registerLawyer} from "../services/lawyer.js";
+import {checkUser} from "../services/user.js";
 import {useNavigate} from "react-router-dom";
 import Form from "../component/Form.jsx";
 import Spinner from "../component/Spinner.jsx";
+import Alert from "../component/Alert.jsx";
 
 export const RegistroLawyer = () => {
   const initialState = {
@@ -13,13 +15,15 @@ export const RegistroLawyer = () => {
     email: "",
     address: "",
     province: "",
-    cp: "",
-    col_number: "",
+    col_number: ""
   };
 
   const [form, setForm] = useState(initialState);
   const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
 
   // Función que actualiza el user_name basado en el campo email
   const updateUserName = (email) => {
@@ -38,17 +42,40 @@ export const RegistroLawyer = () => {
     setForm({...form, [name]: value}); // se setean los cambios en el usestate de form
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setSpinner(true);
-    await registerLawyer(form);
-    setForm(initialState);
-    setSpinner(false);
-    if (registerLawyer) {
-      navigate("/login");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //setSpinner(true);
+    const check = await checkUser(form);
+    //console.log(check.msg);
+    setAlert(true);
+    setClassName("danger");
+    setMessage(check.msg);
+    setAlert(false);
+    //setSpinner(false)
+    if (!check.error) {
+      try {
+        const register = await registerLawyer(form);
+        if (register) {
+          //setSpinner(false);
+          setAlert(true);
+          setClassName("success");
+          setMessage(register.msg);
+          setTimeout(() => {
+            setAlert(false);
+            navigate("/login");
+          }, 3000);
+        }
+      } catch (error) {
+        setAlert(true);
+        setClassName("danger");
+        setMessage("Error del servidor");
+        setTimeout(() => {
+          setAlert(false);
+        }, 3000);
+      }
     } else {
-      navigate("/");
-    } //provisional, aquí se pondrán alerts de bootstrap en pantalla para controlar errores
+      setAlert(true);
+    }
   };
 
   return (
@@ -57,12 +84,19 @@ export const RegistroLawyer = () => {
         <Spinner />
       ) : (
         <>
-          <Form
-            userType="lawyer"
-            form={form}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-          />
+            {alert && (
+              <div className="d-flex justify-content-center m-5">
+                <Alert className={className} message={message} />
+              </div>
+            )}
+          <div className="card d-flex justify-content-between m-5">
+            <Form
+              userType="lawyer"
+              form={form}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </>
       )}
     </>

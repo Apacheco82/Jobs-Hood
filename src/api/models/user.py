@@ -11,6 +11,7 @@ class User(db.Model):
     name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(100))
     email = db.Column(db.String(250), unique=True, nullable=False)
+    description = db.Column(db.Text, default="")
     roles_id = db.Column(db.Integer, db.ForeignKey("roles.id"))
     roles = db.relationship("Roles", back_populates="user") 
     company = db.relationship("Company", back_populates='user', uselist=False)
@@ -45,6 +46,7 @@ class User(db.Model):
         "name" : self.name,
         "last_name" : self.last_name,
         "email" : self.email,
+        "description" : self.description,
         "roles_id": self.roles_id,
         "role": self.roles.description,
         "written_reviews": list(map(lambda written_review : written_review.serialize(), self.written_reviews)),

@@ -25,7 +25,6 @@ export const EditProfileLawyer = () => {
     email: store.user.email,
     address: store.user.lawyer.address,
     province: store.user.lawyer.province,
-    cp: store.user.lawyer.cp
   });
 
   const handleChange = (event) => {
@@ -115,20 +114,6 @@ export const EditProfileLawyer = () => {
 
               </div>
 
-              <div className="col">
-                <label htmlFor="form-register-company" className="form-label">
-                  Código postal
-                </label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={store.user.lawyer.cp}
-                  type="text"
-                  name="cp"
-                  className="form-control rounded-0"
-                  maxLength="5"
-
-                />
-              </div>
             </div>
             <div className="d-flex">
               <input

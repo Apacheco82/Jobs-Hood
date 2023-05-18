@@ -6,7 +6,7 @@ import api.domain.user.repository as UserRepository
 
 def get_companies():
     resultado = Repository.get_companies()
-    return Response.response_ok(resultado, "Get all companies", 201)
+    return Response.response_ok(resultado, "Todas las empresas", 201)
 
 def register_company(data):
 
@@ -18,7 +18,6 @@ def register_company(data):
     return Repository.register_company(data, #se crea una empresa haciendo referencia a los campos de Company
         data['address'], 
         data['province'], 
-        data['cp'], 
         data['cif']
         )
     

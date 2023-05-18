@@ -14,8 +14,10 @@ export const registerLawyer = async (user) => {
       headers: HEADERS,
       body: JSON.stringify(user),
     });
+    return await response.json()
   } catch (error) {
     console.log("Error al registrar el abogado", error);
+    throw error
   }
 };
 
