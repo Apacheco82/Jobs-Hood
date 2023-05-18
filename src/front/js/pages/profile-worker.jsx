@@ -5,6 +5,7 @@ import UserWorker from "../component/UserWorker.jsx";
 import Spinner from "../component/Spinner.jsx";
 import { Context } from "../store/appContext.js";
 import Review from "../component/review.jsx";
+import { Navbar } from "../component/navbar.js";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ export const Profile = () => {
   
   return ( <>
     {spinner  ? (<Spinner />) : ( <React.Fragment>
+    <Navbar/>
     <UserWorker   onClick = {handleEdit}  user={store.user} userPrivate= {!params.id} showEditButton={!params.id} />
     <div className="container">
       <h4> Opiniones del usuario :</h4>

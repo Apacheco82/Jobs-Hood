@@ -5,6 +5,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editUser } from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
 import { useNavigate} from "react-router-dom";
+import { Navbar } from "../component/navbar.js";
 
 
 
@@ -46,6 +47,9 @@ export const EditProfileWorker = () => {
   return (
     <>
       {spinner ? (<Spinner />) : (
+        
+       <React.Fragment>
+        <Navbar/>
         <div className="container my-5"> <h1> Edición de Usuario</h1>
           <form onSubmit={handleSubmit}>
             <div className="row align-items-start my-3">
@@ -123,9 +127,9 @@ export const EditProfileWorker = () => {
 
           </form>
         </div>
-
+        </React.Fragment>
       )}
-
+     
     </>
   )
 }

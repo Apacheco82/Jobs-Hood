@@ -1,8 +1,7 @@
-// faltará añadir navbar y footer
+
 import React, {useState, useEffect, useContext} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-//import { Link } from "react-router-dom";
-//import { Navbar } from ".././component/navbar";
+import { Navbar } from "../component/navbar.js";
 import {registerUser, checkUser} from "../services";
 import FormUser from "../component/FormUser.jsx";
 import Spinner from "../component/Spinner.jsx";
@@ -68,6 +67,7 @@ export const RegistroWorker = () => {
         <Spinner />
       ) : (
         <>
+        <Navbar/>
           {" "}
           {alert && (
             <div className="d-flex justify-content-center m-5">

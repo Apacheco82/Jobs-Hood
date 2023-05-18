@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
-import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png"
+import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png";
+import { Navbar } from "../component/navbar.js";
 
 export const Home = () => {
 
 
 	return (
 		<React.Fragment>
+			<Navbar/>
 			<div className="container-fluid d-flex" id="container">
 				<div className="w3-sidebar w3-light-grey w3-bar-block" id="side-bar">
 				<img id="logo" src={LogoWeb}></img>

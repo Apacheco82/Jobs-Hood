@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Form from "../component/Form.jsx";
 import Spinner from "../component/Spinner.jsx";
 import Alert from "../component/Alert.jsx";
+import { Navbar } from "../component/navbar.js";
 
 const initialState = {
   user_name: "",
@@ -84,6 +85,7 @@ export const RegisterCompany = () => {
         <Spinner />
       ) : (
         <>
+           <Navbar/>
             {alert && (
               <div className="d-flex justify-content-center m-5">
                 <Alert className={className} message={message} />
