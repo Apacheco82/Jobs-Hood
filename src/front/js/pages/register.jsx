@@ -14,7 +14,7 @@ export const Register = () => {
               <div className="card w-100">
                 <div className="card-body">
                   <h5 className="card-title">Registrarme como Abogado/a</h5>
-                  <i class="fa-solid fa-gavel fa-2xl"></i>
+                  <i className="fa-solid fa-gavel fa-2xl"></i>
                 </div>
               </div>
             </Link>
@@ -25,7 +25,7 @@ export const Register = () => {
               <div className="card w-100">
                 <div className="card-body">
                   <h5 className="card-title">Registrarme como Trabajador/a</h5>
-                  <i class="fa-solid fa-user-group fa-2xl"></i>
+                  <i className="fa-solid fa-user-group fa-2xl"></i>
                 </div>
               </div>
             </Link>
@@ -36,7 +36,7 @@ export const Register = () => {
               <div className="card w-100">
                 <div className="card-body">
                   <h5 className="card-title">Registrarme como Empresa</h5>
-                  <i class="fa-regular fa-building fa-2xl"></i>
+                  <i className="fa-regular fa-building fa-2xl"></i>
                 </div>
               </div>
             </Link>

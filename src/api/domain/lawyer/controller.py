@@ -6,7 +6,7 @@ import api.domain.user.repository as UserRepository
 
 def get_lawyers():
     resultado = Repository.get_lawyers()
-    return Response.response_ok(resultado, "Get all lawyers", 201)
+    return Response.response_ok(resultado, "Todos los abogados", 201)
 
 def register_lawyer(data):
 

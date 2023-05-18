@@ -1,5 +1,5 @@
 
-from api.models.index import db, User, Roles
+from api.models.index import db, User, Roles, Company, Lawyer
 from flask import request, jsonify
 from api.functions import find_role, hash_pass
 import bcrypt
@@ -51,4 +51,32 @@ def edit_user_by_role(id,info):
          
     return user
 
+def check_worker(user_name, email):
+    user_name = User.query.filter_by(user_name = user_name).first()
+    email = User.query.filter_by(email = email).first()
+    if user_name is not None:
+        return Response.response_error("El nombre de usuario ya existe", 400)
+    elif email is not None:
+        return Response.response_error("El email ya está registrado", 400)
+    else: return { "msg" : "Usuario correcto","error": False, "status": 200}
 
+def check_lawyer( email, col_number):
+    email = User.query.filter_by(email = email).first()
+    col_number = Lawyer.query.filter_by(col_number = col_number).first()
+   
+    if email is not None:
+        return Response.response_error("El email ya está registrado", 400)
+    elif col_number is not None:
+        return Response.response_error("El número de colegiado ya está registrado", 400)
+    else: return { "msg" : "Usuario correcto","error": False, "status": 200}
+
+def check_company( email, cif):
+   
+    email = User.query.filter_by(email = email).first()
+    cif = Company.query.filter_by(cif = cif).first()
+    
+    if email is not None:
+        return Response.response_error("El email ya está registrado", 400)
+    elif cif is not None:
+        return Response.response_error("El CIF ya está registrado", 400)
+    else: return { "msg" : "Usuario correcto","error": False, "status": 200}
