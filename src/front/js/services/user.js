@@ -14,11 +14,17 @@ export const registerUser = async (user) => {
       headers: HEADERS,
       body: JSON.stringify(user),
     });
+   /* if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Error al registrar el usuario: ${errorData.message}`);
+    }*/
     return await response.json();
   } catch (error) {
     console.log("Error al registrar el usuario", error);
+    throw error;
   }
 };
+
 
 export const loginUser = async (user) => {
   try {
@@ -67,19 +73,33 @@ export const userById = async (uid) => {
 };
 
 export const editUser = async (user) => {
-
-  try{ 
-      const token = localStorage.getItem("token");
-      const response = await fetch(`${URL}/user/edit`,
-      {method:"PUT",
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${URL}/user/edit`, {
+      method: "PUT",
       body: JSON.stringify(user),
-      headers:{
+      headers: {
         Authorization: `Bearer ${token}`, // para poder acceder a partes privadas tengo que pasar en headers este formato el token es una interpolacion ya que ira cambiando segun el user
         ...HEADERS, // + tmb los headers generales se añaden
       },
-       })
-      const data = await response.json()
-      return data
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Error al editar usuario!", error);
+  }
+};
 
-  } catch(error){ console.log("Error al editar usuario!",error)}
-}
+export const checkUser = async (registro) => {
+  try {
+    const response = await fetch(`${URL}/user/check`, {
+      method: "POST",
+      headers: HEADERS,
+      body: JSON.stringify(registro)
+    });
+    return await response.json();
+  } catch (error) {
+    console.log("Error check", error);
+    return error;
+  }
+};

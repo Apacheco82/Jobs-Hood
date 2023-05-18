@@ -18,7 +18,7 @@ def register_company():
     new_company = Controller.register_company(data)
 
     if isinstance(new_company, User):   
-        return Response.response_ok(new_company.serialize(), "New company added successfully", 201)
+        return Response.response_ok(new_company.serialize(), "Empresa creada correctamente", 201)
    
     return new_company
 
@@ -29,6 +29,6 @@ def edit_user_company():
     info = request.get_json()
     user  =  Controller.edit_user_company(user_logged["id"],info) 
     if user:
-        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente!",200)
+        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente",200)
     else:
-        return Response.response_error("Error al guardar los datos!", 400) 
+        return Response.response_error("Error al guardar los datos", 400) 
