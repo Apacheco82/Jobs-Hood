@@ -146,6 +146,7 @@ export const CompanyProfile = () => {
                   {review.map((review, index) => (
                     <Review
                       key={index}
+                      userID={review.author_id}
                       text={review.text}
                       user_name={review.user_name}
                       rating={review.rating}
