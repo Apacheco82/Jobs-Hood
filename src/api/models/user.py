@@ -64,7 +64,7 @@ class User(db.Model):
             "last_name": self.last_name,
             "email": self.email,
             "company": self.company.serialize() if self.company else None,
-           "lawyer": self.lawyer.serialize()if self.lawyer else None,
+            "lawyer": self.lawyer.serialize()if self.lawyer else None,
             }
 
     def serialize_only_user(self):

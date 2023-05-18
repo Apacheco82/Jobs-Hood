@@ -5,6 +5,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editUser } from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
 import { useNavigate} from "react-router-dom";
+import Avatar from "../component/avatar.jsx";
 
 
 
