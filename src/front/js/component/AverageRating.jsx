@@ -15,7 +15,7 @@ const AverageRating = ({ reviews }) => {
     return (
         <div className="col-4">
             <div className="card card-filter p-1 m-2" style={{width: "18rem"}}>
-                <h6>Valoración media de la empresa</h6>
+                <h6>Valoración media</h6>
                 <ReactStars
                     count={5}
                     size={24}

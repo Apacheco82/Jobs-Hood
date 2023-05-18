@@ -9,7 +9,6 @@ class Company(db.Model):
     user = db.relationship('User', back_populates='company')
     address = db.Column(db.String(100), nullable=False)
     province = db.Column(db.String(100), nullable=False)
-    cp = db.Column(db.Integer(), nullable=False)
     cif = db.Column(db.String(10), unique=True, nullable=False)
     favs = db.relationship("Favorites", back_populates="company") 
     data_create = db.Column(db.DateTime, default=datetime.utcnow)
@@ -17,11 +16,10 @@ class Company(db.Model):
    
 
 
-    def __init__(self, address,province, cp, cif):
+    def __init__(self, address,province, cif):
 
         self.address = address
         self.province = province
-        self.cp = cp
         self.cif = cif
 
     def serialize(self):
@@ -29,6 +27,5 @@ class Company(db.Model):
         "id" : self.id,
         "address" : self.address,
         "province" : self.province,
-        "cp" : self.cp,
         "cif" : self.cif
         }

@@ -7,7 +7,7 @@ from flask_jwt_extended import create_access_token # PARA PODER CREAR EL TOKEN
 
 def get_users():
     response = Repository.get_users()
-    return Response.response_ok(response, "List of all users", 201)
+    return Response.response_ok(response, "Todos los usuarios", 201)
 
 
 def create_user(new_user):
@@ -35,14 +35,14 @@ def login_users(user):
    if bcrypt.checkpw(user['password'].encode(), login_user.password.encode()):    # si la contraseña coincide con lo que le pasamos devuelve el token 
       access_token = create_access_token(identity = login_user.serialize())
       return {"token": access_token}
-   return Response.response_error("Datos de acceso incorrectos!", 404) # si la contraseña no es correcta devuelve este mensaje
+   return Response.response_error("Datos de acceso incorrectos", 404) # si la contraseña no es correcta devuelve este mensaje
 
 
 
 def get_user_private(user):
     user = Repository.get_user_private(user['email'])
     if user is None :
-      return Response.response_error("El usuario no existe!", 404)
+      return Response.response_error("El usuario no existe", 404)
     return user
 
 
@@ -52,7 +52,7 @@ def get_single_user(id):
     if resultado is not None:
         return resultado
     else:
-        return Response.response_error("Not found", 404)
+        return Response.response_error("No se encuentra", 404)
 
 def edit_user(user_id,info):
    user = get_single_user(user_id)
@@ -61,6 +61,11 @@ def edit_user(user_id,info):
    edit = Repository.edit_user(user, info)
    return edit
  
-   
+def check_worker(data):
+   return Repository.check_worker(data['user_name'], data['email'])
   
- 
+def check_lawyer(data):
+   return Repository.check_lawyer(data['email'], data['col_number'])
+
+def check_company(data):
+   return Repository.check_company(data['email'], data['cif'])

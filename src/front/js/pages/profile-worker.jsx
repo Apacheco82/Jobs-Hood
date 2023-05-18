@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useContext} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {getUserPrivate, userById} from "../services";
 import {useNavigate, useParams} from "react-router-dom";
 import UserWorker from "../component/UserWorker.jsx";
@@ -8,15 +8,13 @@ import Review from "../component/review.jsx";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const  params = useParams();
-  const {store,actions} = useContext(Context );
-  
-
+  const params = useParams();
+  const {store, actions} = useContext(Context);
   const [spinner, setSpinner] = useState(false);
   const [userReviews, setUserReviews] = useState([]);
  
 
-  // let token = localStorage.getItem("token"); 
+  // let token = localStorage.getItem("token");
 
   const getInfoUser = async () => {
     if (params.id) {
@@ -28,12 +26,11 @@ export const Profile = () => {
     return workerData;
   };
 
-  const handleEdit = async() =>{  
-    navigate('/edit/profile-worker')
-  }
+  const handleEdit = async () => {
+    navigate("/edit/profile-worker");
+  };
 
   const fetchData = async () => {
-
     setSpinner(true);
     const infoWorker = await getInfoUser();
     actions.setUser(infoWorker)
@@ -41,8 +38,7 @@ export const Profile = () => {
     setSpinner(false)
   }
 
-  useEffect(() => { 
-    
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -68,4 +64,3 @@ export const Profile = () => {
   </>
   );
 };
-

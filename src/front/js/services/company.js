@@ -6,20 +6,17 @@ const HEADERS = {
 };
 
 
-export const companyRegister = async (data) => {
-
+export const companyRegister = async (user) => {
   try {
     const response = await fetch(`${URL}/company`, {
-      
       method: "POST",
-      body: JSON.stringify(data),
-      headers: {"Content-Type": "application/json"},
-      redirect: "follow",
+      headers: HEADERS,
+      body: JSON.stringify(user),
     });
-    //console.log(data)
-    //console.log("status",response.status)
+    return await response.json()
   } catch (error) {
-    console.log("Error en post:", error);
+    console.log("Error al registrar la empresa", error);
+    throw error
   }
 };
 

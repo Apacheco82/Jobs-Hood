@@ -19,7 +19,7 @@ def register_lawyer():
     new_lawyer = Controller.register_lawyer(data)
 
     if isinstance(new_lawyer, User):   
-        return Response.response_ok(new_lawyer.serialize(), "Lawyer created successfully", 201)
+        return Response.response_ok(new_lawyer.serialize(), "Abogado registrado correctamente", 201)
    
     return new_lawyer
 
@@ -30,6 +30,6 @@ def edit_user_lawyer():
     info = request.get_json()
     user  =  Controller.edit_user_lawyer(user_logged["id"],info)
     if user:
-        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente!",200)
+        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente",200)
     else:
-        return Response.response_error("Error al guardar los datos!", 400) 
+        return Response.response_error("Error al guardar los datos", 400) 
