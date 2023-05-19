@@ -101,12 +101,11 @@ export const EditProfileLawyer = () => {
         <div className="container my-5">
           {" "}
           <h1> Edición de Usuario</h1>
+          <div className="col">
+            <Avatar />
+          </div>
           <form onSubmit={handleSubmit}>
-            <div className="row my-3">
-              <div className="col">
-                <Avatar />
-              </div>
-            </div>
+            <div className="row my-3"></div>
             {alert && (
               <div className="d-flex justify-content-center m-5">
                 <Alert className={className} message={message} />
