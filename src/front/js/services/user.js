@@ -72,6 +72,24 @@ export const userById = async (uid) => {
   }
 };
 
+export const uploadAvatar = async (body) => {
+  try {
+    const token = localStorage.getItem("token");
+    
+    const res = await fetch(`${URL}/user/update_avatar`, {
+      method: "PUT",
+      body: body,
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.log("Error Update User", err);
+  }
+};
+
 export const editUser = async (user) => {
   try {
     const token = localStorage.getItem("token");

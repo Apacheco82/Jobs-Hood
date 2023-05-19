@@ -1,7 +1,12 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 const Review = (props) => {
+
+
+
+
   return (
     <div className="col-8 mt-2 d-flex justify-content-center">
       <div className="card card-stars" >
@@ -13,7 +18,7 @@ const Review = (props) => {
           activeColor="#ffd700"
         />
         <p className="card-text">{props.text}</p>
-        <p className="card-text">{props.user_name}</p>
+        <Link to ={`/worker/${props.userID}`}><p  className="card-text">{props.user_name}</p></Link>  
         <p className="card-text">{props.data}</p>
       </div>
     </div>

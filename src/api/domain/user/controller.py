@@ -3,6 +3,8 @@ import api.handle_response as Response
 import bcrypt
 from api.functions import hash_pass, find_role, verify_user, verify_login
 from flask_jwt_extended import create_access_token # PARA PODER CREAR EL TOKEN
+from cloudinary.uploader import upload
+
 
 
 def get_users():
@@ -53,6 +55,16 @@ def get_single_user(id):
         return resultado
     else:
         return Response.response_error("No se encuentra", 404)
+
+def update_avatar(user, avatar):
+   
+    img = upload(avatar)
+    print(img)
+    url_avatar = img['secure_url']
+    print('URL IMAGE', img['secure_url'])
+    
+    return Repository.update_avatar(user['id'], img)
+    
 
 def edit_user(user_id,info):
    user = get_single_user(user_id)
