@@ -5,12 +5,10 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editCompany } from "../services/company.js";
 import Spinner from "../component/Spinner.jsx";
 import { useNavigate } from "react-router-dom";
-
-
+import {checkUser} from "../services/user.js";
 
 
 export const EditProfileCompany = () => {
-
 
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
@@ -21,6 +19,7 @@ export const EditProfileCompany = () => {
         email: store.user.email,
         address: store.user.company.address,
         province: store.user.company.province,
+        cif: store.user.company.cif
     });
 
 
@@ -33,15 +32,26 @@ export const EditProfileCompany = () => {
     };
 
     const handleSubmit = async (event) => {
-        setSpinner(true)
+        setSpinner(true);
         event.preventDefault();
-        await editCompany(editedCompany);
-        setEditedCompany(store.user)
-        setSpinner(false)
-        navigate("/company/profile")
-        
-
-    };
+        if (store.user.email !== editedCompany.email) {//si el email ha cambiado
+          const check = await checkUser(editedCompany, "edit"); //el parametro para editar
+          if (!check.error) {
+            const response = await editCompany(editedCompany);
+            // Guardamos el nuevo token en el localStorage
+            localStorage.setItem("token", response);
+            setSpinner(false);
+            navigate("/company/profile");
+          } else {
+            //mensaje de error si falla CHECK
+          }
+        } else {//si no cambia el email
+          await editCompany(editedCompany);
+          setEditedCompany(store.user);
+          setSpinner(false);
+          navigate("/company/profile");
+        }
+      };
 
 
     return (

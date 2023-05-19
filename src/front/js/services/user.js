@@ -90,9 +90,9 @@ export const editUser = async (user) => {
   }
 };
 
-export const checkUser = async (registro) => {
+export const checkUser = async (registro, mode) => {
   try {
-    const response = await fetch(`${URL}/user/check`, {
+    const response = await fetch(`${URL}/user/check/${mode}`, {
       method: "POST",
       headers: HEADERS,
       body: JSON.stringify(registro)

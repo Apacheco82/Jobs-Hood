@@ -55,18 +55,17 @@ def edit_user():
     info = request.get_json()
     user = Controller.edit_user(user_logged["id"],info)
     if user:
-        return Response.response_ok(user.serialize_only_user() , "Usuario editado correctamente",200)
+        return jsonify(access_token), 200
     else:
        return Response.response_error("Error al guardar los datos", 400) 
 
-@api.route("/check", methods= ["POST"])
-def check():
+@api.route("/check/<string:mode>", methods= ["POST"])
+def check(mode):
     data = request.get_json()
-    print("---------------------",data.get('cif'))
     if data.get('col_number') is not None:
-        result = Controller.check_lawyer(data)
+        result = Controller.check_lawyer(data, mode)
     elif data.get('cif') is not None:
-        result = Controller.check_company(data)
+        result = Controller.check_company(data, mode)
     else:
-        result = Controller.check_worker(data)
+        result = Controller.check_worker(data, mode)
     return result

@@ -5,9 +5,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editUser } from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
 import { useNavigate} from "react-router-dom";
-
-
-
+import {checkUser} from "../services/user.js";
 
 export const EditProfileWorker = () => {
 
@@ -34,14 +32,26 @@ export const EditProfileWorker = () => {
   };
 
   const handleSubmit = async (event) => {
-    setSpinner(true)
+    setSpinner(true);
     event.preventDefault();
-    await editUser(editedWorker);
-    setEditedWorker(store.user)
-    setSpinner(false)
-    navigate("/worker/profile")
+    if (store.user.email !== editedWorker.email) {//si el email ha cambiado
+      const check = await checkUser(editedWorker, "edit"); //el parametro para editar
+      if (!check.error) {
+        const response = await editUser(editedWorker);
+        // Guardamos el nuevo token en el localStorage
+        localStorage.setItem("token", response);
+        setSpinner(false);
+        navigate("/worker/profile");
+      } else {
+        //mensaje de error si falla CHECK
+      }
+    } else {//si no cambia el email
+      await editUser(editedWorker);
+      setEditedCompany(store.user);
+      setSpinner(false);
+      navigate("/worker/profile");
+    }
   };
-
 
   return (
     <>

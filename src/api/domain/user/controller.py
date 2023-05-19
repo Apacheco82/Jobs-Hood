@@ -62,10 +62,16 @@ def edit_user(user_id,info):
    return edit
  
 def check_worker(data):
-   return Repository.check_worker(data['user_name'], data['email'])
+      return Repository.check_worker(data['user_name'], data['email'])
   
 def check_lawyer(data):
-   return Repository.check_lawyer(data['email'], data['col_number'])
+   if mode == "edit":
+      return Repository.check_roles_edit(data['email'])
+   else:
+      return Repository.check_lawyer(data['email'], data['col_number'])
 
 def check_company(data):
-   return Repository.check_company(data['email'], data['cif'])
+   if mode == "edit":
+      return Repository.check_roles_edit(data['email'])
+   else:
+      return Repository.check_company(data['email'], data['cif'])

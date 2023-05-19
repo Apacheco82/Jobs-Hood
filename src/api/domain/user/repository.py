@@ -48,6 +48,7 @@ def edit_user_by_role(id,info):
     else:    
             user.name = info['name']
             user.email = info['email']
+            user.user_name = info['email']
          
     return user
 
@@ -79,4 +80,10 @@ def check_company( email, cif):
         return Response.response_error("El email ya está registrado", 400)
     elif cif is not None:
         return Response.response_error("El CIF ya está registrado", 400)
+    else: return { "msg" : "Usuario correcto","error": False, "status": 200}
+
+def check_roles_edit(email):
+    email = User.query.filter_by(email = email).first()
+    if email is not None:
+        return Response.response_error("El email ya está registrado", 400)
     else: return { "msg" : "Usuario correcto","error": False, "status": 200}

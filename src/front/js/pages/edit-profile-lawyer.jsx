@@ -1,4 +1,3 @@
-
 import React, {  useState, useContext } from "react";
 import { Context } from "../store/appContext.js";
 import { Province } from "../component/form-province.jsx";
@@ -6,14 +5,10 @@ import LinkButton from "../component/LinkButton.jsx";
 import { editLawyer } from "../services/lawyer.js";
 import Spinner from "../component/Spinner.jsx";
 import { useNavigate } from "react-router-dom";
-
-
-
-
+import {checkUser} from "../services/user.js";
 
 
 export const EditProfileLawyer = () => {
-
 
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
@@ -24,6 +19,7 @@ export const EditProfileLawyer = () => {
     email: store.user.email,
     address: store.user.lawyer.address,
     province: store.user.lawyer.province,
+    col_number: store.user.lawyer.col_number
   });
 
   const handleChange = (event) => {
@@ -37,10 +33,23 @@ export const EditProfileLawyer = () => {
   const handleSubmit = async (event) => {
     setSpinner(true);
     event.preventDefault();
-    await editLawyer(editedLawyer);
-    setEditedLawyer(store.user);
-    setSpinner(false);
-    navigate("/lawyer/profile")
+    if (store.user.email !== editedLawyer.email) {//si el email ha cambiado
+      const check = await checkUser(editedLawyer, "edit"); //el parametro para editar
+      if (!check.error) {
+        const response = await editLawyer(editedLawyer);
+        // Guardamos el nuevo token en el localStorage
+        localStorage.setItem("token", response);
+        setSpinner(false);
+        navigate("/lawyer/profile");
+      } else {
+        //mensaje de error si falla CHECK
+      }
+    } else {//si no cambia el email
+      await editLawyer(editedLawyer);
+      setEditedLawyer(store.user);
+      setSpinner(false);
+      navigate("/lawyer/profile")
+    }
   };
 
   
@@ -53,7 +62,7 @@ export const EditProfileLawyer = () => {
             <div className="row align-items-start my-3">
 
               <div className="col">
-                <label htmlFor="form-register-company" className="form-label">
+                <label htmlFor="form-register-lawyer" className="form-label">
                   Nombre del abogado o Buffette
                 </label>
                 <input
@@ -68,7 +77,7 @@ export const EditProfileLawyer = () => {
               </div>
 
               <div className="col">
-                <label htmlFor="form-register-company" className="form-label">
+                <label htmlFor="form-register-lawyer" className="form-label">
                   Dirección
                 </label>
                 <input
@@ -84,7 +93,7 @@ export const EditProfileLawyer = () => {
             </div>
             <div className="row align-items-start my-3">
               <div className="col">
-                <label htmlFor="form-register-company" className="form-label">
+                <label htmlFor="form-register-lawyer" className="form-label">
                   Dirección Email
                 </label>
                 <input
@@ -100,7 +109,7 @@ export const EditProfileLawyer = () => {
             <div className="row align-items-end my-3">
               <div className="col">
 
-                <label htmlFor="form-register-company" className="form-label">
+                <label htmlFor="form-register-lawyer" className="form-label">
                   Provincia
                 </label>
                 <Province handleChange={handleChange} name="province" />

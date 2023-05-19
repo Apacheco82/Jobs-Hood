@@ -29,6 +29,7 @@ def edit_user_company():
     info = request.get_json()
     user  =  Controller.edit_user_company(user_logged["id"],info) 
     if user:
-        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente",200)
+       access_token = create_access_token(identity = user.serialize_only_user())
+       return jsonify(access_token), 200
     else:
         return Response.response_error("Error al guardar los datos", 400) 
