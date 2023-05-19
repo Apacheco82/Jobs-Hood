@@ -42,21 +42,21 @@ export const RegisterCompany = () => {
     setForm({...form, [name]: value}); //se añade el valor al campo de nombre de input haciendo una copia del objeto
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    //setSpinner(true);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // setSpinner(true);
     const check = await checkUser(form);
-    //console.log(check.msg);
+    // console.log(check.msg);
     setAlert(true);
     setClassName("danger");
     setMessage(check.msg);
     setAlert(false);
-    //setSpinner(false)
+    // setSpinner(false)
     if (!check.error) {
       try {
         const register = await companyRegister(form);
         if (register) {
-          //setSpinner(false);
+          // setSpinner(false);
           setAlert(true);
           setClassName("success");
           setMessage(register.msg);
@@ -77,19 +77,20 @@ export const RegisterCompany = () => {
       setAlert(true);
     }
   };
+  
 
   return (
     <>
       {spinner ? (
         <Spinner />
       ) : (
-        <>
-            {alert && (
+        <>          
+          <div className="card d-flex justify-content-between m-5">
+          {alert && (
               <div className="d-flex justify-content-center m-5">
                 <Alert className={className} message={message} />
               </div>
             )}
-          <div className="card d-flex justify-content-between m-5">
             <Form
               userType="company"
               form={form}

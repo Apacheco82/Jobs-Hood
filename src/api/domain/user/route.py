@@ -54,15 +54,11 @@ def get_single_user(id):
 def update_avatar():
     try:
         user = get_jwt_identity()
-        print(user)        
         avatar = request.files['avatar'] # Es el avatar que pasamos en el form.append en el handleClick 
-        print(avatar)
         user_update = Controller.update_avatar(user, avatar)
-        print("USER UPDATE", user_update)
         return Response.response_ok(user_update.serialize(), "Avatar actualizado", 200)
         
     except Exception as error:
-        print('Error', error)
         return Response.response_error("Error al actualizar el avatar", 400)
 
 
@@ -71,13 +67,13 @@ def update_avatar():
 def edit_user():
     user_logged = get_jwt_identity()
     info = request.get_json()
-    avatar = request.files['avatar']
-    user_update = Controller.update_avatar(user, avatar)
     user = Controller.edit_user(user_logged["id"],info)
     if user:
+        access_token = create_access_token(identity = user.serialize_only_user())
         return jsonify(access_token), 200
     else:
-       return Response.response_error("Error al guardar los datos", 400) 
+        return Response.response_error("Error al guardar los datos", 400) 
+
 
 @api.route("/check/<string:mode>", methods= ["POST"])
 def check(mode):

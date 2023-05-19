@@ -10,13 +10,13 @@ export const Avatar = () => {
     const [fileUrl, setFileUrl] = useState("");
 
     const handleChange = ({ target }) => {
-        console.log(target.files);
+        //console.log(target.files);
         if (target.files) {
           setFile(target.files[0]);
           const reader = new FileReader();
           reader.onload = (e) => {
             if (reader.readyState === 2) {
-              console.log("result", reader.result);
+              //console.log("result", reader.result);
               setFileUrl(reader.result);
             }
           };
@@ -26,7 +26,7 @@ export const Avatar = () => {
     
     const handleClick = () => {
         const form = new FormData(); //Objeto que contiene lo que le mandamos (avatar)
-        console.log(form);
+        //console.log(form);
         form.append("avatar", file);
         uploadAvatar(form);
       };

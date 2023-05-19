@@ -44,19 +44,12 @@ export const RegistroLawyer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //setSpinner(true);
-    const check = await checkUser(form);
-    //console.log(check.msg);
-    setAlert(true);
-    setClassName("danger");
-    setMessage(check.msg);
-    setAlert(false);
-    //setSpinner(false)
+    setSpinner(true);
+    const check = await checkUser(form, "register");
     if (!check.error) {
       try {
         const register = await registerLawyer(form);
         if (register) {
-          //setSpinner(false);
           setAlert(true);
           setClassName("success");
           setMessage(register.msg);
@@ -64,8 +57,10 @@ export const RegistroLawyer = () => {
             setAlert(false);
             navigate("/login");
           }, 3000);
+          setSpinner(false);
         }
       } catch (error) {
+        setSpinner(false);
         setAlert(true);
         setClassName("danger");
         setMessage("Error del servidor");
@@ -74,7 +69,10 @@ export const RegistroLawyer = () => {
         }, 3000);
       }
     } else {
-      setAlert(true);
+      setSpinner(false);
+      setAlert(true); //error
+      setClassName("danger");
+      setMessage(check.msg);
     }
   };
 
@@ -83,13 +81,13 @@ export const RegistroLawyer = () => {
       {spinner ? (
         <Spinner />
       ) : (
-        <>
-            {alert && (
+        <>  
+          <div className="card d-flex justify-content-between m-5">
+          {alert && (
               <div className="d-flex justify-content-center m-5">
                 <Alert className={className} message={message} />
               </div>
             )}
-          <div className="card d-flex justify-content-between m-5">
             <Form
               userType="lawyer"
               form={form}
