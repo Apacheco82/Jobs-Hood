@@ -7,7 +7,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(250), nullable=False)
-    avatar = db.Column(db.String(250), nullable=True)
+    avatar = db.Column(db.String(250), nullable=True, default="https://res.cloudinary.com/dcgc2tppo/image/upload/v1684564031/qu742buouavbhysxgwdo.png")
     name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(100))
     email = db.Column(db.String(250), unique=True, nullable=False)

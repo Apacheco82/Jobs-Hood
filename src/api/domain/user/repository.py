@@ -43,7 +43,7 @@ def edit_user(user, info):
     user.name = info['name']
     user.last_name = info['last_name']
     user.email = info['email']
-    #user.avatar = info['avatar']
+    user.avatar = info['avatar']
 
     db.session.commit()
          
