@@ -3,6 +3,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa"; /* Para tener acceso a React-icons ejecutamos "npm install react-icons --save" */
 import { FaLinkedin } from "react-icons/fa";
 import { FaGooglePlusG } from "react-icons/fa";
+import {Link} from "react-router-dom";
 import "../../styles/footer.css";
 
 
@@ -27,7 +28,9 @@ export const Footer = () => (
 					</div>
 
 					<div className="contact">
-						<a href="#"><h4>Contacto</h4></a>  
+						<Link to="/contact">
+							<h4>Contacto</h4>  
+						</Link>
 					</div>
 				</div>
 
