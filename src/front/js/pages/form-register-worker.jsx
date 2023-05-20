@@ -31,26 +31,22 @@ export const RegistroWorker = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSpinner(true);
-    const check = await checkUser(registro);
-    //console.log(check.msg);
-    setAlert(true);
-    setClassName("danger");
-    setMessage(check.msg);
-    setAlert(false);
+    const check = await checkUser(registro, "register");
     if (!check.error) {
       try {
         const register = await registerUser(registro);
         if (register) {
-          setSpinner(false)
           setAlert(true);
           setClassName("success");
-          setMessage(register.msg)
+          setMessage(register.msg);
           setTimeout(() => {
             setAlert(false);
             navigate("/login");
           }, 3000);
+          setSpinner(false);
         }
       } catch (error) {
+        setSpinner(false);
         setAlert(true);
         setClassName("danger");
         setMessage("Error del servidor");
@@ -59,22 +55,25 @@ export const RegistroWorker = () => {
         }, 3000);
       }
     } else {
+      setSpinner(false);
       setAlert(true);
+      setClassName("danger");
+      setMessage(check.msg);
     }
   };
+  
   return (
     <>
       {spinner ? (
         <Spinner />
       ) : (
         <>
-          {" "}
+          <div className="card d-flex justify-content-between m-5">
           {alert && (
             <div className="d-flex justify-content-center m-5">
               <Alert className={className} message={message} />
             </div>
           )}
-          <div className="card d-flex justify-content-between m-5">
             <FormUser handleChange={handleChange} handleSubmit={handleSubmit} />
           </div>
         </>

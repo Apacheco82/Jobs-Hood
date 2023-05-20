@@ -4,9 +4,10 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 import api.domain.lawyer.controller as Controller
 import api.handle_response as Response
 import bcrypt
+import api.domain.user.controller as userController
+import json
 
 lawyer_bp = Blueprint('lawyer_bp', __name__)
-
 
 @lawyer_bp.route("/", methods= ["GET"])
 def get_lawyers():
@@ -27,9 +28,13 @@ def register_lawyer():
 @jwt_required()
 def edit_user_lawyer():
     user_logged = get_jwt_identity()
-    info = request.get_json()
-    user  =  Controller.edit_user_lawyer(user_logged["id"],info)
+    info = request.form.to_dict()
+    avatar = request.files.get('avatar', None)  # Es el avatar que pasamos en el form.append en el handleClick 
+    if avatar:  # Solo se actualiza el avatar si fue proporcionado
+        user_update = userController.update_avatar(user_logged, avatar)
+    user  =  Controller.edit_user_lawyer(user_logged["id"],json.loads(info['user']))
     if user:
-        return Response.response_ok(user.serialize_user(),  "Usuario editado correctamente",200)
+       access_token = create_access_token(identity = user.serialize_only_user())
+       return jsonify(access_token), 200
     else:
         return Response.response_error("Error al guardar los datos", 400) 

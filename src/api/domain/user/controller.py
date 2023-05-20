@@ -57,27 +57,34 @@ def get_single_user(id):
         return Response.response_error("No se encuentra", 404)
 
 def update_avatar(user, avatar):
-   
     img = upload(avatar)
-    print(img)
     url_avatar = img['secure_url']
-    print('URL IMAGE', img['secure_url'])
-    
     return Repository.update_avatar(user['id'], img)
     
-
 def edit_user(user_id,info):
-   user = get_single_user(user_id)
-   if user is None:
-      return None
-   edit = Repository.edit_user(user, info)
-   return edit
- 
-def check_worker(data):
-   return Repository.check_worker(data['user_name'], data['email'])
-  
-def check_lawyer(data):
-   return Repository.check_lawyer(data['email'], data['col_number'])
+    user = get_single_user(user_id)
+    print("el user", user)
+    if user is None:
+        return None
+    edit = Repository.edit_user(user, info)
+    return edit
 
-def check_company(data):
-   return Repository.check_company(data['email'], data['cif'])
+ 
+def check_worker(data, mode):
+   if mode == "editMail":
+      return Repository.check_worker_email(data['email'])
+   elif mode == "editUserName":
+      return Repository.check_worker_user_name(data['user_name'])  
+  
+def check_lawyer(data, mode):
+
+   if mode == "edit":
+      return Repository.check_roles_edit(data['email'])
+   else:
+      return Repository.check_lawyer(data['email'], data['col_number'])
+
+def check_company(data, mode):
+   if mode == "edit":
+      return Repository.check_roles_edit(data['email'])
+   else:
+      return Repository.check_company(data['email'], data['cif'])

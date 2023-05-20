@@ -35,9 +35,6 @@ def edit_user_lawyer(info, lawyer):
     lawyer.address = info['address']
     lawyer.province = info['province']
 
-
-
-   
     db.session.commit()
 
     return lawyer

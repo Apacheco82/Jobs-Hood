@@ -1,61 +1,142 @@
-import React, { useState, useContext } from "react";
-import { Context } from "../store/appContext.js";
-import { Province } from "../component/form-province.jsx";
+import React, {useState, useContext} from "react";
+import {Context} from "../store/appContext.js";
 import LinkButton from "../component/LinkButton.jsx";
-import { editUser } from "../services/user.js";
+import {editUser} from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {checkUser} from "../services/user.js";
 import Avatar from "../component/avatar.jsx";
-
-
-
+import Alert from "../component/Alert.jsx";
 
 export const EditProfileWorker = () => {
-
-
-  const { store, actions } = useContext(Context);
+  const {store, actions} = useContext(Context);
   const navigate = useNavigate();
   const [spinner, setSpinner] = useState(false);
-
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
+  const [file, setFile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
   const [editedWorker, setEditedWorker] = useState({
     user_name: store.user.user_name,
     name: store.user.name,
     last_name: store.user.last_name,
     email: store.user.email,
-    
   });
 
-
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setEditedWorker((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (reader.readyState === 2) {
+          //console.log("result", reader.result);
+          setFileUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      const {name, value} = event.target;
+      setEditedWorker((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  }
+  
 
   const handleSubmit = async (event) => {
-    setSpinner(true)
+    setSpinner(true);
     event.preventDefault();
-    await editUser(editedWorker);
-    setEditedWorker(store.user)
-    setSpinner(false)
-    navigate("/worker/profile")
+    let check;
+    let mail = false;
+    if (store.user.email !== editedWorker.email) {
+      // si el email ha cambiado
+      check = await checkUser(editedWorker, "editMail"); // el parametro para editar
+      mail = true;
+    } else if (store.user.user_name !== editedWorker.user_name) {
+      //si el user_name ha cambiado
+      check = await checkUser(editedWorker, "editUserName"); // el parametro para editar
+    }
+    if (check) {
+      if (!check.error) {
+        try {
+          const response = await editUser(editedWorker, file);
+          if (response) {
+            console.log("laresponse", response);
+            if (mail) {
+              localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
+            }
+            setAlert(true);
+            setClassName("success");
+            setMessage("Usuario editado correctamente");
+            setTimeout(() => {
+              setAlert(false);
+              navigate("/worker/profile");
+            }, 3000);
+            setSpinner(false);
+          }
+        } catch (error) {
+          setSpinner(false);
+          setAlert(true);
+          setClassName("danger");
+          setMessage("Error del servidor");
+          setTimeout(() => {
+            setAlert(false);
+          }, 3000);
+        }
+      } else {
+        setSpinner(false);
+        setAlert(true);
+        setClassName("danger");
+        setMessage(check.msg);
+      }
+    } else {
+      // si no cambia ni email ni user_name
+      try {
+        const response = await editUser(editedWorker, file);
+        if (response) {
+          setAlert(true);
+          setClassName("success");
+          setMessage("Usuario editado correctamente");
+          setTimeout(() => {
+            setAlert(false);
+            navigate("/worker/profile");
+          }, 3000);
+          setSpinner(false);
+        }
+      } catch (error) {
+        setSpinner(false);
+        setAlert(true);
+        setClassName("danger");
+        setMessage("Error del servidor");
+        setTimeout(() => {
+          setAlert(false);
+        }, 3000);
+      }
+    }
   };
-
 
   return (
     <>
-      {spinner ? (<Spinner />) : (
-        <div className="container my-5"> <h1> Edición de Usuario</h1>
+      {spinner ? (
+        <Spinner />
+      ) : (
+        <div className="container my-5">
+          {" "}
+          <h1> Edición de Usuario</h1>
           <form onSubmit={handleSubmit}>
             <div className="row my-3">
               <div className="col">
-                <Avatar />
+                <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
               </div>
             </div>
+            {alert && (
+              <div className="d-flex justify-content-center m-5">
+                <Alert className={className} message={message} />
+              </div>
+            )}
             <div className="row align-items-start my-3">
-
               <div className="col">
                 <label htmlFor="form-register-company" className="form-label">
                   Nombre de Usuario
@@ -82,7 +163,6 @@ export const EditProfileWorker = () => {
                   name="name"
                   className="form-control rounded-0"
                   maxLength="30"
-
                 />
               </div>
             </div>
@@ -102,10 +182,9 @@ export const EditProfileWorker = () => {
               </div>
             </div>
             <div className="row align-items-end my-3">
-            
               <div className="col">
                 <label htmlFor="form-register-company" className="form-label">
-                 Dirección Email
+                  Dirección Email
                 </label>
                 <input
                   onChange={handleChange}
@@ -114,7 +193,6 @@ export const EditProfileWorker = () => {
                   name="email"
                   className="form-control rounded-0"
                   maxLength="250"
-
                 />
               </div>
             </div>
@@ -126,12 +204,9 @@ export const EditProfileWorker = () => {
               ></input>
               <LinkButton direction="/worker/profile" text="Cancelar" />
             </div>
-
           </form>
         </div>
-
       )}
-
     </>
-  )
-}
+  );
+};
