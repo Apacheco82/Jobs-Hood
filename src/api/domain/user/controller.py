@@ -63,6 +63,7 @@ def update_avatar(user, avatar):
     
 def edit_user(user_id,info):
     user = get_single_user(user_id)
+    print("el user", user)
     if user is None:
         return None
     edit = Repository.edit_user(user, info)

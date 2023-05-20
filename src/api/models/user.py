@@ -33,8 +33,8 @@ class User(db.Model):
         self.roles_id = roles_id
    
 
-    def __repr__(self):
-        return  '%r' % self.user_name #para las relaciones, en lugar de mostrar el id
+   # def __repr__(self):
+    #    return  '%r' % self.user_name #para las relaciones, en lugar de mostrar el id
 
 
 

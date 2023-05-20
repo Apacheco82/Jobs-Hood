@@ -16,7 +16,8 @@ export const EditProfileLawyer = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [className, setClassName] = useState("");
-
+  const [file, setFile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
   const [editedLawyer, setEditedLawyer] = useState({
     name: store.user.name,
     email: store.user.email,
@@ -26,12 +27,25 @@ export const EditProfileLawyer = () => {
   });
 
   const handleChange = (event) => {
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (reader.readyState === 2) {
+          //console.log("result", reader.result);
+          setFileUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
     const {name, value} = event.target;
     setEditedLawyer((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
+    }))}
   };
+
+  console.log(editedLawyer)
 
   const handleSubmit = async (event) => {
     setSpinner(true);
@@ -41,7 +55,7 @@ export const EditProfileLawyer = () => {
       const check = await checkUser(editedLawyer, "edit"); //el parametro para editar
       if (!check.error) {
         try {
-          const response = await editLawyer(editedLawyer);
+          const response = await editLawyer(editedLawyer, file);
           if (response) {
             localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
             setAlert(true);
@@ -71,7 +85,7 @@ export const EditProfileLawyer = () => {
     } else {
       //si no cambia el email
       try {
-        const response = await editLawyer(editedLawyer);
+        const response = await editLawyer(editedLawyer,file);
         setEditedLawyer(store.user);
         setSpinner(false);
         setAlert(true);
@@ -102,7 +116,7 @@ export const EditProfileLawyer = () => {
           {" "}
           <h1> Edición de Usuario</h1>
           <div className="col">
-            <Avatar />
+          <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="row my-3"></div>

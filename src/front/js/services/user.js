@@ -90,15 +90,17 @@ export const uploadAvatar = async (body) => {
   }
 };
 
-export const editUser = async (user) => {
+export const editUser = async (user, file) => {
   try {
     const token = localStorage.getItem("token");
+    const form = new FormData();
+    form.append("avatar", file);
+    form.append("user", JSON.stringify(user));
     const response = await fetch(`${URL}/user/edit`, {
       method: "PUT",
-      body: JSON.stringify(user),
+      body: form,
       headers: {
-        Authorization: `Bearer ${token}`, // para poder acceder a partes privadas tengo que pasar en headers este formato el token es una interpolacion ya que ira cambiando segun el user
-        ...HEADERS, // + tmb los headers generales se añaden
+        Authorization: `Bearer ${token}` // para poder acceder a partes privadas tengo que pasar en headers este formato el token es una interpolacion ya que ira cambiando segun el user
       },
     });
     const data = await response.json();

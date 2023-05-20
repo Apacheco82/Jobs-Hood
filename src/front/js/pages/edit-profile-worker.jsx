@@ -15,29 +15,41 @@ export const EditProfileWorker = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [className, setClassName] = useState("");
-
+  const [file, setFile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
   const [editedWorker, setEditedWorker] = useState({
     user_name: store.user.user_name,
     name: store.user.name,
     last_name: store.user.last_name,
     email: store.user.email,
-    //avatar: store.avatar,
   });
 
   const handleChange = (event) => {
-    const {name, value} = event.target;
-    setEditedWorker((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (reader.readyState === 2) {
+          //console.log("result", reader.result);
+          setFileUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
+      const {name, value} = event.target;
+      setEditedWorker((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  }
+  
 
   const handleSubmit = async (event) => {
     setSpinner(true);
     event.preventDefault();
     let check;
     let mail = false;
-
     if (store.user.email !== editedWorker.email) {
       // si el email ha cambiado
       check = await checkUser(editedWorker, "editMail"); // el parametro para editar
@@ -46,11 +58,10 @@ export const EditProfileWorker = () => {
       //si el user_name ha cambiado
       check = await checkUser(editedWorker, "editUserName"); // el parametro para editar
     }
-
     if (check) {
       if (!check.error) {
         try {
-          const response = await editUser(editedWorker);
+          const response = await editUser(editedWorker, file);
           if (response) {
             console.log("laresponse", response);
             if (mail) {
@@ -83,7 +94,7 @@ export const EditProfileWorker = () => {
     } else {
       // si no cambia ni email ni user_name
       try {
-        const response = await editUser(editedWorker);
+        const response = await editUser(editedWorker, file);
         if (response) {
           setAlert(true);
           setClassName("success");
@@ -117,7 +128,7 @@ export const EditProfileWorker = () => {
           <form onSubmit={handleSubmit}>
             <div className="row my-3">
               <div className="col">
-                <Avatar />
+                <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
               </div>
             </div>
             {alert && (

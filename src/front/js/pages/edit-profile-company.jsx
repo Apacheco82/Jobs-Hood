@@ -16,7 +16,8 @@ export const EditProfileCompany = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [className, setClassName] = useState("");
-
+  const [file, setFile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
   const [editedCompany, setEditedCompany] = useState({
     name: store.user.name,
     email: store.user.email,
@@ -25,12 +26,24 @@ export const EditProfileCompany = () => {
     cif: store.user.company.cif,
   });
 
+
   const handleChange = (event) => {
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (reader.readyState === 2) {
+          //console.log("result", reader.result);
+          setFileUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    } else {
     const {name, value} = event.target;
     setEditedCompany((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
+    }))}
   };
 
   const handleSubmit = async (event) => {
@@ -41,7 +54,7 @@ export const EditProfileCompany = () => {
       const check = await checkUser(editedCompany, "edit"); //el parametro para editar
       if (!check.error) {
         try {
-          const response = await editCompany(editedCompany);
+          const response = await editCompany(editedCompany, file);
           // Guardamos el nuevo token en el localStorage
           localStorage.setItem("token", response);
           setSpinner(false);
@@ -64,7 +77,7 @@ export const EditProfileCompany = () => {
     } else {
       //si no cambia el email
       try {
-        await editCompany(editedCompany);
+        await editCompany(editedCompany, file);
         setEditedCompany(store.user);
         setSpinner(false);
         navigate("/company/profile");
@@ -92,7 +105,7 @@ export const EditProfileCompany = () => {
           <form onSubmit={handleSubmit}>
             <div className="row my-3">
               <div className="col">
-                <Avatar />
+              <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
               </div>
             </div>
             {alert && (

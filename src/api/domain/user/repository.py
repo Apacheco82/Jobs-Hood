@@ -31,19 +31,18 @@ def get_single_user(id):
     return user
 
 def update_avatar(id, avatar):
-    print("+++++++++++++++++++", id, "****************", avatar)
     user = User.query.get(id)   
     user.avatar = avatar['secure_url']    
-    db.session.commit()
+
 
     return user
 
-def edit_user(user, info):    
+def edit_user(user, info): 
+    print("user en repository",user)
     user.user_name = info['user_name']     
     user.name = info['name']
     user.last_name = info['last_name']
     user.email = info['email']
-    user.avatar = info['avatar']
 
     db.session.commit()
          
