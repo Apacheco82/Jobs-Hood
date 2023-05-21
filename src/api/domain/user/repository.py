@@ -31,25 +31,23 @@ def get_single_user(id):
     return user
 
 def update_avatar(id, avatar):
-    user = User.query.get(id)
-    user.avatar = avatar['secure_url']
-    
-    db.session.commit()
+    user = User.query.get(id)   
+    user.avatar = avatar['secure_url']    
+
 
     return user
 
-def edit_user(user, info):
-    
+def edit_user(user, info): 
+    print("user en repository",user)
     user.user_name = info['user_name']     
     user.name = info['name']
     user.last_name = info['last_name']
     user.email = info['email']
-    user.avatar = info['secure_url']
-    user.avatar = info['avatar']
 
     db.session.commit()
          
     return user
+
 
 def edit_user_by_role(id,info):
     user = User.query.get(id)
@@ -58,16 +56,20 @@ def edit_user_by_role(id,info):
     else:    
             user.name = info['name']
             user.email = info['email']
+            user.user_name = info['email']
          
     return user
 
-def check_worker(user_name, email):
-    user_name = User.query.filter_by(user_name = user_name).first()
+def check_worker_email(email):
     email = User.query.filter_by(email = email).first()
+    if email is not None:
+        return Response.response_error("El email ya está registrado", 400)
+    else: return { "msg" : "Usuario correcto","error": False, "status": 200}
+    
+def check_worker_user_name(user_name):
+    user_name = User.query.filter_by(user_name = user_name).first()
     if user_name is not None:
         return Response.response_error("El nombre de usuario ya existe", 400)
-    elif email is not None:
-        return Response.response_error("El email ya está registrado", 400)
     else: return { "msg" : "Usuario correcto","error": False, "status": 200}
 
 def check_lawyer( email, col_number):
@@ -81,12 +83,16 @@ def check_lawyer( email, col_number):
     else: return { "msg" : "Usuario correcto","error": False, "status": 200}
 
 def check_company( email, cif):
-   
     email = User.query.filter_by(email = email).first()
     cif = Company.query.filter_by(cif = cif).first()
-    
     if email is not None:
         return Response.response_error("El email ya está registrado", 400)
     elif cif is not None:
         return Response.response_error("El CIF ya está registrado", 400)
+    else: return { "msg" : "Usuario correcto","error": False, "status": 200}
+
+def check_roles_edit(email):
+    email = User.query.filter_by(email = email).first()
+    if email is not None:
+        return Response.response_error("El email ya está registrado", 400)
     else: return { "msg" : "Usuario correcto","error": False, "status": 200}

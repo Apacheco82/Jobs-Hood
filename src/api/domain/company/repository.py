@@ -37,8 +37,6 @@ def edit_user_company(info, company):
     company.address = info['address']
     company.province = info['province']
 
-
-   
     db.session.commit()
 
     return company
