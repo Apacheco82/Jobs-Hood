@@ -24,7 +24,9 @@ export const Footer = () => (
 
 				<div className="priv_contact">
 					<div className="privacy">
-						<a href="#"><h4>Política de privacidad</h4></a> 
+						<Link to="/privacy">
+							<h4>Política de privacidad</h4> 
+						</Link>
 					</div>
 
 					<div className="contact">
