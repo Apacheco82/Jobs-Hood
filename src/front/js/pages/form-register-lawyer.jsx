@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import Form from "../component/Form.jsx";
 import Spinner from "../component/Spinner.jsx";
 import Alert from "../component/Alert.jsx";
+import { Navbar } from "../component/navbar.js";
 
 export const RegistroLawyer = () => {
   const initialState = {
@@ -82,6 +83,7 @@ export const RegistroLawyer = () => {
         <Spinner />
       ) : (
         <>  
+        <Navbar/>
           <div className="card d-flex justify-content-between m-5">
           {alert && (
               <div className="d-flex justify-content-center m-5">

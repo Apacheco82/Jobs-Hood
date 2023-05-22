@@ -1,31 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png"
-import "../../styles/navbar.css"
+import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png";
+import "../../styles/navbar.css";
+import DropdownMenu from "../component/Dropdown-Menu.jsx";
+import ButtonsNavbar from "../component/register-and-login.jsx";
 
 
 export const Navbar = () => {
-	return (
-		
-		<nav className="navbar navbar-expand-lg bg-body-tertiary">
-			<div className="container-fluid">
-				<Link to="/">
-					<img src={LogoWeb} className="logo-web"></img>
-				</Link>
-				
-				<ul className="navbar-nav d-flex gap-5 me-2 mb-2 mb-lg-0">
-					<Link to="/register">
-					<button type="button" className="btn-navbar"><i className="fa-solid fa-bookmark mx-1"></i> Registrarme</button>
-					</Link>
-					
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
-					<Link to="/login">
-						<button type="button" className="btn-navbar"><i className="fa-solid fa-user mx-2 fa-lg"></i>Iniciar sesión</button>
-					</Link>
-					
-				</ul>
-				
-			</div>
-</nav>
-	);
+  // Lógica para verificar si el usuario tiene un token y establecer el estado isLoggedIn
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token){setIsLoggedIn(true)}
+	else{setIsLoggedIn(false)}
+	console.log(token)
+  }, []);
+
+  return (
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        <Link to="/">
+          <img src={LogoWeb} className="logo-web" alt="Logo" />
+        </Link>
+   		{isLoggedIn ? <DropdownMenu /> : <ButtonsNavbar />}
+        
+      </div>
+    </nav>
+  );
 };

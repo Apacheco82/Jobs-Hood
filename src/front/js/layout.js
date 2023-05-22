@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home.jsx";
 import injectContext from "./store/appContext";
-import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { RegistroWorker } from "./pages/form-register-worker.jsx";
 import { RegistroLawyer } from "./pages/form-register-lawyer.jsx"
@@ -30,7 +29,7 @@ const Layout = () => {
     return (
         <div>
             <BrowserRouter basename={basename}>           
-                    <Navbar />
+                  
                     <Routes>
                         <Route element={<Home/>} path="/" />    
                         <Route element={<Profile />} path="/worker/profile" />   

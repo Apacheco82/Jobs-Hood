@@ -1,9 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import { Navbar } from "../component/navbar.js";
 
 export const Register = () => {
   return (
     <React.Fragment>
+      <Navbar/>
       <div className="container text-center">
         <h1> Bienvenido a Jobs Hood!</h1>
         <h3>¿A que area pertenece? </h3>

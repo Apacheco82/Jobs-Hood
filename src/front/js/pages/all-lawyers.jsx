@@ -7,6 +7,7 @@ import Spinner from "../component/Spinner.jsx";
 import Filter from "../component/Filter.jsx";
 import {provincias} from "../component/form-province.jsx";
 import {calculateAverageRating} from "../component/AverageRating.jsx";
+import { Navbar } from "../component/navbar.js";
 
 export const AllLawyers = () => {
   const [user, setUser] = useState([]);
@@ -71,6 +72,7 @@ export const AllLawyers = () => {
         <Spinner />
       ) : (
         <>
+        <Navbar/>
           <h1 className="text-center"> Nuestros abogados</h1>
           <Search setSearch={setSearch} />
           <div className="container">

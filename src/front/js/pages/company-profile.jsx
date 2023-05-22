@@ -10,6 +10,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
 import AverageRating from "../component/AverageRating.jsx";
+import { Navbar } from "../component/navbar.js";
 
 
 export const CompanyProfile = () => {
@@ -102,6 +103,7 @@ export const CompanyProfile = () => {
         <Spinner />
       ) : (
         <>
+        <Navbar/>
           <UserInfo
             onClick={handleEdit}
             user={store.user}
