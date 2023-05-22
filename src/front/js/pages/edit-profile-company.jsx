@@ -8,6 +8,7 @@ import Avatar from "../component/avatar.jsx";
 import {useNavigate} from "react-router-dom";
 import {checkUser} from "../services/user.js";
 import Alert from "../component/Alert.jsx";
+import { Navbar } from "../component/navbar.js";
 
 export const EditProfileCompany = () => {
   const {store, actions} = useContext(Context);
@@ -99,6 +100,8 @@ export const EditProfileCompany = () => {
       {spinner ? (
         <Spinner />
       ) : (
+        <>
+        <Navbar/>
         <div className="container my-5">
           {" "}
           <h1> Edición de Usuario</h1>
@@ -176,6 +179,7 @@ export const EditProfileCompany = () => {
             </div>
           </form>
         </div>
+        </>
       )}
     </>
   );

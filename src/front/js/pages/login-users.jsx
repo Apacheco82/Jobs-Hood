@@ -4,6 +4,7 @@ import {loginUser, getUserPrivate} from "../services";
 import {useParams} from "react-router-dom";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
+import { Navbar } from "../component/navbar.js";
 
 export const Login = (props) => {
   const params = useParams();
@@ -45,6 +46,7 @@ export const Login = (props) => {
         <Spinner />
       ) : (
         <React.Fragment>
+          <Navbar/>
           <form
             onChange={handleChange}
             onSubmit={handleSubmit}
