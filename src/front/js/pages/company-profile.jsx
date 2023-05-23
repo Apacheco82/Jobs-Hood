@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from "react";
 import {Tab, Nav} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
-import {userById, getUserPrivate} from "../services";
+import {changePassword,getUserPrivate, userById} from "../services";
 import {createReview, checkReview} from "../services/review.js";
 import UserInfo from "../component/UserInfo.jsx";
 import Review from "../component/review.jsx";
@@ -11,7 +11,7 @@ import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
 import AverageRating from "../component/AverageRating.jsx";
 import { Navbar } from "../component/navbar.js";
-
+import Modal from "../component/Modal.jsx";
 
 export const CompanyProfile = () => {
   const params = useParams();
@@ -29,6 +29,20 @@ export const CompanyProfile = () => {
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
   const {store, actions} = useContext(Context);
+  const [password, setPassword] = useState({
+    email: "",
+    old_password: "",
+    new_password: "",
+    password_check: "",
+  });
+  const [show, setShow] = useState(false);
+  const [small, setSmall] = useState(false);
+  const [passWrong, setPassWrong] = useState(false);
+  const [passOk, setPassOk] = useState(false);
+
+  const handleShow = () => {
+    setShow(!show);
+  };
 
   const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
 
@@ -97,6 +111,39 @@ export const CompanyProfile = () => {
     navigate("/edit/profile-company");
   };
 
+  const passwordChange = ({target}) => {
+    setPassword({...password, [target.name]: target.value});
+  };
+
+  const handlePassword = async (e) => {
+    e.preventDefault();
+    password.email = store.user.email;
+    if (password.new_password == password.password_check) {
+      //si el password nuevo coincide con la repeticion
+      try {
+        const response = await changePassword(password);
+        if (!response.error) {
+          setPassOk(true);
+          setTimeout(() => {
+            setPassOk(false);
+            setShow(false);
+          }, 2000);
+        } else {
+          setPassWrong(true);
+          setTimeout(() => {
+          setPassWrong(false)
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error);//provisional
+      }
+    } else {
+      setSmall(true);
+      setTimeout(() => {
+        setSmall(false);
+      }, 2000);
+    }
+  };
   return (
     <>
       {spinner ? (
@@ -110,7 +157,17 @@ export const CompanyProfile = () => {
             profile={company}
             showEditButton={!params.id}
           />
-
+          {!params.id && (
+            <Modal
+              handlePassword={handlePassword}
+              passwordChange={passwordChange}
+              show={show}
+              handleShow={handleShow}
+              small={small}
+              passWrong={passWrong}
+              passOk={passOk}
+            />
+          )}
           <div className="container d-flex justify-content-center mt-1">
             <Nav
               variant="tabs"

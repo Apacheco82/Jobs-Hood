@@ -4,7 +4,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
   return (
     <>
       <div className="d-flex">
-        <button type="button" className="btn btn-primary" onClick={handleShow}>
+        <button type="button" className="btn btn-success" onClick={handleShow}>
           Cambiar contraseña
         </button>
       </div>
@@ -83,7 +83,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-success"
                   onClick={handlePassword}
                 >
                   Save changes

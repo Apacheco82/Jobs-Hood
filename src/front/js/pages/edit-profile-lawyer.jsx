@@ -33,7 +33,6 @@ export const EditProfileLawyer = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         if (reader.readyState === 2) {
-          //console.log("result", reader.result);
           setFileUrl(reader.result);
         }
       };
@@ -46,7 +45,6 @@ export const EditProfileLawyer = () => {
     }))}
   };
 
-  console.log(editedLawyer)
 
   const handleSubmit = async (event) => {
     setSpinner(true);

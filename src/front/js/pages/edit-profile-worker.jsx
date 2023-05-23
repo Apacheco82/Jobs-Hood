@@ -8,7 +8,6 @@ import {checkUser} from "../services/user.js";
 import Avatar from "../component/avatar.jsx";
 import Alert from "../component/Alert.jsx";
 import {Navbar} from "../component/navbar.js";
-import Modal from "../component/Modal.jsx";
 
 export const EditProfileWorker = () => {
   const {store, actions} = useContext(Context);
@@ -260,15 +259,6 @@ export const EditProfileWorker = () => {
                 <LinkButton direction="/worker/profile" text="Cancelar" />
               </div>
             </form>
-            <Modal
-              handlePassword={handlePassword}
-              passwordChange={passwordChange}
-              show={show}
-              handleShow={handleShow}
-              small={small}
-              passWrong={passWrong}
-              passOk={passOk}
-            />
           </div>
         </>
       )}
