@@ -16,8 +16,6 @@ export const Profile = () => {
   const [userReviews, setUserReviews] = useState([]);
  
 
-  // let token = localStorage.getItem("token");
-
   const getInfoUser = async () => {
     if (params.id) {
       //perfil publico

@@ -29,9 +29,12 @@ export const EditProfileWorker = () => {
     email: "",
     old_password: "",
     new_password: "",
-    password_check : ""
+    password_check: "",
   });
   const [show, setShow] = useState(false);
+  const [small, setSmall] = useState(false);
+  const [passWrong, setPassWrong] = useState(false);
+  const [passOk, setPassOk] = useState(false);
 
   const handleShow = () => {
     setShow(!show);
@@ -130,25 +133,38 @@ export const EditProfileWorker = () => {
   };
 
   const passwordChange = ({target}) => {
-      setPassword({...password, [target.name]: target.value});
+    setPassword({...password, [target.name]: target.value});
   };
 
   const handlePassword = async (e) => {
     e.preventDefault();
     password.email = store.user.email;
-    if(password.new_password == password.password_check){
-      const response = await changePassword(password)
-      console.log(response)
-      setShow(false)
-    }else{
-      console.log("la contraseña no coincide")
+    if (password.new_password == password.password_check) {
+      //si el password nuevo coincide con la repeticion
+      try {
+        const response = await changePassword(password);
+        if (!response.error) {
+          setPassOk(true)
+          console.log(response)
+          setTimeout(() => {
+            setPassOk(false)
+            setShow(false)
+          }, 2000);
+        }else{
+          setPassWrong(true)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setSmall(true);
+      setTimeout(() => {
+        setSmall(false);
+      }, 2000);
     }
-
-
   };
 
-  console.log(store.user.email);
-  
+
   return (
     <>
       {spinner ? (
@@ -244,15 +260,16 @@ export const EditProfileWorker = () => {
                 <LinkButton direction="/worker/profile" text="Cancelar" />
               </div>
             </form>
-
             <Modal
               handlePassword={handlePassword}
               passwordChange={passwordChange}
               show={show}
               handleShow={handleShow}
+              small={small}
+              passWrong={passWrong}
+              passOk={passOk}
             />
           </div>
-
         </>
       )}
     </>
