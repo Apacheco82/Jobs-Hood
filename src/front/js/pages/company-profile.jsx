@@ -151,23 +151,27 @@ export const CompanyProfile = () => {
       ) : (
         <>
         <Navbar/>
-          <UserInfo
-            onClick={handleEdit}
-            user={store.user}
-            profile={company}
-            showEditButton={!params.id}
-          />
-          {!params.id && (
-            <Modal
-              handlePassword={handlePassword}
-              passwordChange={passwordChange}
-              show={show}
-              handleShow={handleShow}
-              small={small}
-              passWrong={passWrong}
-              passOk={passOk}
-            />
-          )}
+        <div className="container container-fluid d-flex justify-content-center align-items-center">
+              <div className="card" style={{width: "80%"}}>
+                <UserInfo
+                  onClick={handleEdit}
+                  user={store.user}
+                  userPrivate={!params.id}
+                  showEditButton={!params.id}
+                />
+                {!params.id && (
+                  <Modal
+                    handlePassword={handlePassword}
+                    passwordChange={passwordChange}
+                    show={show}
+                    handleShow={handleShow}
+                    small={small}
+                    passWrong={passWrong}
+                    passOk={passOk}
+                  />
+                )}
+              </div>
+          </div>
           <div className="container d-flex justify-content-center mt-1">
             <Nav
               variant="tabs"

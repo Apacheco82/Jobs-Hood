@@ -2,9 +2,7 @@ import React from "react";
 
 const UserInfo = ({ user, profile, showEditButton, isLawyer, onClick }) => {
   return (
-    <div className="row h-100 justify-content-center align-items-center">
-      <div className="card" style={{ width: "80%" }}>
-        <div className="container text-center my-2" id="profile-worker">
+
           <div className="row">
             <div className="col-lg-3">
               <img id="imagenContacto" src={user.avatar} />
@@ -29,9 +27,7 @@ const UserInfo = ({ user, profile, showEditButton, isLawyer, onClick }) => {
               </div>
             )}
           </div>
-        </div>
-      </div>
-    </div>
+
   );
 };
 

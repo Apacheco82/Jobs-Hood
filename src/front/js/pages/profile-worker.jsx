@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from "react";
-import {changePassword,getUserPrivate, userById} from "../services";
+import {changePassword, getUserPrivate, userById} from "../services";
 import {useNavigate, useParams} from "react-router-dom";
 import UserWorker from "../component/UserWorker.jsx";
 import Spinner from "../component/Spinner.jsx";
@@ -54,7 +54,7 @@ export const Profile = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   const passwordChange = ({target}) => {
     setPassword({...password, [target.name]: target.value});
   };
@@ -76,11 +76,11 @@ export const Profile = () => {
         } else {
           setPassWrong(true);
           setTimeout(() => {
-          setPassWrong(false)
+            setPassWrong(false);
           }, 2000);
         }
       } catch (error) {
-        console.log(error);//provisional
+        console.log(error); //provisional
       }
     } else {
       setSmall(true);
@@ -98,23 +98,27 @@ export const Profile = () => {
         <React.Fragment>
           <Navbar />
 
-          <UserWorker
-            onClick={handleEdit}
-            user={store.user}
-            userPrivate={!params.id}
-            showEditButton={!params.id}
-          />
-          {!params.id && (
-            <Modal
-              handlePassword={handlePassword}
-              passwordChange={passwordChange}
-              show={show}
-              handleShow={handleShow}
-              small={small}
-              passWrong={passWrong}
-              passOk={passOk}
-            />
-          )}
+          <div className="container container-fluid d-flex justify-content-center align-items-center">
+              <div className="card" style={{width: "80%"}}>
+                <UserWorker
+                  onClick={handleEdit}
+                  user={store.user}
+                  userPrivate={!params.id}
+                  showEditButton={!params.id}
+                />
+                {!params.id && (
+                  <Modal
+                    handlePassword={handlePassword}
+                    passwordChange={passwordChange}
+                    show={show}
+                    handleShow={handleShow}
+                    small={small}
+                    passWrong={passWrong}
+                    passOk={passOk}
+                  />
+                )}
+              </div>
+          </div>
 
           <div className="container">
             <h4> Opiniones del usuario :</h4>
