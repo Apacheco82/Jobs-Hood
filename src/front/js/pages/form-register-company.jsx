@@ -45,19 +45,16 @@ export const RegisterCompany = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // setSpinner(true);
+    setSpinner(true);
     const check = await checkUser(form);
-    // console.log(check.msg);
     setAlert(true);
     setClassName("danger");
     setMessage(check.msg);
     setAlert(false);
-    // setSpinner(false)
     if (!check.error) {
       try {
         const register = await companyRegister(form);
         if (register) {
-          // setSpinner(false);
           setAlert(true);
           setClassName("success");
           setMessage(register.msg);
@@ -77,6 +74,7 @@ export const RegisterCompany = () => {
     } else {
       setAlert(true);
     }
+    setSpinner(false)
   };
   
 

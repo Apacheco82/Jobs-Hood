@@ -24,11 +24,9 @@ def create_user():
 @api.route('/login', methods=['POST'])
 def login_users():
     body = request.get_json()
-    token = Controller.login_users(body)
-    if token.get('token'):
-        return jsonify(token), 200
-    return jsonify(token), token['status']
+    return Controller.login_users(body)
 
+    
 
 @api.route('/profile', methods =['GET'])
 @jwt_required()

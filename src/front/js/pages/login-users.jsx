@@ -4,11 +4,15 @@ import {loginUser, getUserPrivate} from "../services";
 import {useParams} from "react-router-dom";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
+import Alert from "../component/Alert.jsx";
 
 export const Login = (props) => {
   const params = useParams();
   const [spinner, setSpinner] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
 
   const [login, setLogin] = useState({
     email: "",
@@ -25,19 +29,34 @@ export const Login = (props) => {
     event.preventDefault();
     setSpinner(true);
     const isLogin = await loginUser(login);
-    if (isLogin) {
-      const token = localStorage.getItem("token");
-      const user = await getUserPrivate(token);
-      localStorage.setItem("role", user.role); //seteamos el rol del usuario al localstorage para usarlo en otras páginas como companyProfile
-      setSpinner(false);
-      if (user.company) {
-        navigate("/company/profile");
-      } else if (user.lawyer) {
-        navigate("/lawyer/profile");
+    try {
+      if (!isLogin.error) {
+        const token = localStorage.getItem("token");
+        const user = await getUserPrivate(token);
+        localStorage.setItem("role", user.role); //seteamos el rol del usuario al localstorage para usarlo en otras páginas como companyProfile
+        setAlert(true);
+        setClassName("success");
+        setMessage("Login correcto");
+        setTimeout(() => {
+          if (user.company) {
+            navigate("/company/profile");
+          } else if (user.lawyer) {
+            navigate("/lawyer/profile");
+          } else {
+            navigate("/worker/profile");
+          }
+        }, 3000);
       } else {
-        navigate("/worker/profile");
+        setAlert(true);
+        setClassName("danger");
+        setMessage(isLogin.msg);
       }
+    } catch (error) {
+      setAlert(true);
+      setClassName("danger");
+      setMessage("error del servidor");
     }
+    setSpinner(false);
   };
 
   return (
@@ -46,7 +65,7 @@ export const Login = (props) => {
         <Spinner />
       ) : (
         <React.Fragment>
-          <Navbar/>
+          <Navbar />
           <form
             onChange={handleChange}
             onSubmit={handleSubmit}
@@ -54,7 +73,11 @@ export const Login = (props) => {
             className="container"
           >
             <h5 className="text-center">Iniciar Sesión en Jobs Hood</h5>
-
+            {alert && (
+              <div className="d-flex justify-content-center m-5">
+                <Alert className={className} message={message} />
+              </div>
+            )}
             <div id="login" className="border border-2 border-dark">
               <div className="col">
                 <label htmlFor="form-login" className="form-label">

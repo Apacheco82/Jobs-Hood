@@ -58,10 +58,8 @@ export const RegistroLawyer = () => {
             setAlert(false);
             navigate("/login");
           }, 3000);
-          setSpinner(false);
         }
       } catch (error) {
-        setSpinner(false);
         setAlert(true);
         setClassName("danger");
         setMessage("Error del servidor");
@@ -70,11 +68,11 @@ export const RegistroLawyer = () => {
         }, 3000);
       }
     } else {
-      setSpinner(false);
       setAlert(true); //error
       setClassName("danger");
       setMessage(check.msg);
     }
+    setSpinner(false)
   };
 
   return (

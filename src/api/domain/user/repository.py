@@ -23,8 +23,12 @@ def create_user_by_role(user_name,password,name,last_name,email, roles_id):
     user_by_role = User(user_name,password,name,last_name,email, roles_id)
     return user_by_role
 
-def  get_user_private(email):
-   return User.query.filter_by(email = email).one()
+def get_user_private(email):
+    user = User.query.filter_by(email = email).first()
+    if user is not None:
+        return user
+    else:
+        return None
 
 def get_single_user(id):
     user = User.query.get(id)

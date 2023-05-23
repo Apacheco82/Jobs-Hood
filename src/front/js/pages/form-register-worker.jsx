@@ -43,7 +43,6 @@ export const RegistroWorker = () => {
             setAlert(false);
             navigate("/login");
           }, 3000);
-          setSpinner(false);
         }
       } catch (error) {
         setSpinner(false);
@@ -55,11 +54,11 @@ export const RegistroWorker = () => {
         }, 3000);
       }
     } else {
-      setSpinner(false);
       setAlert(true);
       setClassName("danger");
       setMessage(check.msg);
     }
+    setSpinner(false);
   };
   
   return (
