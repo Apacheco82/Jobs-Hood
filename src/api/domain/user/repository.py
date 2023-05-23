@@ -103,7 +103,7 @@ def check_roles_edit(email):
 def change_password(id, old_password, new_password):
     user = User.query.filter_by(id = id).first()
     if user is not None and bcrypt.checkpw(old_password.encode(), user.password.encode()):
-        user.password = new_password.decode()  # convert the password hash from bytes to string
+        user.password = new_password.decode()  
         db.session.commit()
         return user
     else:

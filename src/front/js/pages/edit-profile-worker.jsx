@@ -128,6 +128,7 @@ export const EditProfileWorker = () => {
       }
     }
   };
+
   const passwordChange = ({target}) => {
       setPassword({...password, [target.name]: target.value});
   };
