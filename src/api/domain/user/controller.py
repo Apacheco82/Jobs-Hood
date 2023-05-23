@@ -88,3 +88,8 @@ def check_company(data, mode):
       return Repository.check_roles_edit(data['email'])
    else:
       return Repository.check_company(data['email'], data['cif'])
+
+def change_password(id, body):
+   old_password = hash_pass(body['old_password'])
+   hashed = hash_pass(body['new_password']) 
+   return Repository.change_password(id, hashed.decode(), old_password)

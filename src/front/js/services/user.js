@@ -4,6 +4,7 @@ const HEADERS = {
   "Content-Type": "application/json",
 };
 
+
 // este parametro user(linea 12) es el parametro que pasamos en en form-register-user.jsx como registro del useState
 // body: el cuerpo de la peticion que vamos a enviar, los datos como parametros
 
@@ -116,6 +117,24 @@ export const checkUser = async (registro, mode) => {
       method: "POST",
       headers: HEADERS,
       body: JSON.stringify(registro)
+    });
+    return await response.json();
+  } catch (error) {
+    console.log("Error check", error);
+    return error;
+  }
+};
+
+export const changePassword = async (data) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await fetch(`${URL}/user/change_password`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`, 
+        ...HEADERS, 
+      },
+      body: JSON.stringify(data)
     });
     return await response.json();
   } catch (error) {

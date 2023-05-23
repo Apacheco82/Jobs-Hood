@@ -96,3 +96,13 @@ def check_roles_edit(email):
     if email is not None:
         return Response.response_error("El email ya está registrado", 400)
     else: return { "msg" : "Usuario correcto","error": False, "status": 200}
+
+def change_password(id, password, old_password):
+    print("LA PASSWORD VIEJA", old_password)
+    user = User.query.filter_by(id = id, password = old_password).first()
+    if user is not None:
+        user.password = password
+        db.session.commit()
+        return user
+    else:
+        return Response.response_error("contraseña no", 400)
