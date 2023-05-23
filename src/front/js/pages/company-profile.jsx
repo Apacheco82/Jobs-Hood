@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from "react";
 import {Tab, Nav} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
-import {changePassword,getUserPrivate, userById} from "../services";
+import {changePassword, getUserPrivate, userById} from "../services";
 import {createReview, checkReview} from "../services/review.js";
 import UserInfo from "../component/UserInfo.jsx";
 import Review from "../component/review.jsx";
@@ -10,7 +10,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
 import AverageRating from "../component/AverageRating.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
 
 export const CompanyProfile = () => {
@@ -131,11 +131,11 @@ export const CompanyProfile = () => {
         } else {
           setPassWrong(true);
           setTimeout(() => {
-          setPassWrong(false)
+            setPassWrong(false);
           }, 2000);
         }
       } catch (error) {
-        console.log(error);//provisional
+        console.log(error); //provisional
       }
     } else {
       setSmall(true);
@@ -150,27 +150,27 @@ export const CompanyProfile = () => {
         <Spinner />
       ) : (
         <>
-        <Navbar/>
-        <div className="container container-fluid d-flex justify-content-center align-items-center">
-              <div className="card" style={{width: "80%"}}>
-                <UserInfo
-                  onClick={handleEdit}
-                  user={store.user}
-                  userPrivate={!params.id}
-                  showEditButton={!params.id}
+          <Navbar />
+          <div className="container container-fluid d-flex justify-content-center align-items-center">
+            <div className="card" style={{width: "80%"}}>
+              <UserInfo
+                onClick={handleEdit}
+                user={store.user}
+                profile={company}
+                showEditButton={!params.id}
+              />
+              {!params.id && (
+                <Modal
+                  handlePassword={handlePassword}
+                  passwordChange={passwordChange}
+                  show={show}
+                  handleShow={handleShow}
+                  small={small}
+                  passWrong={passWrong}
+                  passOk={passOk}
                 />
-                {!params.id && (
-                  <Modal
-                    handlePassword={handlePassword}
-                    passwordChange={passwordChange}
-                    show={show}
-                    handleShow={handleShow}
-                    small={small}
-                    passWrong={passWrong}
-                    passOk={passOk}
-                  />
-                )}
-              </div>
+              )}
+            </div>
           </div>
           <div className="container d-flex justify-content-center mt-1">
             <Nav
@@ -190,9 +190,7 @@ export const CompanyProfile = () => {
               <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
                 <div>
                   {" "}
-
                   <AverageRating reviews={review} />
-
                   {!token && (
                     <LinkButton
                       direction={"/login"}

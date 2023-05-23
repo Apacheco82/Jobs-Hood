@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {changePassword,getUserPrivate, userById} from "../services";
+import {changePassword, getUserPrivate, userById} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
 import {Tab, Nav} from "react-bootstrap";
 import {createReview, checkReview} from "../services/review.js";
@@ -170,7 +170,6 @@ export const LawyerProfile = () => {
   const handleEdit = async () => {
     navigate("/edit/profile-lawyer");
   };
-  
 
   const passwordChange = ({target}) => {
     setPassword({...password, [target.name]: target.value});
@@ -192,11 +191,11 @@ export const LawyerProfile = () => {
         } else {
           setPassWrong(true);
           setTimeout(() => {
-          setPassWrong(false)
+            setPassWrong(false);
           }, 2000);
         }
       } catch (error) {
-        console.log(error);//provisional
+        console.log(error); //provisional
       }
     } else {
       setSmall(true);
@@ -214,25 +213,26 @@ export const LawyerProfile = () => {
         <>
           <Navbar />
           <div className="container container-fluid d-flex justify-content-center align-items-center">
-              <div className="card" style={{width: "80%"}}>
-                <UserInfo
-                  onClick={handleEdit}
-                  user={store.user}
-                  userPrivate={!params.id}
-                  showEditButton={!params.id}
+            <div className="card" style={{width: "80%"}}>
+              <UserInfo
+                user={store.user}
+                profile={lawyer}
+                showEditButton={!params.id}
+                onClick={handleEdit}
+                isLawyer={true}
+              />
+              {!params.id && (
+                <Modal
+                  handlePassword={handlePassword}
+                  passwordChange={passwordChange}
+                  show={show}
+                  handleShow={handleShow}
+                  small={small}
+                  passWrong={passWrong}
+                  passOk={passOk}
                 />
-                {!params.id && (
-                  <Modal
-                    handlePassword={handlePassword}
-                    passwordChange={passwordChange}
-                    show={show}
-                    handleShow={handleShow}
-                    small={small}
-                    passWrong={passWrong}
-                    passOk={passOk}
-                  />
-                )}
-              </div>
+              )}
+            </div>
           </div>
           <div>
             <div className="container d-flex justify-content-center mt-1">
