@@ -123,14 +123,16 @@ export const Profile = () => {
           <div className="container">
             <h4> Opiniones del usuario :</h4>
             {userReviews.map((review, index) => (
-              <Review
-                key={index}
-                text={review.text}
-                user_name={review.user_name}
-                rating={review.rating}
-                data={review.data_create}
-              />
-            ))}
+                    <Review
+                      key={index}
+                      text={review.text}
+                      receiver_id={review.receiver_id}
+                      opinion={true}
+                      rating={review.rating}
+                      data={review.data_create}
+                      type ={review.receiver.roles.description}
+                    />
+                  ))}
           </div>
         </React.Fragment>
       )}

@@ -272,11 +272,12 @@ export const LawyerProfile = () => {
                         reviewSubmit={reviewSubmit}
                       />
                     )}
-                    {review.map((review, index) => (
+                   {review.map((review, index) => (
                       <Review
                         key={index}
                         userID={review.author_id}
                         text={review.text}
+                        opinion = {false}
                         user_name={review.user_name}
                         rating={review.rating}
                         data={review.data_create}

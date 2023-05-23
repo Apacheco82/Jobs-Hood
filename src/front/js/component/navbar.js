@@ -14,7 +14,7 @@ export const Navbar = () => {
     const token = localStorage.getItem("token");
     if(token){setIsLoggedIn(true)}
 	else{setIsLoggedIn(false)}
-	console.log(token)
+	
   }, []);
 
   return (

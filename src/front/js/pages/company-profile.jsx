@@ -204,12 +204,13 @@ export const CompanyProfile = () => {
                       reviewSubmit={reviewSubmit}
                     />
                   )}
-                  {review.map((review, index) => (
+                   {review.map((review, index) => (
                     <Review
                       key={index}
                       userID={review.author_id}
                       text={review.text}
                       user_name={review.user_name}
+                      opinion = {false}
                       rating={review.rating}
                       data={review.data_create}
                     />

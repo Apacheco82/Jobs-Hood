@@ -76,4 +76,5 @@ class User(db.Model):
             "name": self.name,
             "last_name": self.last_name,
             "email": self.email,
+            "roles":self.roles.serialize_role()
             }
