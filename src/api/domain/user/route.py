@@ -97,7 +97,7 @@ def change_password():
     user_logged = get_jwt_identity()
     body = request.get_json()
     result = Controller.change_password(user_logged["id"], body)
-    if isinstance(result, User): 
+    if result: 
         return Response.response_ok(result.serialize_only_user(), "contraseña cambiada", 200)
     else:
-        return Response.response_error("no va", 406)
+        return Response.response_error("Contraseña incorrecta", 400)

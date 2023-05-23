@@ -1,9 +1,10 @@
-
 from api.models.index import db, User, Roles, Company, Lawyer
 from flask import request, jsonify
 from api.functions import find_role, hash_pass
 import bcrypt
 import api.handle_response as Response
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 def get_users():
     users = User.query.all()
@@ -97,12 +98,13 @@ def check_roles_edit(email):
         return Response.response_error("El email ya está registrado", 400)
     else: return { "msg" : "Usuario correcto","error": False, "status": 200}
 
-def change_password(id, password, old_password):
-    print("LA PASSWORD VIEJA", old_password)
-    user = User.query.filter_by(id = id, password = old_password).first()
-    if user is not None:
-        user.password = password
+    return False
+
+def change_password(id, old_password, new_password):
+    user = User.query.filter_by(id = id).first()
+    if user is not None and bcrypt.checkpw(old_password.encode(), user.password.encode()):
+        user.password = new_password.decode()  # convert the password hash from bytes to string
         db.session.commit()
         return user
     else:
-        return Response.response_error("contraseña no", 400)
+        return None
