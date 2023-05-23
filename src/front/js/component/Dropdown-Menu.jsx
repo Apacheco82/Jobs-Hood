@@ -20,6 +20,7 @@ const DropdownMenu = () => {
     
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
         navigate("/")
         window.location.reload()
 
