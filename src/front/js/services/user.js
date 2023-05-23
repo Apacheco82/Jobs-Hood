@@ -36,10 +36,10 @@ export const loginUser = async (user) => {
     });
     const data = await response.json();
     localStorage.setItem("token", data.token); // localStorage es para guardar el dato de token lo encontramos en la consola en aplication -localstorage
-    return true;
+    return data;
   } catch (error) {
     console.log("Error al iniciar sesión!", error);
-    return false;
+    throw error
   }
 };
 

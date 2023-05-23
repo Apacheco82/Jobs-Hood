@@ -94,6 +94,7 @@ export const AllLawyers = () => {
                     return (
                       <Card
                         key={key}
+                        avatar={user.avatar}
                         name={user.name}
                         province={user.lawyer.province}
                         email={user.email}

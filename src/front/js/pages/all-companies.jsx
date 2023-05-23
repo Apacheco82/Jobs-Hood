@@ -93,6 +93,7 @@ export const AllCompanies = () => {
                     return (
                       <Card
                         key={key}
+                        avatar={user.avatar}
                         name={user.name}
                         province={user.company.province}
                         email={user.email}

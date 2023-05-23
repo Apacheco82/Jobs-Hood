@@ -18,7 +18,7 @@ export const Avatar = ({handleChange, fileUrl, file}) => {
         <div className="row">
           <div className="col">
 
-            <label className="file" for="file">
+            <label className="file" htmlFor="file">
               <span className="file_text">Elija una imagen</span>
               <span className="file_ico"><FaUpload/></span>
             </label>
