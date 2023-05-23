@@ -10,3 +10,11 @@ class Roles(db.Model):
 
     def __repr__(self):
         return  '%r' % self.description #para las relaciones, en lugar de mostrar el id
+
+    def serialize_role(self):
+        return{
+            "id":self.id,
+            "description":self.description.lower()
+        }
+
+

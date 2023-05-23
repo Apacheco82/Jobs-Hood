@@ -18,7 +18,9 @@ const Review = (props) => {
           activeColor="#ffd700"
         />
         <p className="card-text">{props.text}</p>
-        <Link to ={`/worker/${props.userID}`}><p  className="card-text">{props.user_name}</p></Link>  
+        <Link to ={`/worker/${props.userID}`}><p className="card-text">{props.user_name}</p></Link>  
+        {props.opinion && <Link to ={`/${props.type}/${props.receiver_id}`}><p  className="card-text">Ver Opinión</p></Link> }
+        
         <p className="card-text">{props.data}</p>
       </div>
     </div>

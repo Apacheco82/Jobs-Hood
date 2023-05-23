@@ -24,6 +24,7 @@ class Review(db.Model):
     def serialize(self):
         return {
             "id" : self.id,
+            "receiver": self.receiver.serialize_only_user(),
             'receiver_id': self.receiver_id,
             'author_id': self.author_id,
             'rating': self.rating,
@@ -31,5 +32,4 @@ class Review(db.Model):
             "user_name" : self.user_name,
             "data_create":self.data_create
         }
-
 
