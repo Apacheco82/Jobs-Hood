@@ -87,3 +87,15 @@ def check(mode):
     else:
         result = Controller.check_worker(data, mode)
     return result
+
+
+@api.route('/change_password', methods=['PUT'])
+@jwt_required()
+def change_password():
+    user_logged = get_jwt_identity()
+    body = request.get_json()
+    result = Controller.change_password(user_logged["id"], body)
+    if result: 
+        return Response.response_ok(result.serialize_only_user(), "contraseña cambiada", 200)
+    else:
+        return Response.response_error("Contraseña incorrecta", 400)

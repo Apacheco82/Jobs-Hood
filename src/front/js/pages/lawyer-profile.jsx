@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {userById, getUserPrivate} from "../services";
+import {changePassword, getUserPrivate, userById} from "../services";
 import UserInfo from "../component/UserInfo.jsx";
 import {Tab, Nav} from "react-bootstrap";
 import {createReview, checkReview} from "../services/review.js";
@@ -15,8 +15,8 @@ import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
 import AverageRating from "../component/AverageRating.jsx";
-import { Navbar } from "../component/navbar.js";
-
+import {Navbar} from "../component/navbar.js";
+import Modal from "../component/Modal.jsx";
 
 export const LawyerProfile = () => {
   const params = useParams();
@@ -43,6 +43,20 @@ export const LawyerProfile = () => {
   const navigate = useNavigate();
   const {store, actions} = useContext(Context);
   const [answer, setAnswer] = useState({});
+  const [password, setPassword] = useState({
+    email: "",
+    old_password: "",
+    new_password: "",
+    password_check: "",
+  });
+  const [show, setShow] = useState(false);
+  const [small, setSmall] = useState(false);
+  const [passWrong, setPassWrong] = useState(false);
+  const [passOk, setPassOk] = useState(false);
+
+  const handleShow = () => {
+    setShow(!show);
+  };
 
   const token = localStorage.getItem("token"); //el token del usuario que está logado, si es que hay alguien logado
 
@@ -153,10 +167,42 @@ export const LawyerProfile = () => {
     await fetchData();
   };
 
-  //console.log(respuesta)
-
   const handleEdit = async () => {
     navigate("/edit/profile-lawyer");
+  };
+
+  const passwordChange = ({target}) => {
+    setPassword({...password, [target.name]: target.value});
+  };
+
+  const handlePassword = async (e) => {
+    e.preventDefault();
+    password.email = store.user.email;
+    if (password.new_password == password.password_check) {
+      //si el password nuevo coincide con la repeticion
+      try {
+        const response = await changePassword(password);
+        if (!response.error) {
+          setPassOk(true);
+          setTimeout(() => {
+            setPassOk(false);
+            setShow(false);
+          }, 2000);
+        } else {
+          setPassWrong(true);
+          setTimeout(() => {
+            setPassWrong(false);
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error); //provisional
+      }
+    } else {
+      setSmall(true);
+      setTimeout(() => {
+        setSmall(false);
+      }, 2000);
+    }
   };
 
   return (
@@ -165,14 +211,29 @@ export const LawyerProfile = () => {
         <Spinner />
       ) : (
         <>
-        <Navbar/>
-          <UserInfo
-            user={store.user}
-            profile={lawyer}
-            showEditButton={!params.id}
-            onClick={handleEdit}
-            isLawyer={true}
-          />
+          <Navbar />
+          <div className="container container-fluid d-flex justify-content-center align-items-center">
+            <div className="card" style={{width: "80%"}}>
+              <UserInfo
+                user={store.user}
+                profile={lawyer}
+                showEditButton={!params.id}
+                onClick={handleEdit}
+                isLawyer={true}
+              />
+              {!params.id && (
+                <Modal
+                  handlePassword={handlePassword}
+                  passwordChange={passwordChange}
+                  show={show}
+                  handleShow={handleShow}
+                  small={small}
+                  passWrong={passWrong}
+                  passOk={passOk}
+                />
+              )}
+            </div>
+          </div>
           <div>
             <div className="container d-flex justify-content-center mt-1">
               <Nav
