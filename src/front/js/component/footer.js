@@ -12,7 +12,7 @@ export const Footer = () => (
 	
 <footer>
 		<div className="container">
-		<div className="d-flex pt-4 pb-4 footer_body fixed-bottom">
+		<div className="d-flex pt-4 pb-4 footer_body sticky-bottom">
 				<div className="social">
 					<div className="icon-circle text-center d-flex gap-3">
 						<a href="#"><FaFacebookF className="ico facebook"/></a>
@@ -25,13 +25,13 @@ export const Footer = () => (
 				<div className="priv_contact">
 					<div className="privacy">
 						<Link to="/privacy">
-							<h4>Política de privacidad</h4> 
+							<h5>Política de privacidad</h5> 
 						</Link>
 					</div>
 
 					<div className="contact">
 						<Link to="/contact">
-							<h4>Contacto</h4>  
+							<h5>Contacto</h5>  
 						</Link>
 					</div>
 				</div>

@@ -1,8 +1,9 @@
 import React from 'react'
+import "../../styles/pagination.css";
 
 const Pagination = ({ totalPages, currentPage, handlePageChange }) => {
   return (
-    <nav aria-label="Page navigation">
+    <nav className='d-flex justify-content-center' aria-label="Page navigation">
       <ul className="pagination justify-content-center">
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
           <a className="page-link" href="#" onClick={() => handlePageChange(currentPage - 1)}>

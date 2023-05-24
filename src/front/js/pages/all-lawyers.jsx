@@ -7,7 +7,8 @@ import Spinner from "../component/Spinner.jsx";
 import Filter from "../component/Filter.jsx";
 import {provincias} from "../component/form-province.jsx";
 import {calculateAverageRating} from "../component/AverageRating.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
+import "../../styles/all-lawyers.css";
 
 export const AllLawyers = () => {
   const [user, setUser] = useState([]);
@@ -72,47 +73,54 @@ export const AllLawyers = () => {
         <Spinner />
       ) : (
         <>
-        <Navbar/>
-          <h1 className="text-center"> Nuestros abogados</h1>
-          <Search setSearch={setSearch} />
-          <div className="container">
-            <Filter
-              filter={filter}
-              setFilter={setFilter}
-              minAverageRating={minAverageRating}
-              setMinAverageRating={setMinAverageRating}
-              provinces={provincias}
-            />
-            <div className="row">
-              <div className="col-3"></div>
-              <div className="col-8 mb-3">
-                <div className="row">
-                  {paginatedUsers.map((user, key) => {
-                    const averageRating = calculateAverageRating(
-                      user.received_reviews
-                    );
-                    return (
-                      <Card
-                        key={key}
-                        avatar={user.avatar}
-                        name={user.name}
-                        province={user.lawyer.province}
-                        email={user.email}
-                        address={user.lawyer.address}
-                        category={"lawyer"}
-                        id={user.id}
-                        averageRating={averageRating}
-                      />
-                    );
-                  })}
-                </div>
-                <div className="row mt-3">
-                  <Pagination
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    handlePageChange={handlePageChange}
+          <div className="all-lawyers">
+            <Navbar />
+            <h1 className="text-center m-3"> Nuestros abogados</h1>
+            <Search setSearch={setSearch} />
+
+            <div className="container p-3">
+              <div className="row">
+                <div className="col-md-3">
+                  <Filter
+                    filter={filter}
+                    setFilter={setFilter}
+                    minAverageRating={minAverageRating}
+                    setMinAverageRating={setMinAverageRating}
+                    provinces={provincias}
                   />
                 </div>
+                <div className="col-md-8 d-flex justify-content-md-center">
+                  <div className="row">
+                    {paginatedUsers.map((user, key) => {
+                      const averageRating = calculateAverageRating(
+                        user.received_reviews
+                      );
+                      return (
+                        <Card
+                          key={key}
+                          avatar={user.avatar}
+                          name={user.name}
+                          province={user.lawyer.province}
+                          email={user.email}
+                          address={user.lawyer.address}
+                          category={"lawyer"}
+                          id={user.id}
+                          averageRating={averageRating}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="container">
+              <div className="row mt-3">
+                <Pagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  handlePageChange={handlePageChange}
+                />
               </div>
             </div>
           </div>
@@ -120,4 +128,5 @@ export const AllLawyers = () => {
       )}
     </>
   );
+  
 };
