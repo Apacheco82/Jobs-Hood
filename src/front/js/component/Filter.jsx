@@ -16,8 +16,8 @@ const Filter = ({filter, setFilter, provinces, minAverageRating, setMinAverageRa
   };
 
   return (
-    <div className="col-4">
-      <div className="card card-filter p-3" style={{width: "18rem"}}>
+
+      <div className="card card-filter p-3 mt-1" style={{width: "18rem"}}>
         <div className="filter-component">
           <label htmlFor="filter">Filtrar por provincia: </label>
           <select id="filter" value={filter} onChange={handleFilterChange}>
@@ -43,7 +43,7 @@ const Filter = ({filter, setFilter, provinces, minAverageRating, setMinAverageRa
           <button type="button" onClick={handleReset} className="btn btn-success">Reset</button>
         </div>
       </div>
-    </div>
+
   );
 };
 

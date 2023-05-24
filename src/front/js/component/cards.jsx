@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import "../../styles/card.css";
 
 const Cards = ({ avatar, name, province, email, address, category, id, averageRating }) => {
   return (
     <div className="col-4 mt-2">
-      <div className="card" style={{ width: "18rem" }}>
+      <div className="card" style={{ width: "17rem" }}>
         <img className="card-img-top" src={avatar} alt="Card image cap"></img>
         <div className="card-body">
           <h5 className="card-title">{name}</h5>

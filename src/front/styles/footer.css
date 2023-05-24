@@ -15,15 +15,13 @@ footer {
 .footer_body {
   display: flex;
   justify-content: flex-start;
-  background: rgb(224, 240, 223);
-  background: radial-gradient(circle, rgba(224, 240, 223, 0.9051995798319328) 54%, rgba(255, 255, 255, 1) 100%);
+  background: rgb(255, 255, 255);
 }
 
 .priv_contact {
   display: flex;
   margin-left: auto;
-  
-  gap: 80px;
+  gap: 75px;
 }
 
 .privacy a,

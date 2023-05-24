@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Card from "../component/cards.jsx";
 import Pagination from "../component/pagination.jsx";
-import { GetAllCompanies } from "../services/company.js";
+import {GetAllCompanies} from "../services/company.js";
 import Search from "../component/search.jsx";
 import Spinner from "../component/Spinner.jsx";
 import Filter from "../component/Filter.jsx";
-import { provincias } from "../component/form-province.jsx";
-import { calculateAverageRating } from "../component/AverageRating.jsx";
-import { Navbar } from "../component/navbar.js";
+import {provincias} from "../component/form-province.jsx";
+import {calculateAverageRating} from "../component/AverageRating.jsx";
+import {Navbar} from "../component/navbar.js";
+import "../../styles/all-companies.css";
 
 export const AllCompanies = () => {
   const [user, setUser] = useState([]);
@@ -59,9 +60,10 @@ export const AllCompanies = () => {
       return averageRating >= minAverageRating;
     });
 
-
-  const paginatedUsers = filteredUsers
-    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  const paginatedUsers = filteredUsers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
@@ -71,48 +73,54 @@ export const AllCompanies = () => {
         <Spinner />
       ) : (
         <>
-          <Navbar />
-          <h1 className="text-center"> Nuestras empresas</h1>
+          <div className="all-companies">
+            <Navbar />
+            <h1 className="text-center m-3"> Nuestras empresas</h1>
+            <Search setSearch={setSearch} />
 
-          <Search setSearch={setSearch} />
-          <div className="container">
-            <Filter
-              filter={filter}
-              setFilter={setFilter}
-              minAverageRating={minAverageRating}
-              setMinAverageRating={setMinAverageRating}
-              provinces={provincias}
-            />
-            <div className="row">
-              <div className="col-3"></div>
-              <div className="col-8 mb-3">
-                <div className="row">
-
-                  {paginatedUsers.map((user, key) => {
-                    const averageRating = calculateAverageRating(user.received_reviews)
-                    return (
-                      <Card
-                        key={key}
-                        avatar={user.avatar}
-                        name={user.name}
-                        province={user.company.province}
-                        email={user.email}
-                        address={user.company.address}
-                        category={"company"}
-                        id={user.id}
-                        averageRating={averageRating}
-
-                      />
-                    );
-                  })}
-                </div>
-                <div className="row mt-3">
-                  <Pagination
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    handlePageChange={handlePageChange}
+            <div className="container p-3">
+              <div className="row">
+                <div className="col-md-3">
+                  <Filter
+                    filter={filter}
+                    setFilter={setFilter}
+                    minAverageRating={minAverageRating}
+                    setMinAverageRating={setMinAverageRating}
+                    provinces={provincias}
                   />
                 </div>
+                <div className="col-md-8 d-flex justify-content-md-center">
+                  <div className="row">
+                    {paginatedUsers.map((user, key) => {
+                      const averageRating = calculateAverageRating(
+                        user.received_reviews
+                      );
+                      return (
+                        <Card
+                          key={key}
+                          avatar={user.avatar}
+                          name={user.name}
+                          province={user.company.province}
+                          email={user.email}
+                          address={user.company.address}
+                          category={"company"}
+                          id={user.id}
+                          averageRating={averageRating}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="container">
+              <div className="row mt-3">
+                <Pagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  handlePageChange={handlePageChange}
+                />
               </div>
             </div>
           </div>
