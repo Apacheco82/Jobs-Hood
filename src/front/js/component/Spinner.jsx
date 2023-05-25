@@ -1,11 +1,10 @@
 import React from "react";
 import "../../styles/spinner.css"
+import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png"
 
 const Spinner = () => {
   return (
-    <div className="spinner-border text-success" role="status">
-      <span className="sr-only">Loading...</span>
-    </div>
+    <img src={LogoWeb} alt="Cargando..." className="loading-image" />
   );
 };
 
