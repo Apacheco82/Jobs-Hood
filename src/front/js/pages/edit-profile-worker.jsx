@@ -39,7 +39,10 @@ export const EditProfileWorker = () => {
     setShow(!show);
   };
 
+  
+
   const handleChange = (event) => {
+    console.log(event.target)
     if (event.target.files) {
       setFile(event.target.files[0]);
       const reader = new FileReader();
@@ -58,26 +61,29 @@ export const EditProfileWorker = () => {
       }));
     }
   };
+  console.log(editedWorker)
 
   const handleSubmit = async (event) => {
     setSpinner(true);
     event.preventDefault();
-    let check;
+    let check = true;
     let mail = false;
-    if (store.user.email !== editedWorker.email) {
-      // si el email ha cambiado
-      check = await checkUser(editedWorker, "editMail"); // el parametro para editar
-      mail = true;
-    } else if (store.user.user_name !== editedWorker.user_name) {
-      //si el user_name ha cambiado
-      check = await checkUser(editedWorker, "editUserName"); // el parametro para editar
-    }
-    if (check) {
+    // if (store.user.email !== editedWorker.email) {
+    //   // si el email ha cambiado
+    //   check = await checkUser(editedWorker, "editMail"); // el parametro para editar
+    //   mail = true;
+    // } else if (store.user.user_name !== editedWorker.user_name) {
+    //   //si el user_name ha cambiado
+    //   check = await checkUser(editedWorker, "editUserName"); // el parametro para editar
+    // }
+    if (check ) {
       if (!check.error) {
         try {
+          console.log("editando el user")
           const response = await editUser(editedWorker, file);
           if (response) {
             console.log("laresponse", response);
+            actions.setUser(editedWorker)
             if (mail) {
               localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
             }

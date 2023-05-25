@@ -1,9 +1,12 @@
 import React from "react";
 import "../../styles/privacy.css";
+import {Navbar} from "../component/navbar.js";
 
 const Privacy = () => {
 
     return (
+        <>
+        <Navbar/>
         <div className="content">
             <h1 className="text-center">Política de privacidad</h1>
             <div className="apartado">
@@ -45,6 +48,7 @@ const Privacy = () => {
                 </p>
             </div>
         </div>
+        </>
     )
 };
 
