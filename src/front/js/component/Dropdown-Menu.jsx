@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "../../styles/dropdown-menu.css";
 
 const DropdownMenu = () => {
 
@@ -28,13 +29,13 @@ const DropdownMenu = () => {
 
     return (
         <>
-            <div className="dropdown me-4">
-                <a className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div id="dropdown-menu" className="dropdown me-4">
+                <a id="boton-drop" className="btn btn-success  dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i className="fa-solid fa-bars"></i>
                 </a>
-                <ul className="dropdown-menu dropdown-menu-end">
-                    <li onClick={ProfilePage}><p className="dropdown-item"><i className="fa-regular fa-user"></i> Mi perfil </p></li>
-                    <li onClick={handleLogout}><p className="dropdown-item" > Cerrar Sesión <i className="fa-solid fa-right-from-bracket"></i> </p></li>
+                <ul className="dropdown-menu dropdown-menu-end ">
+                    <li onClick={ProfilePage}><p className="dropdown-item"><i className="fa-solid fa-user me-1"></i> Mi perfil </p></li>
+                    <li onClick={handleLogout}><p className="dropdown-item" > Cerrar Sesión <i className="fa-solid fa-right-from-bracket mx-2"></i> </p></li>
 
                 </ul>
             </div>
