@@ -89,6 +89,7 @@ export const AllLawyers = () => {
                     provinces={provincias}
                   />
                 </div>
+                
                 <div className="col-md-8 d-flex justify-content-md-center">
                   <div className="row">
                     {paginatedUsers.map((user, key) => {

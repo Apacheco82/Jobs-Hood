@@ -6,6 +6,7 @@ import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Navbar} from "../component/navbar.js";
 import Alert from "../component/Alert.jsx";
+import "../../styles/login.css";
 
 export const Login = (props) => {
   const params = useParams();
@@ -64,70 +65,76 @@ export const Login = (props) => {
       {spinner ? (
         <Spinner />
       ) : (
-        <React.Fragment>
+        <div className="login">
           <Navbar />
-          <form
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-            id="container-login"
-            className="container"
-          >
-            <h5 className="text-center">Iniciar Sesión en Jobs Hood</h5>
-            {alert && (
-              <div className="d-flex justify-content-center m-5">
-                <Alert className={className} message={message} />
-              </div>
-            )}
-            <div id="login" className="border border-2 border-dark">
-              <div className="col">
-                <label htmlFor="form-login" className="form-label">
-                  Dirección Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  className="form-control rounded-0"
-                  placeholder="email@gmail.com"
-                  required
-                />
-              </div>
-              <div className="col">
-                <label htmlFor="inputPassword6" className="form-label">
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control rounded-0"
-                  aria-labelledby="passwordHelpInline"
-                  placeholder="Contraseña"
-                  required
-                />
-              </div>
-              <input
-                type="submit"
-                value="Iniciar Sesión"
-                className="btn btn-dark mx-3 my-1  rounded-0"
-              ></input>
-            </div>
-          </form>
-          <div className="container mt-2 p-3">
-            <div className="col-8">
-              <div className="row">
-                <div className="alert alert-success" role="alert">
-                  ¿No estás registrado? Crea tu cuenta para poder acceder a
-                  nuestros servicios!
+          <div className="container-register">
+            <div className="card card-form p-5 m-5">
+              <form onChange={handleChange} onSubmit={handleSubmit}>
+                <h5 className="text-center">Iniciar Sesión en Jobs Hood</h5>
+                {alert && (
+                  <div className="d-flex justify-content-center m-5">
+                    <Alert className={className} message={message} />
+                  </div>
+                )}
+                <div>
+                  <div className="col">
+                    <label htmlFor="form-login" className="form-label">
+                      Dirección Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      className="form-control rounded-0"
+                      placeholder="email@gmail.com"
+                      required
+                    />
+                  </div>
+                  <div className="col">
+                    <label htmlFor="inputPassword6" className="form-label">
+                      Contraseña
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      className="form-control rounded-0"
+                      aria-labelledby="passwordHelpInline"
+                      placeholder="Contraseña"
+                      required
+                    />
+                  </div>
+
+                  <input
+                    type="submit"
+                    value="Iniciar Sesión"
+                    className="btn btn-success mt-3"
+                  ></input>
                 </div>
-              </div>
-              <div className="row">
-                <LinkButton
-                  direction={"/register"}
-                  text={"Ir a la página de registro"}
-                />
-              </div>
+              </form>
             </div>
           </div>
-        </React.Fragment>
+
+          <div className="container">
+            <div className="row">
+            <div className="d-flex justify-content-start">
+              <Alert
+                className={"success"}
+                message="¿No estás registrado? Crea tu cuenta para poder acceder a
+                  nuestros servicios"
+              />
+            </div>
+            </div>
+
+            <div className="row">
+            <div className="d-flex justify-content-start">
+              <LinkButton
+                direction={"/register"}
+                text={"Ir a la página de registro"}
+              />  
+            </div>
+            </div>
+            </div>
+
+        </div>
       )}
     </>
   );

@@ -5,7 +5,8 @@ import {useNavigate} from "react-router-dom";
 import Form from "../component/Form.jsx";
 import Spinner from "../component/Spinner.jsx";
 import Alert from "../component/Alert.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
+import "../../styles/lawyer-register.css";
 
 export const RegistroLawyer = () => {
   const initialState = {
@@ -16,7 +17,7 @@ export const RegistroLawyer = () => {
     email: "",
     address: "",
     province: "",
-    col_number: ""
+    col_number: "",
   };
 
   const [form, setForm] = useState(initialState);
@@ -72,7 +73,7 @@ export const RegistroLawyer = () => {
       setClassName("danger");
       setMessage(check.msg);
     }
-    setSpinner(false)
+    setSpinner(false);
   };
 
   return (
@@ -80,20 +81,25 @@ export const RegistroLawyer = () => {
       {spinner ? (
         <Spinner />
       ) : (
-        <>  
-        <Navbar/>
-          <div className="card d-flex justify-content-between m-5">
-          {alert && (
-              <div className="d-flex justify-content-center m-5">
-                <Alert className={className} message={message} />
-              </div>
-            )}
-            <Form
-              userType="lawyer"
-              form={form}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-            />
+        <>
+          <div className="lawyer-register">
+            {" "}
+            <Navbar />
+            <div className="container-register">
+            <div className="card card-form p-5 m-5">
+              {alert && (
+                <div className="d-flex justify-content-center m-5">
+                  <Alert className={className} message={message} />
+                </div>
+              )}
+              <Form
+                userType="lawyer"
+                form={form}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            </div>
+          </div>
           </div>
         </>
       )}

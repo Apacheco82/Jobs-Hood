@@ -1,12 +1,11 @@
-
 import React, {useState, useEffect, useContext} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {registerUser, checkUser} from "../services";
 import FormUser from "../component/FormUser.jsx";
 import Spinner from "../component/Spinner.jsx";
 import Alert from "../component/Alert.jsx";
-import { Navbar } from "../component/navbar.js";
-
+import {Navbar} from "../component/navbar.js";
+import "../../styles/worker-register.css";
 
 export const RegistroWorker = () => {
   const [spinner, setSpinner] = useState(false);
@@ -20,7 +19,7 @@ export const RegistroWorker = () => {
     password: "",
     name: "",
     last_name: "",
-    email: ""
+    email: "",
   });
 
   const handleChange = ({target}) => {
@@ -60,21 +59,28 @@ export const RegistroWorker = () => {
     }
     setSpinner(false);
   };
-  
+
   return (
     <>
       {spinner ? (
         <Spinner />
       ) : (
         <>
-        <Navbar/>
-          <div className="card d-flex justify-content-between m-5">
-          {alert && (
-            <div className="d-flex justify-content-center m-5">
-              <Alert className={className} message={message} />
+          <div className="worker-register">
+            <Navbar />
+            <div className="container-register">
+              <div className="card card-form p-5 m-5">
+                {alert && (
+                  <div className="d-flex justify-content-center m-5">
+                    <Alert className={className} message={message} />
+                  </div>
+                )}
+                <FormUser
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                />
+              </div>
             </div>
-          )}
-            <FormUser handleChange={handleChange} handleSubmit={handleSubmit} />
           </div>
         </>
       )}

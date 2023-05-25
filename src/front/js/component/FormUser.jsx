@@ -7,14 +7,23 @@ const FormUser = ({handleChange, handleSubmit}) => {
   return (
     <>
       {" "}
-      <div className="container text-center p-3">
-        <div className="container container-fluid d-flex justify-content-end">
-          <LinkButton text={"Volver"} direction={"/register"} type={"button"} />
+      <div className="container">
+        <div className="form-container">
+          <div className="form-header">
+            <h2>CREAR NUEVA CUENTA</h2>
+            <h5>Accede a todos los servicios de Jobs Hood !</h5>
+          </div>
+          <div className="button-exit">
+            <LinkButton
+              text={"Volver"}
+              direction={"/register"}
+              type={"button"}
+            />
+          </div>
         </div>
-        <h2>CREAR NUEVA CUENTA</h2>
-        <h5>Accede a todos los servicios de Jobs Hood !</h5>
       </div>
-      <div className="container p-3">
+
+      <div className="container">
         <h4>Datos de Acceso</h4>
         <form onChange={handleChange} onSubmit={handleSubmit}>
           <div className="row align-items-start my-3">
@@ -88,7 +97,7 @@ const FormUser = ({handleChange, handleSubmit}) => {
           </div>
           <input
             type="submit"
-            className="btn btn-dark"
+            className="btn btn-success"
             value="Registrarme"
           ></input>
         </form>

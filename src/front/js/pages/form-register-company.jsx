@@ -5,7 +5,8 @@ import {useNavigate} from "react-router-dom";
 import Form from "../component/Form.jsx";
 import Spinner from "../component/Spinner.jsx";
 import Alert from "../component/Alert.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
+import "../../styles/company-register.css";
 
 const initialState = {
   user_name: "",
@@ -15,7 +16,7 @@ const initialState = {
   password: "",
   province: "",
   cif: "",
-  address: ""
+  address: "",
 };
 
 export const RegisterCompany = () => {
@@ -74,29 +75,32 @@ export const RegisterCompany = () => {
     } else {
       setAlert(true);
     }
-    setSpinner(false)
+    setSpinner(false);
   };
-  
 
   return (
     <>
       {spinner ? (
         <Spinner />
       ) : (
-        <>          
-        <Navbar/>
-          <div className="card d-flex justify-content-between m-5">
-          {alert && (
-              <div className="d-flex justify-content-center m-5">
-                <Alert className={className} message={message} />
+        <>
+          <div className="company-register">
+            <Navbar />
+            <div className="container-register">
+              <div className="card card-form p-5 m-5">
+                {alert && (
+                  <div className="d-flex justify-content-center m-5">
+                    <Alert className={className} message={message} />
+                  </div>
+                )}
+                <Form
+                  userType="company"
+                  form={form}
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                />
               </div>
-            )}
-            <Form
-              userType="company"
-              form={form}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-            />
+            </div>
           </div>
         </>
       )}
