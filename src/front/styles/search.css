@@ -3,8 +3,8 @@
     border-color: #1B5C3F; 
     color: #1B5C3F;  
     box-shadow: 10px 10px 20px -10px rgba(27,92,63,1) !important;
-    padding: 2px 10px; 
-    width: 400px;  /* Ancho del campo de entrada */
+    padding: 10px; 
+    width: 500px;  /* Ancho del campo de entrada */
     margin-right: 10px;
     border: 0.5px solid gray;
     border-radius: 5px;
