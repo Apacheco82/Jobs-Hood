@@ -66,7 +66,7 @@ export const EditProfileWorker = () => {
   const handleSubmit = async (event) => {
     setSpinner(true);
     event.preventDefault();
-    let check = true;
+    let check ;
     let mail = false;
     if (store.user.email !== editedWorker.email) {
       // si el email ha cambiado
