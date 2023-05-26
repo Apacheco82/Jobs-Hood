@@ -12,6 +12,7 @@ import {Context} from "../store/appContext.js";
 import AverageRating from "../component/AverageRating.jsx";
 import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
+import "../../styles/company-profile.css";
 
 export const CompanyProfile = () => {
   const params = useParams();
@@ -150,74 +151,80 @@ export const CompanyProfile = () => {
         <Spinner />
       ) : (
         <>
-          <Navbar />
-          <div className="container container-fluid d-flex justify-content-center align-items-center">
-            <div className="card" style={{width: "80%"}}>
-              <UserInfo
-                onClick={handleEdit}
-                user={store.user}
-                profile={company}
-                showEditButton={!params.id}
-              />
-              {!params.id && (
-                <Modal
-                  handlePassword={handlePassword}
-                  passwordChange={passwordChange}
-                  show={show}
-                  handleShow={handleShow}
-                  small={small}
-                  passWrong={passWrong}
-                  passOk={passOk}
+          <div className="company-profile">
+            <Navbar />
+            <div className="container container-fluid d-flex justify-content-center align-items-center">
+            <div className="card card-form p-5 m-5">
+                <UserInfo
+                  onClick={handleEdit}
+                  user={store.user}
+                  profile={company}
+                  showEditButton={!params.id}
                 />
-              )}
+                {!params.id && (
+                  <Modal
+                    handlePassword={handlePassword}
+                    passwordChange={passwordChange}
+                    show={show}
+                    handleShow={handleShow}
+                    small={small}
+                    passWrong={passWrong}
+                    passOk={passOk}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-          <div className="container d-flex justify-content-center mt-1">
-            <Nav
-              variant="tabs"
-              activeKey={activeKey}
-              onSelect={(k) => setActiveKey(k)}
-            >
-              <Nav.Item>
-                <Nav.Link eventKey="#nav-home">
-                  Opiniones de la empresa
-                </Nav.Link>
-              </Nav.Item>
-            </Nav>
-          </div>
-          <div className="container d-flex justify-content-center mt-1">
-            <Tab.Content>
-              <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
-                <div>
-                  {" "}
-                  <AverageRating reviews={review} />
-                  {!token && (
-                    <LinkButton
-                      direction={"/login"}
-                      text={"Inicia sesión para poder dar tu opinión"}
-                      type={"button"}
-                    />
-                  )}
-                  {canWrite && (
-                    <WriteReview
-                      reviewChange={reviewChange}
-                      reviewSubmit={reviewSubmit}
-                    />
-                  )}
-                   {review.map((review, index) => (
-                    <Review
-                      key={index}
-                      userID={review.author_id}
-                      text={review.text}
-                      user_name={review.user_name}
-                      opinion = {false}
-                      rating={review.rating}
-                      data={review.data_create}
-                    />
-                  ))}
-                </div>
-              </Tab.Pane>
-            </Tab.Content>
+            
+            <div className="container d-flex justify-content-center mt-1">
+              <Nav
+                variant="tabs"
+                activeKey={activeKey}
+                onSelect={(k) => setActiveKey(k)}
+              >
+                <Nav.Item>
+                  <Nav.Link eventKey="#nav-home">
+                    Opiniones de la empresa
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </div>
+            <div className="container d-flex justify-content-center mt-1">
+              <Tab.Content>
+                <Tab.Pane
+                  eventKey="#nav-home"
+                  active={activeKey === "#nav-home"}
+                >
+                  <div>
+                    {" "}
+                    <AverageRating reviews={review} />
+                    {!token && (
+                      <LinkButton
+                        direction={"/login"}
+                        text={"Inicia sesión para poder dar tu opinión"}
+                        type={"button"}
+                      />
+                    )}
+                    {canWrite && (
+                      <WriteReview
+                        reviewChange={reviewChange}
+                        reviewSubmit={reviewSubmit}
+                      />
+                    )}
+                    {review.map((review, index) => (
+                      <Review
+                        key={index}
+                        userID={review.author_id}
+                        text={review.text}
+                        user_name={review.user_name}
+                        opinion={false}
+                        rating={review.rating}
+                        data={review.data_create}
+                      />
+                    ))}
+                  </div>
+                </Tab.Pane>
+              </Tab.Content>
+            </div>
           </div>
         </>
       )}
