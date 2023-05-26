@@ -297,45 +297,46 @@ export const LawyerProfile = () => {
               >
                 <div className="container">
                   <div className="container justify-content-center">
-                    <div className="row m-5">
-                      
-                    {!token && (
-                    <LinkButton
-                      direction={"/login"}
-                      text={"Inicia sesión para preguntarle al abogado"}
-                      type={"button"}
-                    />
-                  )}
-                      {canAsk && (
-                        <WriteQuestion
-                          questionChange={questionChange}
-                          questionSubmit={questionSubmit}
-                        />
-                      )}
-
-                      {question.map((question, index) => (
-                        <div
-                          key={index}
-                          className="card-question col-9 p-1 mt-2"
-                        >
-
-                          <Questions
-                            text={question.text}
-                            user_name={question.user_name}
-                            data={question.data_create}
+                    <div className="row d-flex justify-content-center m-5">
+                      <div className="card-question col-9 p-1 mt-2">
+                        {!token && (
+                          <LinkButton
+                            direction={"/login"}
+                            text={"Inicia sesión para preguntarle al abogado"}
+                            type={"button"}
                           />
-                          {question.question_comment && (
-                            <Answers comment={question.question_comment} />
-                          )}
-                          {!params.id && !question.question_comment && (
-                            <WriteAnswer
-                              answerChange={answerChange}
-                              answerSubmit={answerSubmit}
-                              questionId={question.id}
+                        )}
+
+                        {canAsk && (
+                          <WriteQuestion
+                            questionChange={questionChange}
+                            questionSubmit={questionSubmit}
+                          />
+                        )}
+
+                        {question.map((question, index) => (
+                          <div
+                            key={index}
+                            className="card-question col-9 p-1 mt-2"
+                          >
+                            <Questions
+                              text={question.text}
+                              user_name={question.user_name}
+                              data={question.data_create}
                             />
-                          )}
-                        </div>
-                      ))}
+                            {question.question_comment && (
+                              <Answers comment={question.question_comment} />
+                            )}
+                          </div>
+                        ))}
+                        {!params.id && !question.question_comment && (
+                          <WriteAnswer
+                            answerChange={answerChange}
+                            answerSubmit={answerSubmit}
+                            questionId={question.id}
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -14,7 +14,7 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
 
   return (
     <>
-       <div className="col-8 mt-2 d-flex justify-content-start">
+       <div className="col-9 mt-2 d-flex justify-content-start">
       {!view ? (
         <button onClick={openForm} type="button" className="btn btn-success">
           Responder
@@ -33,7 +33,7 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
           onChange={answerChange}
           onSubmit={answerSubmit}
         >
-          <div className="col-8 mt-2 d-flex justify-content-center">
+          <div className="col-12 mt-2 d-flex justify-content-center">
             <div className="card card-stars p-2">
               <div className="mb-3">
                 <label htmlFor="valoracion" className="form-label">

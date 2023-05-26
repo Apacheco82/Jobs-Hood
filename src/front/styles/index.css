@@ -62,13 +62,3 @@ input:focus {
 .nav-tabs .nav-link {
   color: #000000; 
 }
-
-.row{
-  border: 3px solid red;
-}
-.container-green{
-  border: 3px solid green;
-}
-.card-question{
-  border: 3px solid blue;
-}

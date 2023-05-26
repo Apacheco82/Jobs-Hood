@@ -29,7 +29,7 @@ const WriteQuestion = ({questionChange, questionSubmit}) => {
           onChange={questionChange}
           onSubmit={questionSubmit}
         >
-          <div className="col-8 mt-2 d-flex justify-content-center">
+          <div className="col-12 mt-2 d-flex justify-content-center">
             <div className="card card-stars p-2">
               <div className="mb-3">
                 <label htmlFor="valoracion" className="form-label">
