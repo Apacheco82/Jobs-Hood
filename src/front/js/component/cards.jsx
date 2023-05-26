@@ -5,7 +5,7 @@ import "../../styles/card.css";
 
 const Cards = ({ avatar, name, province, email, address, category, id, averageRating }) => {
   return (
-    <div className="col-4 mt-2">
+    <div className="col-4 mt-1">
       <div className="card" style={{ width: "17rem" }}>
         <img className="card-img-top" src={avatar} alt="Card image cap"></img>
         <div className="card-body">

@@ -6,22 +6,22 @@
     on that page only (the ones not reused in other pages).
 */
 
-footer {
-
-  }
-   
-
+.sticky-bottom {
+  margin-top: auto;
+  width: 100%; 
+  background: rgba(255, 255, 255, 0.5); 
+}
 
 .footer_body {
   display: flex;
   justify-content: flex-start;
-  background: rgb(255, 255, 255);
+  padding: 0 50px; /* Agrega un relleno a izquierda y derecha */
 }
 
 .priv_contact {
   display: flex;
   margin-left: auto;
-  gap: 75px;
+  gap: 20px; /* Disminuye el espacio entre los enlaces de privacidad y contacto */
 }
 
 .privacy a,
@@ -36,46 +36,30 @@ footer {
   transition: 0.5s;
 }
 
-
-  
-  
-  /*SOCİAL İCONS CIRCLE*/
-
 .icon-circle a {
-    width:35px;
-    height: 35px;
-    border-radius: 50%;
-    background-color: rgb(138, 216, 144);
-    color: #fff;
-    place-items: center;
-    display: grid;
+  width:35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgb(138, 216, 144);
+  color: #fff;
+  place-items: center;
+  display: grid;
 }
 
 .icon-circle a:hover {
-    background-color: #1B5C3F;
-    transition: 0.3s;
+  background-color: #1B5C3F;
+  transition: 0.3s;
 }
-
-.icon-circle a:hover .ico{
-    background-color: transparent;
-    color: white;
-    rotate: 360deg;
-    transition: 0.3s;
-}
-
-
-  /*SOCIAL ICONS*/
 
 .ico {
-    color: #1B5C3F;
-    background-color: transparent;
-    font-size: 21px;
-    }
-  
-.icon-circle a:hover .ico{
-      background-color: transparent;
-      color: white;
-      rotate: 360deg;
-      transition: 0.3s;
+  color: #1B5C3F;
+  background-color: transparent;
+  font-size: 21px;
 }
-  
+
+.icon-circle a:hover .ico{
+  background-color: transparent;
+  color: white;
+  rotate: 360deg;
+  transition: 0.3s;
+}

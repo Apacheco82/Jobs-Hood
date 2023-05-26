@@ -8,7 +8,7 @@ export const Register = () => {
     <React.Fragment>
       <Navbar />
       <div className="register">
-        <div className="container text-center">
+        <div className="container text-center mt-5">
           <h1> Bienvenido a Jobs Hood!</h1>
           <h3>¿A que area pertenece? </h3>
 

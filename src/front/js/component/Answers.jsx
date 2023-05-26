@@ -1,18 +1,22 @@
 import React from "react";
 
 const Answers = ({comment}) => {
-
   return (
-    <div className="col-8 mt-2 d-flex justify-content-center">
-      <div className="card card-stars">
-        <div className="card-body text-end">
-          <p>{comment.text}</p>
-          <p>{comment.name}</p>
-          <p>{comment.data_create}</p>
+    <div className="card card-stars">
+      <div className="card-body text-end">
+      <div className="row">
+      <div className="col-12">
+      <div className="text-right">
+        <p>{comment.text}</p>
+        <p>{comment.name}</p>
+        <p>{comment.data_create}</p>
         </div>
+      </div>
+      </div>
       </div>
     </div>
   );
 };
+
 
 export default Answers; 
