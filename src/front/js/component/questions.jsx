@@ -1,6 +1,7 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
-const Questions = ({text, user_name, data}) => {
+const Questions = ({text, user_name, data,userID}) => {
   return (
     <div className="card card-stars">
       <div className="card-body">
@@ -8,7 +9,7 @@ const Questions = ({text, user_name, data}) => {
           <div className="col-12">
             <div className="text-left">
               <p>{text}</p>
-              <p>{user_name}</p>
+              <Link to ={`/worker/${userID}`}><p>{user_name}</p></Link>  
               <p>{data}</p>
             </div>
           </div>
