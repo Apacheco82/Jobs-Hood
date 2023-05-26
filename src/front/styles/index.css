@@ -53,3 +53,22 @@ input:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.214);
     outline: none;
 }
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #000000 !important;
+  background-color: #1b5c3f3c;
+  border: none !important;
+}
+.nav-tabs .nav-link {
+  color: #000000; 
+}
+
+.row{
+  border: 3px solid red;
+}
+.container-green{
+  border: 3px solid green;
+}
+.card-question{
+  border: 3px solid blue;
+}

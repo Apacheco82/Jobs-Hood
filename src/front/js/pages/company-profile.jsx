@@ -145,6 +145,7 @@ export const CompanyProfile = () => {
       }, 2000);
     }
   };
+
   return (
     <>
       {spinner ? (
@@ -180,6 +181,7 @@ export const CompanyProfile = () => {
                 variant="tabs"
                 activeKey={activeKey}
                 onSelect={(k) => setActiveKey(k)}
+                
               >
                 <Nav.Item>
                   <Nav.Link eventKey="#nav-home">
@@ -188,46 +190,59 @@ export const CompanyProfile = () => {
                 </Nav.Item>
               </Nav>
             </div>
-            <div className="container d-flex justify-content-center mt-1">
+
               <Tab.Content>
                 <Tab.Pane
                   eventKey="#nav-home"
                   active={activeKey === "#nav-home"}
                 >
-                  <div>
-                    {" "}
-                    <AverageRating reviews={review} />
-                    {!token && (
-                      <LinkButton
-                        direction={"/login"}
-                        text={"Inicia sesión para poder dar tu opinión"}
-                        type={"button"}
-                      />
-                    )}
-                    {canWrite && (
-                      <WriteReview
-                        reviewChange={reviewChange}
-                        reviewSubmit={reviewSubmit}
-                      />
-                    )}
-                    {review.map((review, index) => (
-                      <Review
-                        key={index}
-                        userID={review.author_id}
-                        text={review.text}
-                        user_name={review.user_name}
-                        opinion={false}
-                        rating={review.rating}
-                        data={review.data_create}
-                      />
-                    ))}
+                  <div className="container">
+                  <div className="row m-5">
+
+                    <div className="col-md-4">
+                      <AverageRating reviews={review} />
+                    </div>
+
+                    <div className="col-md-8">
+                      {!token && (
+                        <LinkButton
+                          direction={"/login"}
+                          text={"Inicia sesión para poder dar tu opinión"}
+                          type={"button"}
+                        />
+                      )}
+                      
+                      {canWrite && (
+                        <WriteReview
+                          reviewChange={reviewChange}
+                          reviewSubmit={reviewSubmit}
+                        />
+                      )}
+                      {review.map((review, index) => (
+                        <Review
+                          key={index}
+                          userID={review.author_id}
+                          text={review.text}
+                          user_name={review.user_name}
+                          opinion={false}
+                          rating={review.rating}
+                          data={review.data_create}
+                        />
+                      ))}
+                    </div>
+             
+
+                  </div>
                   </div>
                 </Tab.Pane>
               </Tab.Content>
-            </div>
+
           </div>
         </>
       )}
     </>
   );
+  
+  
+  
 };

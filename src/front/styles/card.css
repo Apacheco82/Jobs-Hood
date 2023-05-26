@@ -3,6 +3,7 @@
     box-shadow: 1px 1px 5px rgba(27, 92, 63, 0.3); /* Sombras sutiles por defecto */
     border-color: #1b5c3f1e;
     transition: box-shadow 0.3s; /* Transición suave de la sombra */
+    background-color: rgba(255, 255, 255, 0.75);
 }
 
 /* Estilo para la tarjeta al pasar el ratón por encima */

@@ -13,8 +13,8 @@ const AverageRating = ({ reviews }) => {
     const averageRating = calculateAverageRating(reviews);
 
     return (
-        <div className="col-4">
-            <div className="card card-filter p-1 m-2" style={{width: "18rem"}}>
+
+            <div className="card card-filter p-2" style={{width: "18rem"}}>
                 <h6>Valoración media</h6>
                 <ReactStars
                     count={5}
@@ -27,7 +27,7 @@ const AverageRating = ({ reviews }) => {
                 />
                 <p>{averageRating.toFixed(2)} estrellas (de {reviews.length} opiniones)</p>
             </div>
-        </div>
+
     );
 };
 

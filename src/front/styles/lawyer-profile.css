@@ -1,4 +1,4 @@
-.company-profile {
+.lawyer-profile {
     position: relative;
     width: 100%;
     min-height: 100vh; 
@@ -9,7 +9,7 @@
 
 
 
-.company-profile::before {
+.lawyer-profile::before {
     content: "";
     position: absolute;
     top: 0;
@@ -17,7 +17,7 @@
     z-index: -1;
     width: 100%;
     height: 100%;
-    background-image: url('https://res.cloudinary.com/dcgc2tppo/image/upload/v1684921271/dlwrbifwozagt6r7yp2w.jpg');
+    background-image: url('https://res.cloudinary.com/dcgc2tppo/image/upload/v1684921065/z6dqum4mehwt0fcocjeq.jpg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -25,4 +25,3 @@
     background-size: 100%;  /* Asegura que el ancho de la imagen sea siempre el 100% del contenedor */
     background-position: center;  /* Centra la imagen */
 }
-

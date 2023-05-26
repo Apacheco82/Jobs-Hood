@@ -14,6 +14,7 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
 
   return (
     <>
+       <div className="col-8 mt-2 d-flex justify-content-start">
       {!view ? (
         <button onClick={openForm} type="button" className="btn btn-success">
           Responder
@@ -23,6 +24,7 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
           Cerrar
         </button>
       )}
+      </div>
 
       {view && (
         <form
