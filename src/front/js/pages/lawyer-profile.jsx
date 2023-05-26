@@ -17,6 +17,7 @@ import {Context} from "../store/appContext.js";
 import AverageRating from "../component/AverageRating.jsx";
 import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
+import "../../styles/lawyer-profile.css";
 
 export const LawyerProfile = () => {
   const params = useParams();
@@ -211,30 +212,31 @@ export const LawyerProfile = () => {
         <Spinner />
       ) : (
         <>
-          <Navbar />
-          <div className="container container-fluid d-flex justify-content-center align-items-center">
-            <div className="card" style={{width: "80%"}}>
-              <UserInfo
-                user={store.user}
-                profile={lawyer}
-                showEditButton={!params.id}
-                onClick={handleEdit}
-                isLawyer={true}
-              />
-              {!params.id && (
-                <Modal
-                  handlePassword={handlePassword}
-                  passwordChange={passwordChange}
-                  show={show}
-                  handleShow={handleShow}
-                  small={small}
-                  passWrong={passWrong}
-                  passOk={passOk}
+          <div className="lawyer-profile">
+            <Navbar />
+            <div className="container container-fluid d-flex justify-content-center align-items-center">
+              <div className="card card-form p-5 m-5">
+                <UserInfo
+                  user={store.user}
+                  profile={lawyer}
+                  showEditButton={!params.id}
+                  onClick={handleEdit}
+                  isLawyer={true}
                 />
-              )}
+                {!params.id && (
+                  <Modal
+                    handlePassword={handlePassword}
+                    passwordChange={passwordChange}
+                    show={show}
+                    handleShow={handleShow}
+                    small={small}
+                    passWrong={passWrong}
+                    passOk={passOk}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-          <div>
+
             <div className="container d-flex justify-content-center mt-1">
               <Nav
                 variant="tabs"
@@ -244,83 +246,89 @@ export const LawyerProfile = () => {
                 <Nav.Item>
                   <Nav.Link eventKey="#nav-home">Opiniones</Nav.Link>
                 </Nav.Item>
+
                 <Nav.Item>
                   <Nav.Link eventKey="#nav-questions">Preguntas</Nav.Link>
                 </Nav.Item>
               </Nav>
             </div>
 
-            <div className="container d-flex justify-content-center mt-1">
-              <Tab.Content>
-                <Tab.Pane
-                  eventKey="#nav-home"
-                  active={activeKey === "#nav-home"}
-                >
-                  <div>
-                    {" "}
-                    <AverageRating reviews={review} />
-                    {!token && (
-                      <LinkButton
-                        direction={"/login"}
-                        text={"Inicia sesión para poder dar tu opinión"}
-                        type={"button"}
-                      />
-                    )}
-                    {canWrite && (
-                      <WriteReview
-                        reviewChange={reviewChange}
-                        reviewSubmit={reviewSubmit}
-                      />
-                    )}
-                   {review.map((review, index) => (
-                      <Review
-                        key={index}
-                        userID={review.author_id}
-                        text={review.text}
-                        opinion = {false}
-                        user_name={review.user_name}
-                        rating={review.rating}
-                        data={review.data_create}
-                      />
-                    ))}
-                  </div>
-                </Tab.Pane>
+            <Tab.Content>
+              <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
+                <div className="container">
+                  <div className="row m-5">
+                    <div className="col-md-4">
+                      <AverageRating reviews={review} />
+                    </div>
 
-                <Tab.Pane
-                  eventKey="#nav-questions"
-                  active={activeKey === "#nav-questions"}
-                >
-                  {!token && (
-                    <LinkButton
-                      direction={"/login"}
-                      text={"Inicia sesión para poder dar tu opinión"}
-                      type={"button"}
-                    />
-                  )}
-
-                  {canAsk && (
-                    <WriteQuestion
-                      questionChange={questionChange}
-                      questionSubmit={questionSubmit}
-                    />
-                  )}
-
-                  <div className="container">
-                    {question.map((question, index) => (
-                      <div
-                        className="container container-question m-1 p-1"
-                        key={index}
-                      >
-                        <Questions
-                          text={question.text}
-                          user_name={question.user_name}
-                          data={question.data_create}
+                    <div className="col-md-8">
+                      {!token && (
+                        <LinkButton
+                          direction={"/login"}
+                          text={"Inicia sesión para poder dar tu opinión"}
+                          type={"button"}
                         />
+                      )}
+                      {canWrite && (
+                        <WriteReview
+                          reviewChange={reviewChange}
+                          reviewSubmit={reviewSubmit}
+                        />
+                      )}
+                      {review.map((review, index) => (
+                        <Review
+                          key={index}
+                          userID={review.author_id}
+                          text={review.text}
+                          opinion={false}
+                          user_name={review.user_name}
+                          rating={review.rating}
+                          data={review.data_create}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Tab.Pane>
 
-                        {question.question_comment && (
-                          <Answers comment={question.question_comment} />
+              <Tab.Pane
+                eventKey="#nav-questions"
+                active={activeKey === "#nav-questions"}
+              >
+                <div className="container">
+                  <div className="container justify-content-center">
+                    <div className="row d-flex justify-content-center m-5">
+                      <div className="card-question col-9 p-1 mt-2">
+                        {!token && (
+                          <LinkButton
+                            direction={"/login"}
+                            text={"Inicia sesión para preguntarle al abogado"}
+                            type={"button"}
+                          />
                         )}
 
+                        {canAsk && (
+                          <WriteQuestion
+                            questionChange={questionChange}
+                            questionSubmit={questionSubmit}
+                          />
+                        )}
+
+                        {question.map((question, index) => (
+                          <div
+                            key={index}
+                            className="card-question col-9 p-1 mt-2"
+                          >
+                            <Questions
+                              text={question.text}
+                              user_name={question.user_name}
+                              data={question.data_create}
+                            />
+                            {question.question_comment && (
+                              <Answers comment={question.question_comment} />
+                            )}
+                          </div>
+                        ))}
                         {!params.id && !question.question_comment && (
                           <WriteAnswer
                             answerChange={answerChange}
@@ -329,11 +337,11 @@ export const LawyerProfile = () => {
                           />
                         )}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </Tab.Pane>
-              </Tab.Content>
-            </div>
+                </div>
+              </Tab.Pane>
+            </Tab.Content>
           </div>
         </>
       )}

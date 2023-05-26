@@ -3,6 +3,7 @@
     height: 80px;
     margin-left: 50%;
     margin-top: 10%;
+    margin-bottom: 80%;
     animation: spin 2s linear infinite;
   }
   
