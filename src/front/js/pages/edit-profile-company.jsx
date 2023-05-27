@@ -56,6 +56,7 @@ export const EditProfileCompany = () => {
       if (!check.error) {
         try {
           const response = await editCompany(editedCompany, file);
+          actions.setUser(editedCompany)
           // Guardamos el nuevo token en el localStorage
           localStorage.setItem("token", response);
           setSpinner(false);

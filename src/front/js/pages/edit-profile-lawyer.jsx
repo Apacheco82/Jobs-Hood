@@ -52,12 +52,15 @@ export const EditProfileLawyer = () => {
     if (store.user.email !== editedLawyer.email) {
       //si el email ha cambiado
       const check = await checkUser(editedLawyer, "edit"); //el parametro para editar
+      
       if (!check.error) {
         try {
           const response = await editLawyer(editedLawyer, file);
+          
           if (response) {
             localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
             setAlert(true);
+            actions.setUser(editedLawyer)
             setClassName("success");
             setMessage("Usuario editado correctamente");
             setTimeout(() => {
