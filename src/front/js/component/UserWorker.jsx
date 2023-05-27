@@ -11,9 +11,8 @@ const UserWorker = ({user, userPrivate, showEditButton, onClick}) => {
               <p id="nombre-contacto">
                 <strong>{user.user_name}</strong>
               </p>
-              <div className="mt-5">
-                {" "}
-                AQUI IRÁ TEXTO DESCRIPCION PARA EL USER (ej: user.description)
+              <div>
+                <p>{user.description}</p> 
               </div>
               {userPrivate && (
                 <>

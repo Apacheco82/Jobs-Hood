@@ -177,6 +177,18 @@ export const EditProfileWorker = () => {
             <form onSubmit={handleSubmit}>
               <div className="row my-3">
                 <div className="col">
+                  <label htmlFor="form-register-start" className="form-label">
+                    Descripción
+                  </label>
+                  <textarea 
+                    onChange={handleChange}
+                    name="description"
+                    defaultValue={store.user.description}>
+                  </textarea>
+                </div>
+              </div>
+              <div className="row my-3">
+                <div className="col">
                   <Avatar
                     handleChange={handleChange}
                     fileUrl={fileUrl}
