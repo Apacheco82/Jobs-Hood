@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+
 .register {
   position: relative;
   width: 100%;
@@ -7,7 +11,52 @@
   padding-bottom: 50px; 
 }
 
+h1{
+  font-family: 'Lato', sans-serif;
+}
 
+strong{
+  color: green;
+}
+h3{
+  font-weight: 400;
+  margin-bottom: 11%;
+}
+
+#card{
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg,rgba(9,121,63,1)  0%, #171817  100%);  
+}
+
+.card-body{
+  width: 250px;
+  height:300px; 
+ 
+}
+.card-title{
+  color: aliceblue;
+  position: absolute;
+  top: 35%;
+  transform: translate(0, -50%);
+  font-size: 25px;
+  margin-left: 15%;
+  font-weight: 200;
+  font-family: 'Noto Serif Armenian', serif;
+  
+}
+
+#iconos{
+  color: aliceblue;
+  position: absolute;
+  top: 60%;
+  transform: translate(0, -50%);
+  font-size: 60px;
+  margin-left:5%;
+
+}
+
+
+  
 
 .register::before {
   content: "";
