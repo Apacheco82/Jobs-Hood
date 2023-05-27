@@ -8,7 +8,8 @@ import Avatar from "../component/avatar.jsx";
 import {useNavigate} from "react-router-dom";
 import {checkUser} from "../services/user.js";
 import Alert from "../component/Alert.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
+import "../../styles/edit-profile-lawyer.css";
 
 export const EditProfileLawyer = () => {
   const {store, actions} = useContext(Context);
@@ -26,6 +27,7 @@ export const EditProfileLawyer = () => {
     province: store.user.lawyer.province,
     col_number: store.user.lawyer.col_number,
   });
+  const [formView, setFormView] = useState(true);
 
   const handleChange = (event) => {
     if (event.target.files) {
@@ -38,13 +40,13 @@ export const EditProfileLawyer = () => {
       };
       reader.readAsDataURL(event.target.files[0]);
     } else {
-    const {name, value} = event.target;
-    setEditedLawyer((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }))}
+      const {name, value} = event.target;
+      setEditedLawyer((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
-
 
   const handleSubmit = async (event) => {
     setSpinner(true);
@@ -52,21 +54,19 @@ export const EditProfileLawyer = () => {
     if (store.user.email !== editedLawyer.email) {
       //si el email ha cambiado
       const check = await checkUser(editedLawyer, "edit"); //el parametro para editar
-      
       if (!check.error) {
         try {
           const response = await editLawyer(editedLawyer, file);
-          
           if (response) {
             localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
             setAlert(true);
-            actions.setUser(editedLawyer)
             setClassName("success");
             setMessage("Usuario editado correctamente");
+            setFormView(false);
             setTimeout(() => {
               setAlert(false);
               navigate("/lawyer/profile");
-            }, 3000);
+            }, 1500);
             setSpinner(false);
           }
         } catch (error) {
@@ -76,27 +76,32 @@ export const EditProfileLawyer = () => {
           setMessage("Error del servidor");
           setTimeout(() => {
             setAlert(false);
-          }, 3000);
+          }, 1500);
         }
       } else {
         setSpinner(false);
         setAlert(true);
         setClassName("danger");
         setMessage(check.msg);
+        editedLawyer.name = store.user.name;
+        editedLawyer.email = store.user.email;
+        editedLawyer.address = store.user.lawyer.address;
+        editedLawyer.province = store.user.lawyer.province;
+        editedLawyer.col_number = store.user.lawyer.col_number;
       }
     } else {
       //si no cambia el email
       try {
-        const response = await editLawyer(editedLawyer,file);
-        setEditedLawyer(store.user);
+        await editLawyer(editedLawyer, file);
         setSpinner(false);
         setAlert(true);
         setClassName("success");
         setMessage("Usuario editado correctamente");
+        setFormView(false);
         setTimeout(() => {
           setAlert(false);
           navigate("/lawyer/profile");
-        }, 3000);
+        }, 1500);
       } catch (error) {
         setSpinner(false);
         setAlert(true);
@@ -104,7 +109,7 @@ export const EditProfileLawyer = () => {
         setMessage("Error del servidor");
         setTimeout(() => {
           setAlert(false);
-        }, 3000);
+        }, 1500);
       }
     }
   };
@@ -114,86 +119,107 @@ export const EditProfileLawyer = () => {
       {spinner ? (
         <Spinner />
       ) : (
-        <>
-        <Navbar/>
-        <div className="container my-5">
-          {" "}
-          <h1> Edición de Usuario</h1>
-          <div className="col">
-          <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
+        <div className="edit-lawyer-profile">
+          <Navbar />
+          <div className="container">
+            <h1> Edición de Usuario</h1>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="row my-3"></div>
-            {alert && (
-              <div className="d-flex justify-content-center m-5">
-                <Alert className={className} message={message} />
-              </div>
-            )}
-            <div className="row align-items-start my-3">
-              <div className="col">
-                <label htmlFor="form-register-lawyer" className="form-label">
-                  Nombre del abogado o Buffette
-                </label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={store.user.name}
-                  type="text"
-                  name="name"
-                  title="Please enter a valid name"
-                  className="form-control rounded-0"
-                  maxLength="80"
-                />
-              </div>
-
-              <div className="col">
-                <label htmlFor="form-register-lawyer" className="form-label">
-                  Dirección
-                </label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={store.user.lawyer.address}
-                  type="text"
-                  name="address"
-                  className="form-control rounded-0"
-                  maxLength="100"
-                />
-              </div>
+          {alert && (
+            <div className="d-flex justify-content-center m-5">
+              <Alert className={className} message={message} />
             </div>
-            <div className="row align-items-start my-3">
-              <div className="col">
-                <label htmlFor="form-register-lawyer" className="form-label">
-                  Dirección Email
-                </label>
-                <input
-                  onChange={handleChange}
-                  defaultValue={store.user.email}
-                  type="email"
-                  name="email"
-                  className="form-control rounded-0"
-                  maxLength="250"
-                />
-              </div>
+          )}
+          {formView && (
+            <div className="card card-form p-5 m-5">
+              <form onSubmit={handleSubmit}>
+                <div className="row my-3">
+                  <div className="col">
+                    <Avatar
+                      handleChange={handleChange}
+                      fileUrl={fileUrl}
+                      file={file}
+                    />
+                  </div>
+                </div>
+                <div className="row align-items-start my-3">
+                  <div className="col">
+                    <label
+                      htmlFor="form-register-lawyer"
+                      className="form-label"
+                    >
+                      Nombre del abogado o Buffette
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      defaultValue={store.user.name}
+                      type="text"
+                      name="name"
+                      title="Please enter a valid name"
+                      className="form-control rounded-0"
+                      maxLength="80"
+                    />
+                  </div>
+  
+                  <div className="col">
+                    <label
+                      htmlFor="form-register-lawyer"
+                      className="form-label"
+                    >
+                      Dirección
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      defaultValue={store.user.lawyer.address}
+                      type="text"
+                      name="address"
+                      className="form-control rounded-0"
+                      maxLength="100"
+                    />
+                  </div>
+                </div>
+                <div className="row align-items-start my-3">
+                  <div className="col">
+                    <label
+                      htmlFor="form-register-lawyer"
+                      className="form-label"
+                    >
+                      Dirección Email
+                    </label>
+                    <input
+                      onChange={handleChange}
+                      defaultValue={store.user.email}
+                      type="email"
+                      name="email"
+                      className="form-control rounded-0"
+                      maxLength="250"
+                    />
+                  </div>
+                </div>
+                <div className="row align-items-end my-3">
+                  <div className="col">
+                    <label
+                      htmlFor="form-register-lawyer"
+                      className="form-label"
+                    >
+                      Provincia
+                    </label>
+                    <Province handleChange={handleChange} name="province" />
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <input
+                    type="submit"
+                    className="btn btn-dark mx-3  rounded-0"
+                    value="Guardar Cambios"
+                  ></input>
+                  <LinkButton direction="/lawyer/profile" text="Cancelar" />
+                </div>
+              </form>
             </div>
-            <div className="row align-items-end my-3">
-              <div className="col">
-                <label htmlFor="form-register-lawyer" className="form-label">
-                  Provincia
-                </label>
-                <Province handleChange={handleChange} name="province" />
-              </div>
-            </div>
-            <div className="d-flex">
-              <input
-                type="submit"
-                className="btn btn-dark mx-3  rounded-0"
-                value="Guardar Cambios"
-              ></input>
-              <LinkButton direction="/lawyer/profile" text="Cancelar" />
-            </div>
-          </form>
+          )}
         </div>
-        </>
       )}
     </>
   );
+  
 };

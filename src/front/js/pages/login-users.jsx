@@ -46,7 +46,7 @@ export const Login = (props) => {
           } else {
             navigate("/worker/profile");
           }
-        }, 3000);
+        }, 1500);
       } else {
         setAlert(true);
         setClassName("danger");
