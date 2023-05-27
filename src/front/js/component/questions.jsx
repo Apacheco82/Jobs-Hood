@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const Questions = ({text, user_name, data,userID}) => {
+const Questions = ({text, user_name, data, userID, question, lawyer_id}) => {
   return (
     <div className="card card-stars">
       <div className="card-body">
@@ -9,7 +9,14 @@ const Questions = ({text, user_name, data,userID}) => {
           <div className="col-12">
             <div className="text-left">
               <p>{text}</p>
-              <Link to ={`/worker/${userID}`}><p>{user_name}</p></Link>  
+              <Link to={`/worker/${userID}`}>
+                <p>{user_name}</p>
+              </Link>
+              {question && (
+                <Link to={`/lawyer/${lawyer_id}`}>
+                  <p className="card-text">Ver pregunta</p>
+                </Link>
+              )}
               <p>{data}</p>
             </div>
           </div>
@@ -19,4 +26,4 @@ const Questions = ({text, user_name, data,userID}) => {
   );
 };
 
-export default Questions; 
+export default Questions;
