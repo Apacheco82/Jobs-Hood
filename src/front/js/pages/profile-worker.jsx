@@ -5,8 +5,11 @@ import UserWorker from "../component/UserWorker.jsx";
 import Spinner from "../component/Spinner.jsx";
 import {Context} from "../store/appContext.js";
 import Review from "../component/review.jsx";
+import Questions from "../component/questions.jsx";
 import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
+import {Tab, Nav} from "react-bootstrap";
+import "../../styles/worker-profile.css";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -14,6 +17,7 @@ export const Profile = () => {
   const {store, actions} = useContext(Context);
   const [spinner, setSpinner] = useState(false);
   const [userReviews, setUserReviews] = useState([]);
+  const [userQuestions, setUserQuestions] = useState([]);
   const [password, setPassword] = useState({
     email: "",
     old_password: "",
@@ -24,6 +28,7 @@ export const Profile = () => {
   const [small, setSmall] = useState(false);
   const [passWrong, setPassWrong] = useState(false);
   const [passOk, setPassOk] = useState(false);
+  const [activeKey, setActiveKey] = useState("#nav-home");
 
   const handleShow = () => {
     setShow(!show);
@@ -48,6 +53,8 @@ export const Profile = () => {
     const infoWorker = await getInfoUser();
     actions.setUser(infoWorker);
     setUserReviews(infoWorker.written_reviews);
+    setUserQuestions(infoWorker.written_questions);
+    console.log(userQuestions)
     setSpinner(false);
   };
 
@@ -68,7 +75,6 @@ export const Profile = () => {
         const response = await changePassword(password);
         if (!response.error) {
           setPassOk(true);
-          console.log(response);
           setTimeout(() => {
             setPassOk(false);
             setShow(false);
@@ -95,46 +101,85 @@ export const Profile = () => {
       {spinner ? (
         <Spinner />
       ) : (
-        <React.Fragment>
+        <div className="worker-profile">
           <Navbar />
 
           <div className="container container-fluid d-flex justify-content-center align-items-center">
-              <div className="card" style={{width: "80%"}}>
-                <UserWorker
-                  onClick={handleEdit}
-                  user={store.user}
-                  userPrivate={!params.id}
-                  showEditButton={!params.id}
+            <div className="card card-form p-5 m-5">
+              <UserWorker
+                onClick={handleEdit}
+                user={store.user}
+                userPrivate={!params.id}
+                showEditButton={!params.id}
+              />
+              {!params.id && (
+                <Modal
+                  handlePassword={handlePassword}
+                  passwordChange={passwordChange}
+                  show={show}
+                  handleShow={handleShow}
+                  small={small}
+                  passWrong={passWrong}
+                  passOk={passOk}
                 />
-                {!params.id && (
-                  <Modal
-                    handlePassword={handlePassword}
-                    passwordChange={passwordChange}
-                    show={show}
-                    handleShow={handleShow}
-                    small={small}
-                    passWrong={passWrong}
-                    passOk={passOk}
-                  />
-                )}
-              </div>
+              )}
+            </div>
           </div>
 
-          <div className="container">
-            <h4> Opiniones del usuario :</h4>
-            {userReviews.map((review, index) => (
-                    <Review
-                      key={index}
-                      text={review.text}
-                      receiver_id={review.receiver_id}
-                      opinion={true}
-                      rating={review.rating}
-                      data={review.data_create}
-                      type ={review.receiver.roles.description}
-                    />
-                  ))}
+          <div className="container d-flex justify-content-center mt-1">
+            <Nav
+              variant="tabs"
+              activeKey={activeKey}
+              onSelect={(k) => setActiveKey(k)}
+            >
+              <Nav.Item>
+                <Nav.Link eventKey="#nav-home">Opiniones del usuario</Nav.Link>
+              </Nav.Item>
+
+              <Nav.Item>
+                <Nav.Link eventKey="#nav-questions">
+                  Preguntas del usuario
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
           </div>
-        </React.Fragment>
+
+          <Tab.Content>
+            <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
+              <div className="container d-flex justify-content-center mt-3">
+                {userReviews.map((review, index) => (
+                  <Review
+                    key={index}
+                    text={review.text}
+                    receiver_id={review.receiver_id}
+                    opinion={true}
+                    rating={review.rating}
+                    data={review.data_create}
+                    type={review.receiver.roles.description}
+                  />
+                ))}
+              </div>
+            </Tab.Pane>
+            <Tab.Pane
+              eventKey="#nav-questions"
+              active={activeKey === "#nav-questions"}
+            >
+              <div className="container d-flex justify-content-center">
+                <div className="row d-flex justify-content-center m-3">
+                {userQuestions.map((question, index) => (
+                  <Questions
+                    key={index}
+                    text={question.text}
+                    data={question.data_create}
+                    question={true}
+                    lawyer_id={question.lawyer_id}
+                  />
+                ))}
+                </div>
+              </div>
+            </Tab.Pane>
+          </Tab.Content>
+        </div>
       )}
     </>
   );
