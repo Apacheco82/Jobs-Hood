@@ -37,8 +37,8 @@ export const LawyerProfile = () => {
   const [ask, setAsk] = useState({
     lawyer_id: 0,
     user_id: 0,
-    user_name: "",
     text: "",
+    user_name: "",
   });
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();

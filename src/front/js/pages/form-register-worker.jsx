@@ -41,7 +41,7 @@ export const RegistroWorker = () => {
           setTimeout(() => {
             setAlert(false);
             navigate("/login");
-          }, 3000);
+          }, 1500);
         }
       } catch (error) {
         setSpinner(false);
@@ -50,7 +50,7 @@ export const RegistroWorker = () => {
         setMessage("Error del servidor");
         setTimeout(() => {
           setAlert(false);
-        }, 3000);
+        }, 1500);
       }
     } else {
       setAlert(true);
