@@ -1,7 +1,7 @@
 import React, {useState, useContext} from "react";
 import {Context} from "../store/appContext.js";
 import LinkButton from "../component/LinkButton.jsx";
-import {changePassword, editUser} from "../services/user.js";
+import { editUser} from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
 import {useNavigate} from "react-router-dom";
 import {checkUser} from "../services/user.js";
@@ -24,31 +24,15 @@ export const EditProfileWorker = () => {
     last_name: store.user.last_name,
     email: store.user.email,
   });
-  const [password, setPassword] = useState({
-    email: "",
-    old_password: "",
-    new_password: "",
-    password_check: "",
-  });
-  const [show, setShow] = useState(false);
-  const [small, setSmall] = useState(false);
-  const [passWrong, setPassWrong] = useState(false);
-  const [passOk, setPassOk] = useState(false);
-
-  const handleShow = () => {
-    setShow(!show);
-  };
 
   
 
   const handleChange = (event) => {
-    // console.log(event.target)
     if (event.target.files) {
       setFile(event.target.files[0]);
       const reader = new FileReader();
       reader.onload = (e) => {
         if (reader.readyState === 2) {
-          //console.log("result", reader.result);
           setFileUrl(reader.result);
         }
       };
@@ -136,37 +120,7 @@ export const EditProfileWorker = () => {
     }
   };
 
-  const passwordChange = ({target}) => {
-    setPassword({...password, [target.name]: target.value});
-  };
-
-  const handlePassword = async (e) => {
-    e.preventDefault();
-    password.email = store.user.email;
-    if (password.new_password == password.password_check) {
-      //si el password nuevo coincide con la repeticion
-      try {
-        const response = await changePassword(password);
-        if (!response.error) {
-          setPassOk(true)
-          setTimeout(() => {
-            setPassOk(false)
-            setShow(false)
-          }, 2000);
-        }else{
-          setPassWrong(true)
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      setSmall(true);
-      setTimeout(() => {
-        setSmall(false);
-      }, 2000);
-    }
-  };
-
+ 
 
   return (
     <>
