@@ -58,7 +58,7 @@ export const EditProfileLawyer = () => {
           const response = await editLawyer(editedLawyer, file);
           
           if (response) {
-            localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
+            localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage.
             setAlert(true);
             actions.setUser(editedLawyer)
             setClassName("success");
