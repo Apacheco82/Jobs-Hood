@@ -116,8 +116,11 @@ export const EditProfileLawyer = () => {
         <div className="container my-5">
           {" "}
           <h1> Edición de Usuario</h1>
-          <div className="col">
-          <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
+          <div className="col-4">
+            <div>
+              <img src={store.user.avatar} />
+            </div>
+            <Avatar  handleChange={handleChange} fileUrl={fileUrl} file={file}/>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="row my-3"></div>
@@ -141,6 +144,7 @@ export const EditProfileLawyer = () => {
                   maxLength="80"
                 />
               </div>
+              
 
               <div className="col">
                 <label htmlFor="form-register-lawyer" className="form-label">
@@ -177,6 +181,19 @@ export const EditProfileLawyer = () => {
                   Provincia
                 </label>
                 <Province handleChange={handleChange} name="province" />
+              </div>
+            </div>
+            <div className="rom my-3">
+              <div className="col">
+                <label htmlFor="form-register-lawyer" className="form-label">
+                  Descripción
+                </label>
+                <textarea 
+                    onChange={handleChange}
+                    name="description"
+                    defaultValue={store.user.description}
+                    className="form-control">
+                  </textarea>
               </div>
             </div>
             <div className="d-flex">

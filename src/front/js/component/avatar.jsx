@@ -5,8 +5,8 @@ import "../../styles/avatar.css";
 import { Navigate } from "react-router-dom";
 
 
-export const Avatar = ({handleChange, fileUrl, file}) => {
-     
+export const Avatar = ({handleChange, fileUrl}) => {
+
     return (
       <div className="input-group d-flex flex-column gap-2 align-items-start mb-3 avatar_container">
         

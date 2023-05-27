@@ -11,6 +11,9 @@ const UserInfo = ({ user, profile, showEditButton, isLawyer, onClick }) => {
               <p id="nombre-contacto">
                 <strong>{user.name}</strong>
               </p>
+              <div>
+                <p>{user.description}</p> 
+              </div>
               <div className="iconos my-1"> {user.last_name}</div>
               <div className="iconos my-1"> {user.email}</div>
               <div className="iconos my-1"> {profile.address}</div>

@@ -8,6 +8,7 @@ import {checkUser} from "../services/user.js";
 import Avatar from "../component/avatar.jsx";
 import Alert from "../component/Alert.jsx";
 import {Navbar} from "../component/navbar.js";
+import "../../styles/edit-profile-worker.css";
 
 export const EditProfileWorker = () => {
   const {store, actions} = useContext(Context);
@@ -175,22 +176,13 @@ export const EditProfileWorker = () => {
             {" "}
             <h1> Edición de Usuario</h1>
             <form onSubmit={handleSubmit}>
+              
               <div className="row my-3">
-                <div className="col">
-                  <label htmlFor="form-register-start" className="form-label">
-                    Descripción
-                  </label>
-                  <textarea 
-                    onChange={handleChange}
-                    name="description"
-                    defaultValue={store.user.description}
-                    className="form-control">
-                  </textarea>
-                </div>
-              </div>
-              <div className="row my-3">
-                <div className="col">
-                  <img src={store.user.avatar} alt="" />
+                <div className="col-4">
+                  <div>
+                    <img src={store.user.avatar} />
+
+                  </div>
                   <Avatar
                     handleChange={handleChange}
                     fileUrl={fileUrl}
@@ -261,6 +253,19 @@ export const EditProfileWorker = () => {
                     className="form-control rounded-0"
                     maxLength="250"
                   />
+                </div>
+              </div>
+              <div className="row my-3">
+                <div className="col">
+                  <label htmlFor="form-register-start" className="form-label">
+                    Descripción
+                  </label>
+                  <textarea 
+                    onChange={handleChange}
+                    name="description"
+                    defaultValue={store.user.description}
+                    className="form-control">
+                  </textarea>
                 </div>
               </div>
 

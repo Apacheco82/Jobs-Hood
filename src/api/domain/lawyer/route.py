@@ -31,7 +31,7 @@ def edit_user_lawyer():
     info = request.form.to_dict()
     avatar = request.files.get('avatar', None)  # Es el avatar que pasamos en el form.append en el handleClick 
     if avatar:  # Solo se actualiza el avatar si fue proporcionado
-        user_update = userController.update_avatar(user_logged, avatar)
+        user_update = Controller.update_avatar(user_logged, avatar)
     user  =  Controller.edit_user_lawyer(user_logged["id"],json.loads(info['user']))
     if user:
        access_token = create_access_token(identity = user.serialize_only_user())

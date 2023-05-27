@@ -63,7 +63,7 @@ def edit_user_by_role(id,info):
             user.name = info['name']
             user.email = info['email']
             user.user_name = info['email']
-         
+            user.description = info['description']
     return user
 
 def check_worker_email(email):
