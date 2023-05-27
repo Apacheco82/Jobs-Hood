@@ -62,7 +62,7 @@ export const RegisterCompany = () => {
           setTimeout(() => {
             setAlert(false);
             navigate("/login");
-          }, 3000);
+          }, 1500);
         }
       } catch (error) {
         setAlert(true);
@@ -70,7 +70,7 @@ export const RegisterCompany = () => {
         setMessage("Error del servidor");
         setTimeout(() => {
           setAlert(false);
-        }, 3000);
+        }, 1500);
       }
     } else {
       setAlert(true);

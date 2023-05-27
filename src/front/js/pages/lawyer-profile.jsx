@@ -37,8 +37,8 @@ export const LawyerProfile = () => {
   const [ask, setAsk] = useState({
     lawyer_id: 0,
     user_id: 0,
-    user_name: "",
     text: "",
+    user_name: "",
   });
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
@@ -323,20 +323,22 @@ export const LawyerProfile = () => {
                               text={question.text}
                               user_name={question.user_name}
                               data={question.data_create}
-                              userID={question.user_id}/>
-                            
+                              userID={question.user_id}
+                            />
+
                             {question.question_comment && (
-                              <Answers comment = {question.question_comment}/>
+                              <Answers comment={question.question_comment} />
+                            )}
+
+                            {!params.id && !question.question_comment && (
+                              <WriteAnswer
+                                answerChange={answerChange}
+                                answerSubmit={answerSubmit}
+                                questionId={question.id}
+                              />
                             )}
                           </div>
                         ))}
-                        {!params.id && !question.question_comment && (
-                          <WriteAnswer
-                            answerChange={answerChange}
-                            answerSubmit={answerSubmit}
-                            questionId={question.id}
-                          />
-                        )}
                       </div>
                     </div>
                   </div>
