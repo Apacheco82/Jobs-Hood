@@ -39,7 +39,10 @@ export const EditProfileWorker = () => {
     setShow(!show);
   };
 
+  
+
   const handleChange = (event) => {
+    // console.log(event.target)
     if (event.target.files) {
       setFile(event.target.files[0]);
       const reader = new FileReader();
@@ -58,11 +61,12 @@ export const EditProfileWorker = () => {
       }));
     }
   };
+ 
 
   const handleSubmit = async (event) => {
     setSpinner(true);
     event.preventDefault();
-    let check;
+    let check ;
     let mail = false;
     if (store.user.email !== editedWorker.email) {
       // si el email ha cambiado
@@ -72,12 +76,13 @@ export const EditProfileWorker = () => {
       //si el user_name ha cambiado
       check = await checkUser(editedWorker, "editUserName"); // el parametro para editar
     }
-    if (check) {
+    if (check ) {
       if (!check.error) {
         try {
+         
           const response = await editUser(editedWorker, file);
           if (response) {
-            console.log("laresponse", response);
+            actions.setUser(editedWorker)
             if (mail) {
               localStorage.setItem("token", response); // Guardamos el nuevo token en el localStorage
             }
@@ -144,7 +149,6 @@ export const EditProfileWorker = () => {
         const response = await changePassword(password);
         if (!response.error) {
           setPassOk(true)
-          console.log(response)
           setTimeout(() => {
             setPassOk(false)
             setShow(false)

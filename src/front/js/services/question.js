@@ -29,7 +29,6 @@ export const checkQuestion = (user, lawyerId) => {
 };
 
 export const createAnswer = async (data, id) =>{
-
 try {
   const info = await fetch (`${URL}/question/comment/${id}`, {
     method: "POST",

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import "../../styles/contactUs.css";
-
+import {Navbar} from "../component/navbar.js";
 
 const ContactUs = () => {
   const form = useRef();
@@ -17,6 +17,7 @@ const ContactUs = () => {
   };
 
   return (
+    <> <Navbar/>
     <form ref={form} onSubmit={sendEmail} className="colorful-form">
       <div className="form-group" >
         <label className="form-label">Nombre de usuario</label>
@@ -40,6 +41,7 @@ const ContactUs = () => {
       
       <input className="form-button" type="submit" value="Enviar" />
     </form>
+    </>
   );
 };
 

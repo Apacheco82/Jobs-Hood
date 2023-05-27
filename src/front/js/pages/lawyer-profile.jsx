@@ -323,9 +323,10 @@ export const LawyerProfile = () => {
                               text={question.text}
                               user_name={question.user_name}
                               data={question.data_create}
-                            />
+                              userID={question.user_id}/>
+                            
                             {question.question_comment && (
-                              <Answers comment={question.question_comment} />
+                              <Answers comment = {question.question_comment}/>
                             )}
                           </div>
                         ))}
