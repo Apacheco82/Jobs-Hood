@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
-import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png"
 import { Navbar } from "../component/navbar.js";
 
 
@@ -13,7 +12,7 @@ export const Home = () => {
 			<Navbar/>
 			<div className="container-fluid d-flex" id="container">
 				<div className="w3-sidebar w3-light-grey w3-bar-block" id="side-bar">
-				<img id="logo" src={LogoWeb}></img>
+				<img id="logo" src="https://res.cloudinary.com/dcgc2tppo/image/upload/v1684563994/v3wra3dz8bcer7nsyncn.png"></img>
 					<h3>¿Qué es Jobs Hood?</h3>
 					<p>Jobs Hood es una página web que se enfoca en proporcionar opiniones y reseñas de empresas, con el objetivo de ayudar a los usuarios a tomar decisiones informadas sobre dónde trabajar o hacer negocios.</p>
 					<p>Además, Jobs Hood ofrece una función de contacto con abogados para ayudar a los usuarios a obtener asesoramiento legal en caso de necesitarlo.</p>
