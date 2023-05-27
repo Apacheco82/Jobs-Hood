@@ -183,12 +183,14 @@ export const EditProfileWorker = () => {
                   <textarea 
                     onChange={handleChange}
                     name="description"
-                    defaultValue={store.user.description}>
+                    defaultValue={store.user.description}
+                    className="form-control">
                   </textarea>
                 </div>
               </div>
               <div className="row my-3">
                 <div className="col">
+                  <img src={store.user.avatar} alt="" />
                   <Avatar
                     handleChange={handleChange}
                     fileUrl={fileUrl}
