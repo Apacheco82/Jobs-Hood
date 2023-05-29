@@ -101,6 +101,7 @@ const Form = ({form, handleChange, handleSubmit, userType}) => {
                 className="form-control rounded-0"
                 aria-labelledby="passwordHelpInline"
                 placeholder="Debe tener entre 8-20 caracteres."
+                minLength="8"
                 maxLength="20"
                 required
               />

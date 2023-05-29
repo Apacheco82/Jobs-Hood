@@ -19,7 +19,6 @@ export const Profile = () => {
   const [userReviews, setUserReviews] = useState([]);
   const [userQuestions, setUserQuestions] = useState([]);
   const [password, setPassword] = useState({
-    email: "",
     old_password: "",
     new_password: "",
     password_check: "",
@@ -28,6 +27,10 @@ export const Profile = () => {
   const [small, setSmall] = useState(false);
   const [passWrong, setPassWrong] = useState(false);
   const [passOk, setPassOk] = useState(false);
+  const [error, setError] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
   const [activeKey, setActiveKey] = useState("#nav-home");
 
   const handleShow = () => {
@@ -49,13 +52,19 @@ export const Profile = () => {
   };
 
   const fetchData = async () => {
-    setSpinner(true);
-    const infoWorker = await getInfoUser();
-    actions.setUser(infoWorker);
-    setUserReviews(infoWorker.written_reviews);
-    setUserQuestions(infoWorker.written_questions);
-    console.log(userQuestions)
-    setSpinner(false);
+    try {
+      setSpinner(true);
+      const infoWorker = await getInfoUser();
+      actions.setUser(infoWorker);
+      setUserReviews(infoWorker.written_reviews);
+      setUserQuestions(infoWorker.written_questions);
+      setSpinner(false);
+    } catch (error) {
+      setSpinner(false);
+      setAlert(true);
+      setMessage("error al traer los datos");
+      setClassName("danger");
+    }
   };
 
   useEffect(() => {
@@ -68,31 +77,32 @@ export const Profile = () => {
 
   const handlePassword = async (e) => {
     e.preventDefault();
-    password.email = store.user.email;
-    if (password.new_password == password.password_check) {
-      //si el password nuevo coincide con la repeticion
-      try {
-        const response = await changePassword(password);
-        if (!response.error) {
-          setPassOk(true);
-          setTimeout(() => {
-            setPassOk(false);
-            setShow(false);
-          }, 2000);
-        } else {
-          setPassWrong(true);
-          setTimeout(() => {
-            setPassWrong(false);
-          }, 2000);
-        }
-      } catch (error) {
-        console.log(error); //provisional
-      }
-    } else {
+    if (password.new_password !== password.password_check) {
+      //si las contraseñas no coinciden
       setSmall(true);
       setTimeout(() => {
         setSmall(false);
       }, 2000);
+    } else if (
+      password.new_password.length < 8 ||
+      password.password_check.length < 8
+    ) {
+      //si no tienen 8 caracteres
+      setError(true);
+    } else {
+      const response = await changePassword(password);
+      if (!response.error) {
+        setPassOk(true);
+        setTimeout(() => {
+          setPassOk(false);
+          setShow(false);
+        }, 2000);
+      } else {
+        setPassWrong(true);
+        setTimeout(() => {
+          setPassWrong(false);
+        }, 2000);
+      }
     }
   };
 
@@ -106,6 +116,11 @@ export const Profile = () => {
 
           <div className="container container-fluid d-flex justify-content-center align-items-center">
             <div className="card card-form p-5 m-5">
+            {alert && (
+                  <div className="d-flex justify-content-center m-5">
+                    <Alert className={className} message={message} />
+                  </div>
+                )}
               <UserWorker
                 onClick={handleEdit}
                 user={store.user}
@@ -121,6 +136,7 @@ export const Profile = () => {
                   small={small}
                   passWrong={passWrong}
                   passOk={passOk}
+                  error={error}
                 />
               )}
             </div>
@@ -166,15 +182,15 @@ export const Profile = () => {
             >
               <div className="container d-flex justify-content-center">
                 <div className="row d-flex justify-content-center m-3">
-                {userQuestions.map((question, index) => (
-                  <Questions
-                    key={index}
-                    text={question.text}
-                    data={question.data_create}
-                    question={true}
-                    lawyer_id={question.lawyer_id}
-                  />
-                ))}
+                  {userQuestions.map((question, index) => (
+                    <Questions
+                      key={index}
+                      text={question.text}
+                      data={question.data_create}
+                      question={true}
+                      lawyer_id={question.lawyer_id}
+                    />
+                  ))}
                 </div>
               </div>
             </Tab.Pane>

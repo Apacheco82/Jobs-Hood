@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWrong, passOk}) => {
+const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWrong, passOk, error}) => {
   return (
     <>
       <div className="d-flex">
@@ -15,8 +15,6 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Cambio de contraseña</h5>
-
-
                 <button
                   type="button"
                   className="close"
@@ -28,6 +26,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
               </div>
               <div className="modal-body">
                 <form onChange={passwordChange}>
+                {error &&(<h6 className="text-danger">La nueva contraseña debe tener 8 caracteres</h6>)}
                 {passWrong &&(<h6 className="text-danger">Contraseña no válida</h6>)}
                 {passOk &&(<h6 className="text-success">Contraseña cambiada</h6>)}
                   <label htmlFor="inputPassword6" className="form-label">
@@ -39,6 +38,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
                     className="form-control rounded-0"
                     aria-labelledby="passwordHelpInline"
                     placeholder="Debe tener entre 8-20 caracteres."
+                    minLength="8"
                     maxLength="20"
                     required
                   />
@@ -51,6 +51,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
                     className="form-control rounded-0"
                     aria-labelledby="passwordHelpInline"
                     placeholder="Debe tener entre 8-20 caracteres."
+                    minLength="8"
                     maxLength="20"
                     required
                   />
@@ -63,6 +64,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
                     className="form-control rounded-0"
                     aria-labelledby="passwordHelpInline"
                     placeholder="Debe tener entre 8-20 caracteres."
+                    minLength="8"
                     maxLength="20"
                     required
                   />

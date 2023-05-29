@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa"; /* Para tener acceso a React-icons ejecutamos "npm install react-icons --save" */
 import { FaLinkedin } from "react-icons/fa";

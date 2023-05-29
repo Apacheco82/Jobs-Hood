@@ -1,9 +1,6 @@
-import React, { useState, useContext } from "react";
-import { uploadAvatar } from "../services/user.js"
+import React from "react";
 import {FaUpload} from "react-icons/fa";
 import "../../styles/avatar.css";
-import { Navigate } from "react-router-dom";
-
 
 export const Avatar = ({handleChange, fileUrl, file}) => {
      
