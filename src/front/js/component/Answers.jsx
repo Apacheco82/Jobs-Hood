@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const Answers = ({comment}) => {
   return (
     <div className="card card-stars">

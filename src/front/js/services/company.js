@@ -1,10 +1,8 @@
 import {URL} from ".";
 
-
 const HEADERS = {
   "Content-Type": "application/json",
 };
-
 
 export const companyRegister = async (user) => {
   try {
@@ -13,10 +11,10 @@ export const companyRegister = async (user) => {
       headers: HEADERS,
       body: JSON.stringify(user),
     });
-    return await response.json()
+    return await response.json();
   } catch (error) {
     console.log("Error al registrar la empresa", error);
-    throw error
+    throw error;
   }
 };
 
@@ -28,13 +26,13 @@ export const GetAllCompanies = async () => {
     });
     return await response.json();
   } catch (error) {
-    console.log("Error en get:", error);
+    console.log("Error al traer las empresas :", error)
+    throw error;
   }
 };
 
 export const editCompany = async (company, file) => {
-
-  try{ 
+  try {
     const token = localStorage.getItem("token");
     const form = new FormData();
     form.append("avatar", file);
@@ -43,11 +41,13 @@ export const editCompany = async (company, file) => {
       method: "PUT",
       body: form,
       headers: {
-        Authorization: `Bearer ${token}` // para poder acceder a partes privadas tengo que pasar en headers este formato el token es una interpolacion ya que ira cambiando segun el user
+        Authorization: `Bearer ${token}`, // para poder acceder a partes privadas tengo que pasar en headers este formato el token es una interpolacion ya que ira cambiando segun el user
       },
     });
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Error al editar usuario!", error);}
-}
+    console.log("Error al editar usuario!", error);
+    throw error
+  }
+};

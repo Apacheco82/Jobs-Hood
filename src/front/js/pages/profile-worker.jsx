@@ -19,7 +19,6 @@ export const Profile = () => {
   const [userReviews, setUserReviews] = useState([]);
   const [userQuestions, setUserQuestions] = useState([]);
   const [password, setPassword] = useState({
-    email: "",
     old_password: "",
     new_password: "",
     password_check: "",
@@ -54,7 +53,6 @@ export const Profile = () => {
     actions.setUser(infoWorker);
     setUserReviews(infoWorker.written_reviews);
     setUserQuestions(infoWorker.written_questions);
-    console.log(userQuestions)
     setSpinner(false);
   };
 
@@ -68,31 +66,29 @@ export const Profile = () => {
 
   const handlePassword = async (e) => {
     e.preventDefault();
-    password.email = store.user.email;
-    if (password.new_password == password.password_check) {
-      //si el password nuevo coincide con la repeticion
-      try {
-        const response = await changePassword(password);
-        if (!response.error) {
-          setPassOk(true);
-          setTimeout(() => {
-            setPassOk(false);
-            setShow(false);
-          }, 2000);
-        } else {
-          setPassWrong(true);
-          setTimeout(() => {
-            setPassWrong(false);
-          }, 2000);
-        }
-      } catch (error) {
-        console.log(error); //provisional
-      }
-    } else {
+    if (password.new_password !== password.password_check) { //si las contraseñas no coinciden
       setSmall(true);
       setTimeout(() => {
         setSmall(false);
       }, 2000);
+    } 
+    else if (password.new_password.length < 8 || password.password_check.length < 8) { //si no tienen 8 caracteres
+      setError(true);
+    }
+    else {
+      const response = await changePassword(password);
+      if (!response.error) {
+        setPassOk(true);
+        setTimeout(() => {
+          setPassOk(false);
+          setShow(false);
+        }, 2000);
+      } else {
+        setPassWrong(true);
+        setTimeout(() => {
+          setPassWrong(false);
+        }, 2000);
+      }
     }
   };
 
@@ -121,6 +117,7 @@ export const Profile = () => {
                   small={small}
                   passWrong={passWrong}
                   passOk={passOk}
+                  error={error}
                 />
               )}
             </div>

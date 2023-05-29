@@ -18,6 +18,7 @@ import AverageRating from "../component/AverageRating.jsx";
 import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
 import "../../styles/lawyer-profile.css";
+import Alert from "../component/Alert.jsx";
 
 export const LawyerProfile = () => {
   const params = useParams();
@@ -45,7 +46,6 @@ export const LawyerProfile = () => {
   const {store, actions} = useContext(Context);
   const [answer, setAnswer] = useState({});
   const [password, setPassword] = useState({
-    email: "",
     old_password: "",
     new_password: "",
     password_check: "",
@@ -80,7 +80,6 @@ export const LawyerProfile = () => {
       setLawyer(screenUser.lawyer);
       setReview(screenUser.received_reviews);
       setQuestion(screenUser.received_questions);
-
       if (token) {
         const role = localStorage.getItem("role"); //obtenemos el rol del localstorage
         const loggedUser = await getUserPrivate(); //obtenemos el usuario completo que está logado en este momento en la web
@@ -94,7 +93,10 @@ export const LawyerProfile = () => {
       }
       setSpinner(false);
     } catch (error) {
-      console.log(error);
+      setSpinner(false);
+      setAlert(true);
+      setMessage("error al traer los datos");
+      setClassName("danger");
     }
   };
 
@@ -178,31 +180,29 @@ export const LawyerProfile = () => {
 
   const handlePassword = async (e) => {
     e.preventDefault();
-    password.email = store.user.email;
-    if (password.new_password == password.password_check) {
-      //si el password nuevo coincide con la repeticion
-      try {
-        const response = await changePassword(password);
-        if (!response.error) {
-          setPassOk(true);
-          setTimeout(() => {
-            setPassOk(false);
-            setShow(false);
-          }, 2000);
-        } else {
-          setPassWrong(true);
-          setTimeout(() => {
-            setPassWrong(false);
-          }, 2000);
-        }
-      } catch (error) {
-        console.log(error); //provisional
-      }
-    } else {
+    if (password.new_password !== password.password_check) { //si las contraseñas no coinciden
       setSmall(true);
       setTimeout(() => {
         setSmall(false);
       }, 2000);
+    } 
+    else if (password.new_password.length < 8 || password.password_check.length < 8) { //si no tienen 8 caracteres
+      setError(true);
+    }
+    else {
+      const response = await changePassword(password);
+      if (!response.error) {
+        setPassOk(true);
+        setTimeout(() => {
+          setPassOk(false);
+          setShow(false);
+        }, 2000);
+      } else {
+        setPassWrong(true);
+        setTimeout(() => {
+          setPassWrong(false);
+        }, 2000);
+      }
     }
   };
 
@@ -216,6 +216,11 @@ export const LawyerProfile = () => {
             <Navbar />
             <div className="container container-fluid d-flex justify-content-center align-items-center">
               <div className="card card-form p-5 m-5">
+              {alert && (
+                  <div className="d-flex justify-content-center m-5">
+                    <Alert className={className} message={message} />
+                  </div>
+                )}
                 <UserInfo
                   user={store.user}
                   profile={lawyer}
@@ -232,6 +237,7 @@ export const LawyerProfile = () => {
                     small={small}
                     passWrong={passWrong}
                     passOk={passOk}
+                    error={error}
                   />
                 )}
               </div>

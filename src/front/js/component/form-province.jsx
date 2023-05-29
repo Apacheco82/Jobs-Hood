@@ -6,10 +6,7 @@ export const provincias = ['Alava', 'Albacete', 'Alicante', 'Almería', 'Asturia
     'Orense', 'Palencia', 'Las Palmas', 'Pontevedra', 'La Rioja', 'Salamanca', 'Segovia', 'Sevilla', 'Soria', 'Tarragona',
     'Santa Cruz de Tenerife', 'Teruel', 'Toledo', 'Valencia', 'Valladolid', 'Vizcaya', 'Zamora', 'Zaragoza']
 
-
-
 export const Province = (props) => {
-
 
     return (
         <>

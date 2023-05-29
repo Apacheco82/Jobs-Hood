@@ -99,6 +99,8 @@ export const Login = (props) => {
                       className="form-control rounded-0"
                       aria-labelledby="passwordHelpInline"
                       placeholder="Contraseña"
+                      minLength="8"
+                      maxLength="20"
                       required
                     />
                   </div>
