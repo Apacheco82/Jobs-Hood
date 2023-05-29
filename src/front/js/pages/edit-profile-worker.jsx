@@ -24,11 +24,14 @@ export const EditProfileWorker = () => {
     name: store.user.name,
     last_name: store.user.last_name,
     email: store.user.email,
+    description: store.user.description,
   });
-  const [formView, setFormView] = useState(true)
+  const [formView, setFormView] = useState(true);
+  const [currentImage, setCurrentImage] = useState(store.user.avatar)
 
   const handleChange = (event) => {
     if (event.target.files) {
+      setCurrentImage(null);
       setFile(event.target.files[0]);
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -71,7 +74,7 @@ export const EditProfileWorker = () => {
             setAlert(true);
             setClassName("success");
             setMessage("Usuario editado correctamente");
-            setFormView(false)
+            setFormView(false);
             setTimeout(() => {
               setAlert(false);
               navigate("/worker/profile");
@@ -95,6 +98,7 @@ export const EditProfileWorker = () => {
         editedWorker.user_name = store.user.user_name;
         editedWorker.name = store.user.name;
         editedWorker.last_name = store.user.last_name;
+        editedWorker.description = store.user.description;
       }
     } else {
       // si no cambia ni email ni user_name
@@ -104,7 +108,7 @@ export const EditProfileWorker = () => {
           setAlert(true);
           setClassName("success");
           setMessage("Usuario editado correctamente");
-          setFormView(false)
+          setFormView(false);
           setTimeout(() => {
             setAlert(false);
             navigate("/worker/profile");
@@ -145,14 +149,18 @@ export const EditProfileWorker = () => {
                   <div className="col">
                     <Avatar
                       handleChange={handleChange}
-                      fileUrl={fileUrl}
+                      fileUrl={fileUrl || currentImage}
                       file={file}
                     />
                   </div>
                 </div>
+
                 <div className="row align-items-start my-3">
                   <div className="col">
-                    <label htmlFor="form-register-worker" className="form-label">
+                    <label
+                      htmlFor="form-register-worker"
+                      className="form-label"
+                    >
                       Nombre de Usuario
                     </label>
                     <input
@@ -165,9 +173,12 @@ export const EditProfileWorker = () => {
                       maxLength="20"
                     />
                   </div>
-      
+
                   <div className="col">
-                    <label htmlFor="form-register-worker" className="form-label">
+                    <label
+                      htmlFor="form-register-worker"
+                      className="form-label"
+                    >
                       Nombre
                     </label>
                     <input
@@ -182,7 +193,10 @@ export const EditProfileWorker = () => {
                 </div>
                 <div className="row align-items-start my-3">
                   <div className="col">
-                    <label htmlFor="form-register-worker" className="form-label">
+                    <label
+                      htmlFor="form-register-worker"
+                      className="form-label"
+                    >
                       Apellidos
                     </label>
                     <input
@@ -195,9 +209,13 @@ export const EditProfileWorker = () => {
                     />
                   </div>
                 </div>
+
                 <div className="row align-items-end my-3">
                   <div className="col">
-                    <label htmlFor="form-register-worker" className="form-label">
+                    <label
+                      htmlFor="form-register-worker"
+                      className="form-label"
+                    >
                       Dirección Email
                     </label>
                     <input
@@ -206,11 +224,29 @@ export const EditProfileWorker = () => {
                       type="email"
                       name="email"
                       className="form-control rounded-0"
-                      maxLength="250"
+                      maxLength="100"
                     />
                   </div>
                 </div>
-      
+                <div className="row align-items-start my-3">
+                  <div className="col">
+                    <label
+                      htmlFor="form-register-worker"
+                      className="form-label"
+                    >
+                      Descripción
+                    </label>
+                    <textarea
+                      onChange={handleChange}
+                      defaultValue={store.user.description}
+                      name="description"
+                      className="form-control rounded-0"
+                      maxLength="500"
+                      rows="3"
+                    />
+                  </div>
+                </div>
+
                 <div className="d-flex">
                   <input
                     type="submit"
@@ -226,6 +262,4 @@ export const EditProfileWorker = () => {
       )}
     </>
   );
-  
-  
 };

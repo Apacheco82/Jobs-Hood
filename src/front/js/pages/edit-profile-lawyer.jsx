@@ -26,11 +26,14 @@ export const EditProfileLawyer = () => {
     address: store.user.lawyer.address,
     province: store.user.lawyer.province,
     col_number: store.user.lawyer.col_number,
+    description: store.user.description,
   });
   const [formView, setFormView] = useState(true);
+  const [currentImage, setCurrentImage] = useState(store.user.avatar)
 
   const handleChange = (event) => {
     if (event.target.files) {
+      setCurrentImage(null);
       setFile(event.target.files[0]);
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -88,6 +91,7 @@ export const EditProfileLawyer = () => {
         editedLawyer.address = store.user.lawyer.address;
         editedLawyer.province = store.user.lawyer.province;
         editedLawyer.col_number = store.user.lawyer.col_number;
+        editedLawyer.description = store.user.description
       }
     } else {
       //si no cambia el email
@@ -136,7 +140,7 @@ export const EditProfileLawyer = () => {
                   <div className="col">
                     <Avatar
                       handleChange={handleChange}
-                      fileUrl={fileUrl}
+                      fileUrl={fileUrl || currentImage}
                       file={file}
                     />
                   </div>
@@ -192,6 +196,24 @@ export const EditProfileLawyer = () => {
                       name="email"
                       className="form-control rounded-0"
                       maxLength="250"
+                    />
+                  </div>
+                </div>
+                <div className="row align-items-start my-3">
+                  <div className="col">
+                    <label
+                      htmlFor="form-register-worker"
+                      className="form-label"
+                    >
+                      Descripción
+                    </label>
+                    <textarea
+                      onChange={handleChange}
+                      defaultValue={store.user.description}
+                      name="description"
+                      className="form-control rounded-0"
+                      maxLength="500"
+                      rows="3"
                     />
                   </div>
                 </div>
