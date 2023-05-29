@@ -54,6 +54,10 @@ export const LawyerProfile = () => {
   const [small, setSmall] = useState(false);
   const [passWrong, setPassWrong] = useState(false);
   const [passOk, setPassOk] = useState(false);
+  const [error, setError] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
 
   const handleShow = () => {
     setShow(!show);
