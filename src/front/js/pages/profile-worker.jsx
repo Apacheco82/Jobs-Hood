@@ -9,6 +9,7 @@ import Questions from "../component/questions.jsx";
 import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
 import {Tab, Nav} from "react-bootstrap";
+import Alert from "../component/Alert.jsx";
 import "../../styles/worker-profile.css";
 
 export const Profile = () => {
@@ -141,7 +142,7 @@ export const Profile = () => {
               )}
             </div>
           </div>
-
+          
           <div className="container d-flex justify-content-center mt-1">
             <Nav
               variant="tabs"

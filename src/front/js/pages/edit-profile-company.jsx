@@ -126,9 +126,6 @@ export const EditProfileCompany = () => {
       ) : (
         <div className="edit-company-profile">
           <Navbar />
-          <div className="container">
-            <h1> Edición de Usuario</h1>
-          </div>
           {alert && (
             <div className="d-flex justify-content-center m-5">
               <Alert className={className} message={message} />
@@ -232,10 +229,10 @@ export const EditProfileCompany = () => {
                 <div className="d-flex">
                   <input
                     type="submit"
-                    className="btn btn-dark mx-3  rounded-0"
+                    className="btn btn-success"
                     value="Guardar Cambios"
                   ></input>
-                  <LinkButton direction="/company/profile" text="Cancelar" />
+                  <LinkButton direction="/company/profile" text="Cancelar" altColor={true}/>
                 </div>
               </form>
             </div>

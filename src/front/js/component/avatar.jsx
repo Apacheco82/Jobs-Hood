@@ -9,7 +9,7 @@ export const Avatar = ({handleChange, fileUrl, file}) => {
         
         <div className="row preview">
           <div className="col-12">
-            <img src={fileUrl}></img>
+            <img className="imagenContacto" src={fileUrl}></img>
           </div>
         </div>
         <div className="row">
