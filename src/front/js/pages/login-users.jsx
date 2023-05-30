@@ -46,7 +46,7 @@ export const Login = (props) => {
           } else {
             navigate("/worker/profile");
           }
-        }, 3000);
+        }, 1500);
       } else {
         setAlert(true);
         setClassName("danger");
@@ -99,6 +99,8 @@ export const Login = (props) => {
                       className="form-control rounded-0"
                       aria-labelledby="passwordHelpInline"
                       placeholder="Contraseña"
+                      minLength="8"
+                      maxLength="20"
                       required
                     />
                   </div>

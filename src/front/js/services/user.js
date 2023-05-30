@@ -15,10 +15,6 @@ export const registerUser = async (user) => {
       headers: HEADERS,
       body: JSON.stringify(user),
     });
-   /* if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Error al registrar el usuario: ${errorData.message}`);
-    }*/
     return await response.json();
   } catch (error) {
     console.log("Error al registrar el usuario", error);
@@ -70,6 +66,7 @@ export const userById = async (uid) => {
     return await response.json();
   } catch (error) {
     console.log("Error:", error);
+    throw error
   }
 };
 
@@ -138,7 +135,7 @@ export const changePassword = async (data) => {
     });
     return await response.json();
   } catch (error) {
-    console.log("Error check", error);
+    console.log("Error contraseña", error);
     return error;
   }
 };

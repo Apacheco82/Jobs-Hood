@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../../styles/dropdown-menu.css";
 
@@ -24,7 +23,6 @@ const DropdownMenu = () => {
         localStorage.removeItem('role');
         navigate("/")
         window.location.reload()
-
     };
 
     return (

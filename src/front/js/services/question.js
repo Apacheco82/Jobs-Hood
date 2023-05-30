@@ -1,19 +1,18 @@
 import {URL} from ".";
 
 
-const token = localStorage.getItem("token")
-
 export const createQuestion = async (data) => {
   try {
+    const token = localStorage.getItem("token")
     const info = await fetch(`${URL}/question`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        redirect: "follow"
+        Authorization: `Bearer ${token}`
       },
     });
+    console.log(info)
     return await info.json();
   } catch (error) {
     console.log("Error creando la pregunta:", error);
@@ -30,6 +29,7 @@ export const checkQuestion = (user, lawyerId) => {
 
 export const createAnswer = async (data, id) =>{
 try {
+  const token = localStorage.getItem("token")
   const info = await fetch (`${URL}/question/comment/${id}`, {
     method: "POST",
     body: JSON.stringify(data),

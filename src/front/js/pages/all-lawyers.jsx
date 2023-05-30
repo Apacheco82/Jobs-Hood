@@ -9,6 +9,7 @@ import {provincias} from "../component/form-province.jsx";
 import {calculateAverageRating} from "../component/AverageRating.jsx";
 import {Navbar} from "../component/navbar.js";
 import "../../styles/all-lawyers.css";
+import Alert from "../component/Alert.jsx";
 
 export const AllLawyers = () => {
   const [user, setUser] = useState([]);
@@ -18,18 +19,25 @@ export const AllLawyers = () => {
   const [spinner, setSpinner] = useState(false);
   const [filter, setFilter] = useState("");
   const [minAverageRating, setMinAverageRating] = useState(0);
+  const [alert, setAlert] = useState(false);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
+
+  const fetchData = async () => {
+    try {
+      setSpinner(true);
+      const info = await GetAllLawyers();
+      setUser(info.data);
+      setSpinner(false);
+    } catch (error) {
+      setSpinner(false);
+      setAlert(true);
+      setMessage("error al traer los datos");
+      setClassName("danger");
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setSpinner(true);
-        const info = await GetAllLawyers();
-        setUser(info.data);
-        setSpinner(false);
-      } catch (error) {
-        console.log(error); //provisional, mas adelante se pintaran en pantalla los errores
-      }
-    };
     fetchData();
   }, []);
 
@@ -75,9 +83,13 @@ export const AllLawyers = () => {
         <>
           <div className="all-lawyers">
             <Navbar />
-            <h1 className="text-center m-3"> Nuestros abogados</h1>
+            <h1 className="text-center m-3"> Nuestros abogados</h1>         
+            {alert && (
+              <div className="d-flex justify-content-center m-5">
+                <Alert className={className} message={message} />
+              </div>
+            )}
             <Search setSearch={setSearch} />
-
             <div className="container p-3">
               <div className="row">
                 <div className="col-md-3">

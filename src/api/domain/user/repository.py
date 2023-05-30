@@ -48,6 +48,7 @@ def edit_user(user, info):
     user.name = info['name']
     user.last_name = info['last_name']
     user.email = info['email']
+    user.description = info['description']
 
     db.session.commit()
          
@@ -62,6 +63,7 @@ def edit_user_by_role(id,info):
             user.name = info['name']
             user.email = info['email']
             user.user_name = info['email']
+            user.description = info['description']
          
     return user
 
