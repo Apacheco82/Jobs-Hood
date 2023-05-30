@@ -16,7 +16,7 @@ const WriteQuestion = ({questionChange, questionSubmit}) => {
           Haz tu pregunta
         </button>
       ) : (
-        <button onClick={openForm} type="button" className="btn btn-success">
+        <button onClick={openForm} type="button" className="btn btn-secondary">
           Cerrar
         </button>
       )}

@@ -1,17 +1,27 @@
 import React from "react";
+import Draggable from 'react-draggable';
+import "../../styles/modal.css"
 
 const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWrong, passOk, error}) => {
+
+  const closeOnOutsideClick = (e) => {
+    if (e.currentTarget === e.target) {
+      handleShow();
+    }
+  }
+
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex justify-content-end">
         <button type="button" className="btn btn-success" onClick={handleShow}>
           Cambiar contraseña
         </button>
       </div>
 
       {show && (
-        <div className="modal d-block" tabIndex="-1">
-          <div className="modal-dialog">
+        <div className="modal modal-backdrop d-block" tabIndex="-1" onClick={closeOnOutsideClick}>
+            <Draggable>
+          <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Cambio de contraseña</h5>
@@ -88,11 +98,12 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
                   className="btn btn-success"
                   onClick={handlePassword}
                 >
-                  Save changes
+                  Guardar cambios
                 </button>
               </div>
             </div>
           </div>
+          </Draggable>
         </div>
       )}
     </>
