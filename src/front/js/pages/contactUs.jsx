@@ -18,29 +18,32 @@ const ContactUs = () => {
 
   return (
     <> <Navbar/>
-    <form ref={form} onSubmit={sendEmail} className="colorful-form">
-      <div className="form-group" >
-        <label className="form-label">Nombre de usuario</label>
-        <input className="form-input" name="user_name" required="" placeholder="Usuario" type="text" />
-      </div>
+    <div className='contact-container'>
 
-      <div className="form-group" >
-        <label className="form-label">Correo electrónico</label>
-        <input className="form-input" type="email" name="user_email" required="" placeholder="Email"/>
-      </div>
-      
-      <div className="form-group" >
-        <label className="form-label">Asunto</label>
-        <input className="form-input" type="text" name="subject" required="" placeholder="Asunto"/>
-      </div>
-      
-      <div className="form-group" >
-        <label className="form-label">Mensaje</label>
-        <textarea className="form-input" name="message" required="" placeholder="Escriba su consulta"/>
-      </div>
-      
-      <input className="form-button" type="submit" value="Enviar" />
-    </form>
+      <form ref={form} onSubmit={sendEmail} className="card colorful-form">
+        <div className="form-group" >
+          <label className="form-label">Nombre de usuario</label>
+          <input className="form-input" name="user_name" required="" placeholder="Usuario" type="text" />
+        </div>
+
+        <div className="form-group" >
+          <label className="form-label">Correo electrónico</label>
+          <input className="form-input" type="email" name="user_email" required="" placeholder="Email"/>
+        </div>
+        
+        <div className="form-group" >
+          <label className="form-label">Asunto</label>
+          <input className="form-input" type="text" name="subject" required="" placeholder="Asunto"/>
+        </div>
+        
+        <div className="form-group" >
+          <label className="form-label">Mensaje</label>
+          <textarea className="form-input" name="message" required="" placeholder="Escriba su consulta"/>
+        </div>
+        
+        <input className="send-contact-btn btn-success" type="submit" value="Enviar" />
+      </form>
+    </div>
     </>
   );
 };
