@@ -26,7 +26,7 @@ const UserInfo = ({user, profile, showEditButton, isLawyer, onClick}) => {
       </div>
       {showEditButton && (
         <div className="col-lg-2 d-flex">
-          <i className="material-symbols-outlined"  onClick={onClick}
+          <i className=" material-symbols-outlined"  onClick={onClick}
             title="Editar Contacto">edit</i>
         </div>
       )}

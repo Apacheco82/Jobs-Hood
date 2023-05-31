@@ -10,6 +10,8 @@
   margin-top: auto;
   width: 100%; 
   background: rgba(255, 255, 255, 0.50);
+  -webkit-box-shadow: 1px -7px 10px 7px rgba(162,165,168,0.5); 
+  box-shadow: 1px -7px 10px 7px rgba(162,165,168,0.5);
 }
 
 .footer_body {

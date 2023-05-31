@@ -6,9 +6,42 @@
     overflow-y: auto;
     padding-bottom: 50px; 
   }
+
   
-  
-  
+.container-login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65rem;
+}
+
+.titulo-1{
+  font-family: 'Lato', sans-serif;
+}
+.titulo-2{
+  color: green;
+}
+.logo-login {
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 90px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 90px;
+  border: 3px solid;
+  border-color: #104415;
+  width: 150px;
+  object-fit: cover;
+  background-color: rgba(255, 255, 255, 0.918);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -15%);
+}
+
+
   .login::before {
     content: "";
     position: absolute;
