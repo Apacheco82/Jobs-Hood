@@ -12,7 +12,7 @@ export const Register = () => {
           <h1 id="titulo-principal"> Bienvenido a <strong id="titulo-web">Jobs Hood!</strong> </h1>
           <h3 id="titulo-secundario">¿A que area pertenece? </h3>
 
-          <div className="row my-5 ">
+          <div className="row">
             <div className="col mx-4">
               <Link to="lawyer">
                 <div id="card" className="card w-100">

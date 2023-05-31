@@ -1,39 +1,61 @@
+
+
 #container {
-    margin: 0px;
-    padding: 0px;
-    background-image: url('https://res.cloudinary.com/dcgc2tppo/image/upload/v1685532221/laptop_bhckex.jpg') ;
+  margin: 0px;
+  padding: 0px;
+  background-image: url('https://res.cloudinary.com/dcgc2tppo/image/upload/v1685538554/pexels-lex-photography-1109543_jr6x9b.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-size: 100%;  
+  background-position: center; 
 }
-  
+
 #side-bar {
-    width: 30%;
-    height: 100vh;
-    margin-left: 0;
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(9,121,63,1) 0%, rgba(0,0,0,1) 100%); 
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 30%;
+  height: 100vh;
+  margin-left: 0;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(180deg, rgba(9, 121, 63, 1) 0%, rgba(0, 0, 0, 1) 100%);
 }
 
 #logo {
-    border-radius: 50%;
-    border: 3px solid;
-    border-color: rgb(71, 71, 70);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border-top-right-radius: 60px;
+  border-bottom-left-radius: 60px;
+  border: 3px solid;
+  border-color: #104415;
+  width: 250px;
+  object-fit: cover;
+  background-color: rgba(255, 255, 255, 0.918);
 }
 
+#titulo-home {
+  color: beige;
+  font-family: 'Noto Serif Armenian', serif;
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+#texto-home {
+  color: beige;
+  font-family: 'Noto Serif Armenian', serif;
+  font-size: 18px;
+  justify-content: center;
+}
+
+#texto-carta{
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+}
 .menu {
   margin-left: 10%;
   margin-top: 8%;
 }
 
-.container-question{
+.container-question {
   border: 1px solid gray;
   border-radius: 5px;
 }
-
-  /*AVATAR*/
-
-
-
-
-
