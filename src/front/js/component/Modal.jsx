@@ -25,14 +25,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Cambio de contraseña</h5>
-                <button
-                  type="button"
-                  className="close"
-                  aria-label="Close"
-                  onClick={handleShow}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
+               
               </div>
               <div className="modal-body">
                 <form onChange={passwordChange}>
@@ -91,7 +84,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
                   className="btn btn-secondary"
                   onClick={handleShow}
                 >
-                  Close
+                  Cancelar
                 </button>
                 <button
                   type="button"

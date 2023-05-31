@@ -6,7 +6,7 @@ const Review = (props) => {
   
   return (
     <div className="col-8 mt-2 d-flex justify-content-center">
-      <div className="card card-stars">
+      <div className="card card-stars p-3">
         <ReactStars
           value={props.rating}
           count={5}

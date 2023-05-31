@@ -8,13 +8,13 @@ const UserWorker = ({user, userPrivate, showEditButton, onClick}) => {
         <img className="imagenContacto" src={user.avatar} />
       </div>
       <div className="col-lg-7">
-        <div id="nombre-contacto"> 
+        <div id="nombre-contacto "> 
           <strong>{user.user_name}</strong>
           {userPrivate && (
             <>
-              <div className="iconos my-1"> {user.name}</div>
-              <div className="iconos my-1"> {user.last_name}</div>
-              <div className="iconos my-1"> {user.email}</div>
+              <div className="iconos my-2"> {user.name}</div>
+              <div className="iconos my-2"> {user.last_name}</div>
+              <div className="iconos my-2"> {user.email}</div>
             </>
           )}
           <div>

@@ -1,10 +1,9 @@
 import React from "react";
 import "../../styles/spinner.css"
-import LogoWeb from "/workspace/Jobs-Hood/src/front/img/logoweb.png"
 
 const Spinner = () => {
   return (
-    <img src={LogoWeb} alt="Cargando..." className="loading-image" />
+    <img src={"https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"} alt="Cargando..." className="loading-image" />
   );
 };
 

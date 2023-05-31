@@ -67,12 +67,15 @@ export const Login = (props) => {
       ) : (
         <div className="login">
           <Navbar />
-          <div className="container-register">
+          <h1 className="titulo-1 text-center my-5">Iniciar Sesión en <strong className="titulo-2">Jobs Hood!</strong></h1>
+          <div className="container-login mt-4">
             <div className="card card-form p-5 m-5">
+            <img className="logo-login  " src={"https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"}></img>
               <form onChange={handleChange} onSubmit={handleSubmit}>
-                <h5 className="text-center">Iniciar Sesión en Jobs Hood</h5>
+              
+               
                 {alert && (
-                  <div className="d-flex justify-content-center m-5">
+                  <div className=" justify-content-center m-3">
                     <Alert className={className} message={message} />
                   </div>
                 )}
@@ -113,21 +116,17 @@ export const Login = (props) => {
                 </div>
               </form>
             </div>
-          </div>
-
-          <div className="container">
             <div className="row">
-            <div className="d-flex justify-content-start">
+            <div className="login-question d-flex justify-content-start">
               <Alert
                 className={"success"}
                 message="¿No estás registrado? Crea tu cuenta para poder acceder a
                   nuestros servicios"
               />
             </div>
-            </div>
 
             <div className="row">
-            <div className="d-flex justify-content-start">
+            <div className="login-button d-flex justify-content-start">
               <LinkButton
                 direction={"/register"}
                 text={"Ir a la página de registro"}
@@ -135,6 +134,10 @@ export const Login = (props) => {
             </div>
             </div>
             </div>
+          </div>
+
+          
+           
 
         </div>
       )}
