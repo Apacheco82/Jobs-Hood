@@ -19,13 +19,10 @@ export const Home = () => {
 					</div>
 					<div className="row">
 						<div className="col mt-5 mb-2">
-							<h3 id="titulo-home" className="text-center">- ¿Qué es Jobs Hood? -</h3>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-9  my-4 ">
-							<p id="texto-home" className="text-center">Jobs Hood es una página web que se enfoca en proporcionar opiniones y reseñas de empresas, con el objetivo de ayudar a los usuarios a tomar decisiones informadas sobre dónde trabajar o hacer negocios.</p>
-							<p id="texto-home" className="text-center">Además, Jobs Hood ofrece una función de contacto con abogados para ayudar a los usuarios a obtener asesoramiento legal en caso de necesitarlo.</p>
+							<h3 id="titulo-home" className="text-center ">- ¿Qué es Jobs Hood? -</h3>
+							<p id="texto-home" className="m-3">Jobs Hood es una página web que se enfoca en proporcionar opiniones y reseñas de empresas, con el objetivo de ayudar a los usuarios a tomar decisiones informadas sobre dónde trabajar o hacer negocios.<br></br>
+							<br></br>
+							Además, Jobs Hood ofrece una función de contacto con abogados para ayudar a los usuarios a obtener asesoramiento legal en caso de necesitarlo.</p>
 						</div>
 					</div>
 				</div>
@@ -40,10 +37,10 @@ export const Home = () => {
 									<div className="col-md-8">
 										<div className="card-body">
 											<h5 className="card-title">Empresas</h5>
-											<p className="card-text" id="texto-carta">La página web cuenta con una amplia variedad de empresas registradas, desde pequeñas empresas locales hasta grandes corporaciones.</p>
+											<p className="card-text my-4" id="texto-carta">La página web cuenta con una amplia variedad de empresas registradas, desde pequeñas empresas locales hasta grandes corporaciones.</p>
 
 											<Link to="/companies">
-												<button type="button" className="btn btn-success"> Más Informacion</button>
+												<button type="button" className="btn btn-success btn-sm"> Más Información</button>
 											</Link>
 										</div>
 									</div>
@@ -61,10 +58,10 @@ export const Home = () => {
 									<div className="col-md-8">
 										<div className="card-body">
 											<h5 className="card-title">Abogados</h5>
-											<p className="card-text" id="texto-carta"> Conéctate con abogados especializados en tu área de interés, podrás consultar cualquier problema legal que pueda surgirte.</p>
+											<p className="card-text my-4" id="texto-carta"> Conéctate con abogados especializados en tu área de interés, podrás consultar cualquier problema legal que pueda surgirte.</p>
 
 											<Link to="/lawyers">
-												<button type="button" className="btn btn-success">Más Informacion</button>
+												<button type="button" className="btn btn-success btn-sm">Más Información</button>
 											</Link>
 
 										</div>
