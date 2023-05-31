@@ -2,7 +2,7 @@ import React from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa"; /* Para tener acceso a React-icons ejecutamos "npm install react-icons --save" */
 import { FaLinkedin } from "react-icons/fa";
-import { FaGooglePlusG } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import {Link} from "react-router-dom";
 import "../../styles/footer.css";
 
@@ -17,7 +17,7 @@ export const Footer = () => (
 					<a href="#"><FaFacebookF className="ico facebook"/></a>
 					<a href="#"><FaTwitter className="ico twitter"/></a>
 					<a href="#"><FaLinkedin className="ico linkedin"/></a>
-					<a href="#"><FaGooglePlusG className="ico google"/></a>
+					<a target="_blank" href="https://github.com/Apacheco82/Jobs-Hood"><FaGithub className="ico github"/></a>
 				</div>				
 			</div>
 

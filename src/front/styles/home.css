@@ -1,6 +1,7 @@
 #container {
     margin: 0px;
     padding: 0px;
+    background-image: url('https://res.cloudinary.com/dcgc2tppo/image/upload/v1685532221/laptop_bhckex.jpg') ;
 }
   
 #side-bar {
@@ -8,7 +9,7 @@
     height: 100vh;
     margin-left: 0;
     background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(9,121,63,1) 100%); 
+    background: linear-gradient(180deg, rgba(9,121,63,1) 0%, rgba(0,0,0,1) 100%); 
 }
 
 #logo {

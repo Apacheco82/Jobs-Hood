@@ -9,7 +9,7 @@
 .sticky-bottom {
   margin-top: auto;
   width: 100%; 
-  background: rgba(255, 255, 255, 0.5); 
+  background: rgba(255, 255, 255, 0.50);
 }
 
 .footer_body {
