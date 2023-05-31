@@ -7,6 +7,7 @@
 }
 
 .content {
+    
     margin: 100px 250px 0px 250px;
 }
 
@@ -35,4 +36,27 @@
     background-size: 100%;  /* Asegura que el ancho de la imagen sea siempre el 100% del contenedor */
     background-position: center;  /* Centra la imagen */
   }
+
+  .scroll-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 41px;
+    height: 61px;
+    
+  }
+
+  .scroll-container a:hover {
+    background-color: rgba(27, 116, 21, 0.084);
+    color: rgba(27,92,63,1);
+  }
+
+  .scroll-container a {
+    font-size: 40px;
+    color: rgba(27,92,63,1);
+    padding: 0;
+    border: none;
+    
+  }
+
+
   

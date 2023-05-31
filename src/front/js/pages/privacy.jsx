@@ -1,4 +1,5 @@
 import React from "react";
+import { HiArrowUpTray } from 'react-icons/hi2';
 import "../../styles/privacy.css";
 import {Navbar} from "../component/navbar.js";
 
@@ -46,6 +47,9 @@ const Privacy = () => {
                 <p>Se conservarán durante no más tiempo del necesario para mantener el fin del tratamiento y cuando ya no sea necesario para tal fin, se suprimirán con medidas de seguridad adecuadas para garantizar la seudonimización de los datos o la destrucción total de los mismos.
                 En cumplimiento de las disposiciones de la Ley 25/2007, de 18 de octubre, de conservación de datos relativos a las comunicaciones electrónicas y a las redes públicas de comunicaciones, JobsHood deberá de retener determinados datos generados o tratados por los mismos, con el fin de posibilitar que dispongan de ellos los agentes facultados.
                 </p>
+            </div>
+            <div className="scroll-container">
+                <a className="btn btn-outline-success" href="#top"><HiArrowUpTray/></a>
             </div>
         </div>
         </>
