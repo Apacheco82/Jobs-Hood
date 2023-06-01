@@ -1,14 +1,5 @@
-.content {
-    position: relative;
-    width: 100%;
-    min-height: 100vh; 
-    height: fit-content;
-    overflow-y: auto;
-    padding-bottom: 50px; 
-}
-
 .content > h1 {
-    margin: 85px 0;
+    margin-bottom: 85px;
 }
 
 .apartado > h3 {
@@ -25,7 +16,6 @@
 }
 
 .apartado {
-    padding: 0 100px;
     margin-bottom: 85px;
 }
 
@@ -52,6 +42,8 @@
   }
 
   .scroll-container {
+    position: relative;
+    right: -200px;
     display: flex;
     justify-content: end;
     width: 100%;
@@ -60,9 +52,10 @@
 
 
   .scroll-container a {
-    margin-right: 25px;
     font-size: 40px;
     color: rgba(27,92,63,1);
     border: none;
   }
 
+
+  

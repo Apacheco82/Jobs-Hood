@@ -17,8 +17,9 @@ const ContactUs = () => {
   };
 
   return (
-    <> <Navbar/>
+    <> 
     <div className='contact-container'>
+      <Navbar/>
 
       <form ref={form} onSubmit={sendEmail} className="card colorful-form">
         <div className="form-group" >
