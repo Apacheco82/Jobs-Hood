@@ -1,4 +1,5 @@
 import React from "react";
+import { HiArrowUpTray } from 'react-icons/hi2';
 import "../../styles/privacy.css";
 import {Navbar} from "../component/navbar.js";
 
@@ -6,8 +7,8 @@ const Privacy = () => {
 
     return (
         <>
-        <Navbar/>
         <div className="content">
+            <Navbar/>
             <h1 className="text-center">Política de privacidad</h1>
             <div className="apartado">
                 JobsHood, (en adelante, Responsable), es el responsable del tratamiento de los datos personales del Usuario y le informa que estos datos serán tratados de conformidad con lo dispuesto en <span className="ley">el Reglamento (UE) 2016/679 de 27 de abril (GDPR) y la Ley Orgánica 3/2018 de 5 de diciembre (LOPDGDD)</span>, por lo que se le facilita la siguiente información del tratamiento:
@@ -46,6 +47,9 @@ const Privacy = () => {
                 <p>Se conservarán durante no más tiempo del necesario para mantener el fin del tratamiento y cuando ya no sea necesario para tal fin, se suprimirán con medidas de seguridad adecuadas para garantizar la seudonimización de los datos o la destrucción total de los mismos.
                 En cumplimiento de las disposiciones de la Ley 25/2007, de 18 de octubre, de conservación de datos relativos a las comunicaciones electrónicas y a las redes públicas de comunicaciones, JobsHood deberá de retener determinados datos generados o tratados por los mismos, con el fin de posibilitar que dispongan de ellos los agentes facultados.
                 </p>
+            </div>
+            <div className="scroll-container">
+                <a href="#top"><HiArrowUpTray/></a>
             </div>
         </div>
         </>
