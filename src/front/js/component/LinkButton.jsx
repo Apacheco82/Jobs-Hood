@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const LinkButton = ({direction, text, type}) => {
+const LinkButton = ({direction, text, type, altColor}) => {
+
+  const buttonClass = altColor ? "btn btn-secondary" : "btn btn-success";
+
   return (
     <div>
         <Link to={`${direction}`}>
-      <button type={type} className="btn btn-success">
+      <button type={type} className={buttonClass}>
         {text}
       </button>
       </Link>
