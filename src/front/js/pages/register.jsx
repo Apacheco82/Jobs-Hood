@@ -6,8 +6,9 @@ import "../../styles/register.css";
 export const Register = () => {
   return (
     <React.Fragment>
-      <Navbar />
+     
       <div className="register">
+      <Navbar />
         <div className="container text-center mt-5">
           <h1 id="titulo-principal"> Bienvenido a <strong id="titulo-web">Jobs Hood!</strong></h1>
           <h3 id="titulo-secundario">¿A que area pertenece? </h3>

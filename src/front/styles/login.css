@@ -23,7 +23,11 @@
   font-family: 'Lato', sans-serif;
 }
 .titulo-2{
-  color: green;
+  color: #1B5C3F;
+}
+.form-label{
+  font-weight: bold;
+  font-family: 'Lato', sans-serif;
 }
 .logo-login {
   border-top-right-radius: 10px;

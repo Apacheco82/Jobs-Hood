@@ -7,6 +7,15 @@
     padding-bottom: 50px; 
 }
 
+#nombre-contacto{
+    font-size: 20px;;
+}
+
+.user-information{
+    font-family: 'Lato', sans-serif;
+    
+}
+
 
 
 .lawyer-profile::before {
