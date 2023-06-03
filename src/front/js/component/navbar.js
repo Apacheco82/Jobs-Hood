@@ -21,7 +21,9 @@ export const Navbar = () => {
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <Link to="/">
+
           <img src={"https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"} className="logo-web" alt="Logo" />
+    
         </Link>
         {isLoggedIn ? <DropdownMenu /> : <ButtonsNavbar />}
       </div>

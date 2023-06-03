@@ -13,6 +13,7 @@ export const Home = () => {
 			<Navbar />
 			<div className="container-fluid d-flex" id="container">
 				<div className="w3-sidebar w3-light-grey w3-bar-block" id="side-bar">
+
 					<div className="row">
 						<div className="col mt-5 text-center">
 							<img className="logo"  src={"https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"}></img>

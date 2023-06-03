@@ -1,7 +1,7 @@
 import React, {useState, useContext} from "react";
 import {Context} from "../store/appContext.js";
 import LinkButton from "../component/LinkButton.jsx";
-import {editUser} from "../services/user.js";
+import { editUser} from "../services/user.js";
 import Spinner from "../component/Spinner.jsx";
 import {useNavigate} from "react-router-dom";
 import {checkUser} from "../services/user.js";
