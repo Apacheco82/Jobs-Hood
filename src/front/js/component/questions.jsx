@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 
 const Questions = ({text, user_name, data, userID, question, lawyer_id}) => {
   return (
-    <div className="card card-stars">
+
+    <div className="card card-stars mt-1">
       <div className="card-body">
         <div className="row">
           <div className="col-12">
@@ -17,12 +18,13 @@ const Questions = ({text, user_name, data, userID, question, lawyer_id}) => {
                   <p className="card-text">Ver pregunta</p>
                 </Link>
               )}
-              <p>{data}</p>
+              <p className="card-datetime">{data}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
   );
 };
 

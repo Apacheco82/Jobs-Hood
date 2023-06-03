@@ -21,3 +21,7 @@
     width: 100%; /* Ancho de la imagen al 100% del contenedor */
     height: auto; /* Altura automática para mantener la proporción */
 }
+.card-datetime{
+    font-size: 9px;
+    color: gray;
+}
