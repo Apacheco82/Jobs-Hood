@@ -8,8 +8,10 @@
    font-family: 'Lato', sans-serif;
 }
 
-
-
+.all-cards-view {
+  margin-right: 150px;
+  margin-top:10px;
+}
 .all-companies::before {
   content: "";
   position: absolute;
