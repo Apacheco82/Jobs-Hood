@@ -9,7 +9,7 @@ const Answers = ({comment}) => {
       <div className="text-right">
         <p>{comment.text}</p>
         <p>{comment.name}</p>
-        <p>{comment.data_create}</p>
+        <p className="card-datetime">{comment.data_create}</p>
         </div>
       </div>
       </div>
