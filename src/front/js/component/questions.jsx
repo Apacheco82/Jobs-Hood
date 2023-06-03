@@ -17,7 +17,7 @@ const Questions = ({text, user_name, data, userID, question, lawyer_id}) => {
                   <p className="card-text">Ver pregunta</p>
                 </Link>
               )}
-              <p>{data}</p>
+              <p className="card-datetime">{data}</p>
             </div>
           </div>
         </div>

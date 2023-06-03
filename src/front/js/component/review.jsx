@@ -24,7 +24,7 @@ const Review = (props) => {
           </Link>
         )}
 
-        <p className="card-text">{props.data}</p>
+        <p className="card-text card-datetime">{props.data}</p>
       </div>
     </div>
   );
