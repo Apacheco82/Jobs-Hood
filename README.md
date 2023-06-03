@@ -1,4 +1,9 @@
-                                        
+3-06-2023  MEJORAS JOBS HOOD:
+# - Funcionalidades-
+- Listado de favoritos de opiniones o respuestas . En el dropdown-menu por cada tipo de usuario.
+- Mensajes Privados entre usuarios.
+- Notificaciones por email de la plataforma hacia los usuarios. (reviews o preguntas por contestar) 
+
 ![api jobshood ](API_JOBS_HOOD.png) 
 
 # WebApp boilerplate with React JS and Flask API
