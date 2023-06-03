@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../../styles/link-button.css";
 
 const LinkButton = ({direction, text, type, altColor}) => {
 
@@ -8,7 +9,7 @@ const LinkButton = ({direction, text, type, altColor}) => {
   return (
     <div>
         <Link to={`${direction}`}>
-      <button type={type} className={buttonClass}>
+      <button id="link-button" type={type} className={buttonClass}>
         {text}
       </button>
       </Link>

@@ -8,8 +8,8 @@ const UserWorker = ({user, userPrivate, showEditButton, onClick}) => {
         <img className="imagenContacto" src={user.avatar} />
       </div>
       <div className="col-lg-7">
-        <div id="nombre-contacto "> 
-          <strong>{user.user_name}</strong>
+        <div className="nombre-contacto"> 
+          <strong className="user-name-worker">{user.user_name}</strong>
           {userPrivate && (
             <>
               <div className="iconos my-2"> {user.name}</div>

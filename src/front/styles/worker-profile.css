@@ -7,6 +7,12 @@
     padding-bottom: 50px; 
 }
 
+.nombre-contacto{
+    font-family: 'Lato', sans-serif;
+}
+.user-name-worker{
+    font-size: 20px;
+}
 
 
 .worker-profile::before {

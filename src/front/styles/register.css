@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-
 .register {
   position: relative;
   width: 100%;
@@ -16,7 +15,7 @@
 }
 
 #titulo-web {
-  color: green;
+  color: #1B5C3F;
 }
 
 #titulo-secundario {
@@ -25,7 +24,7 @@
 }
 
 #card {
-  background-color: #F8F8F8
+  background-color: #f8f8f893
 }
 
 #cuerpo-register {
@@ -35,7 +34,7 @@
 }
 
 #titulo-register {
-  color: green;
+  color: #1B5C3F;
   font-size: 25px;
   font-weight: 600;
   font-family: 'Noto Serif Armenian', serif;

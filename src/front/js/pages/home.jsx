@@ -9,6 +9,7 @@ export const Home = () => {
 
 	return (
 		<React.Fragment>
+			
 			<Navbar />
 			<div className="container-fluid d-flex" id="container">
 				<div className="w3-sidebar w3-light-grey w3-bar-block" id="side-bar">
@@ -73,6 +74,7 @@ export const Home = () => {
 
 				</div>
 			</div>
+			
 		</React.Fragment>
 	);
 };

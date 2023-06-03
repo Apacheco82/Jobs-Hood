@@ -7,7 +7,7 @@ const UserInfo = ({user, profile, showEditButton, isLawyer, onClick}) => {
       <div className="col-lg-3">
         <img className="imagenContacto" src={user.avatar} />
       </div>
-      <div className="col-lg-7">
+      <div className=" user-information col-lg-7">
         <p id="nombre-contacto">
           <strong>{user.name}</strong>
         </p>
@@ -16,9 +16,9 @@ const UserInfo = ({user, profile, showEditButton, isLawyer, onClick}) => {
         <div className="iconos my-1">  {profile.address}</div>
         <div className="iconos my-1">  {profile.province}</div>
         {isLawyer ? (
-          <div className="iconos my-1">Número de colegiado: {profile.col_number}</div>
+          <div className=" iconos my-1"> <strong className="col-number">Número de colegiado:</strong> {profile.col_number}</div>
         ) : (
-          <div className="iconos my-1">CIF: {profile.cif}</div>
+          <div className="iconos my-1"> <strong className="cif">CIF :</strong> {profile.cif}</div>
         )}
         <div>
           <p>{user.description}</p>
