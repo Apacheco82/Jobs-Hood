@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactStars from "react-rating-stars-component";
 
+
 export function calculateAverageRating(reviews) {
     const totalReviews = reviews.length;
     const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
@@ -14,7 +15,7 @@ const AverageRating = ({ reviews }) => {
 
     return (
 
-            <div className="card card-filter p-2" style={{width: "18rem"}}>
+            <div className=" average-rating card card-filter p-2" style={{width: "18rem"}}>
                 <h6>Valoración media</h6>
                 <ReactStars
                     count={5}

@@ -125,9 +125,6 @@ export const EditProfileLawyer = () => {
       ) : (
         <div className="edit-lawyer-profile">
           <Navbar />
-          <div className="container">
-            <h1> Edición de Usuario</h1>
-          </div>
           {alert && (
             <div className="d-flex justify-content-center m-5">
               <Alert className={className} message={message} />
@@ -231,10 +228,10 @@ export const EditProfileLawyer = () => {
                 <div className="d-flex">
                   <input
                     type="submit"
-                    className="btn btn-dark mx-3  rounded-0"
+                    className="btn btn-success"
                     value="Guardar Cambios"
                   ></input>
-                  <LinkButton direction="/lawyer/profile" text="Cancelar" />
+                  <LinkButton direction="/lawyer/profile" text="Cancelar" altColor={true}/>
                 </div>
               </form>
             </div>

@@ -7,7 +7,9 @@
 }
 
 .navbar {
-    background-color: rgba(255, 255, 255, 0.50);
+    background-color: rgba(255, 255, 255, 0.445);
+    -webkit-box-shadow: 1px 6px 6px 1px rgba(162,165,168,0.51); 
+box-shadow: 1px 6px 6px 1px rgba(162,165,168,0.51);
 
 }
 

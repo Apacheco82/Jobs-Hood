@@ -3,7 +3,7 @@ import "../../styles/spinner.css"
 
 const Spinner = () => {
   return (
-    <img src="https://res.cloudinary.com/dcgc2tppo/image/upload/v1684563994/v3wra3dz8bcer7nsyncn.png"alt="Cargando..." className="loading-image" />
+    <img src={"https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"} alt="Cargando..." className="loading-image" />
   );
 };
 

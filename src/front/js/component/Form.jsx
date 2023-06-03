@@ -18,6 +18,7 @@ const Form = ({form, handleChange, handleSubmit, userType}) => {
               text={"Volver"}
               direction={"/register"}
               type={"button"}
+              altColor={true}
             />
           </div>
         </div>

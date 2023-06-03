@@ -9,6 +9,7 @@ import Questions from "../component/questions.jsx";
 import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
 import {Tab, Nav} from "react-bootstrap";
+import Alert from "../component/Alert.jsx";
 import "../../styles/worker-profile.css";
 
 export const Profile = () => {
@@ -141,7 +142,7 @@ export const Profile = () => {
               )}
             </div>
           </div>
-
+          
           <div className="container d-flex justify-content-center mt-1">
             <Nav
               variant="tabs"
@@ -163,6 +164,7 @@ export const Profile = () => {
           <Tab.Content>
             <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
               <div className="container d-flex justify-content-center mt-3">
+              <div className="row d-flex justify-content-center m-3">
                 {userReviews.map((review, index) => (
                   <Review
                     key={index}
@@ -175,12 +177,13 @@ export const Profile = () => {
                   />
                 ))}
               </div>
+              </div>
             </Tab.Pane>
             <Tab.Pane
               eventKey="#nav-questions"
               active={activeKey === "#nav-questions"}
             >
-              <div className="container d-flex justify-content-center">
+              <div className="container d-flex justify-content-center mt-3">
                 <div className="row d-flex justify-content-center m-3">
                   {userQuestions.map((question, index) => (
                     <Questions
