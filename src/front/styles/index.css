@@ -68,3 +68,9 @@ input:focus {
 .nav-tabs .nav-link {
   color: #000000; 
 }
+
+.row-filter{
+  margin-top: 10px;
+  margin-left: 3px;
+  width: 50%;
+}

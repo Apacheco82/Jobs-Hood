@@ -1,18 +1,19 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
+import StarRatings from 'react-star-ratings';
 
 const Review = (props) => {
   
   return (
     <div className="col-8 mt-2 d-flex justify-content-center">
       <div className="card card-stars p-3">
-        <ReactStars
-          value={props.rating}
-          count={5}
-          size={24}
-          edit={false}
-          activeColor="#ffd700"
+        <StarRatings
+          rating={props.rating}
+          numberOfStars={5}
+          starDimension="24px"
+          starSpacing="3px"
+          starRatedColor="#ffd700"
+          starHoverColor="#1B5C3F"
         />
         <p className="card-text">{props.text}</p>
         <Link to={`/worker/${props.userID}`}>
