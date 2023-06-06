@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
+import StarRatings from 'react-star-ratings';
 import "../../styles/card.css";
 
 const Cards = ({ avatar, name, province, email, address, category, id, averageRating }) => {
@@ -11,14 +11,13 @@ const Cards = ({ avatar, name, province, email, address, category, id, averageRa
         <div className="card-body">
           <h5 className="card-title">{name}</h5>
           <div>
-            <ReactStars
-              count={5}
-              size={24}
-              activeColor="#ffd700"
-              color="#ddd"
-              edit={false}
-              isHalf={true}
-              value={averageRating}
+            <StarRatings
+              rating={averageRating}
+              starRatedColor="#ffd700"
+              numberOfStars={5}
+              name='rating'
+              starDimension="24px"
+              starSpacing="1px"
             />
           </div>
           <p className="card-text">{address}</p>
