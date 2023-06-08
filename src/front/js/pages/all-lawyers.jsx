@@ -133,6 +133,7 @@ export const AllLawyers = () => {
                   totalPages={totalPages}
                   currentPage={currentPage}
                   handlePageChange={handlePageChange}
+                  basePath="/lawyers" 
                 />
               </div>
             </div>

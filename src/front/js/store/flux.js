@@ -5,6 +5,7 @@ const getState = ({getStore, getActions, setStore}) => {
       message: null,
       user: {},
       questionId: 0,
+      previousLocation: null
     },
     actions: {
       getMessage: async () => {
@@ -25,6 +26,9 @@ const getState = ({getStore, getActions, setStore}) => {
       setQuestionId: (id) => {
         setStore({questionId: id});
       },
+      setPreviousLocation: (local) =>{
+        setStore({previousLocation : local})
+      }
     },
   };
 };

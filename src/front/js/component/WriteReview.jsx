@@ -10,25 +10,32 @@ const WriteReview = ({reviewChange, reviewSubmit}) => {
 
   return (
     <>
-      {!view ? (
-        <button onClick={openForm} type="button" className="btn btn-success">
-          Deja tu valoración
-        </button>
-      ) : (
-        <button onClick={openForm} type="button" className="btn btn-secondary">
-          Cerrar
-        </button>
-      )}
-     
-      {view && (
-        <form
-          action=""
-          className=""
-          onChange={reviewChange}
-          onSubmit={reviewSubmit}
-        >
-          <div className="col-8 mt-2 d-flex justify-content-center">
-            <div className="card card-stars p-2">
+      <div className="container container-fluid d-flex justify-content-center">
+        {!view ? (
+          <button onClick={openForm} type="button" className="btn btn-success">
+            Deja tu valoración
+          </button>
+        ) : (
+          <button
+            onClick={openForm}
+            type="button"
+            className="btn btn-secondary"
+          >
+            Cerrar
+          </button>
+        )}
+      </div>
+
+      <div className="container d-flex justify-content-center">
+        {view && (
+          <form
+            style={{width: "100%"}}
+            action=""
+            className="d-flex justify-content-center"
+            onChange={reviewChange}
+            onSubmit={reviewSubmit}
+          >
+            <div className="card card-stars p-3 mt-1">
               <div className="stars">
                 <input id="radio1" type="radio" name="rating" value="5" />
                 <label htmlFor="radio1">★</label>
@@ -38,12 +45,12 @@ const WriteReview = ({reviewChange, reviewSubmit}) => {
                 <label htmlFor="radio3">★</label>
                 <input id="radio4" type="radio" name="rating" value="2" />
                 <label htmlFor="radio4">★</label>
-                <input id="radio5" type="radio" name="rating" value="1"/>
+                <input id="radio5" type="radio" name="rating" value="1" />
                 <label htmlFor="radio5">★</label>
               </div>
               <div className="mb-3">
                 <label htmlFor="valoracion" className="form-label">
-                  Cuéntales a los demás tu opinión
+                  Cuéntales a los demás usuarios tu opinión
                 </label>
                 <textarea
                   name="text"
@@ -58,9 +65,9 @@ const WriteReview = ({reviewChange, reviewSubmit}) => {
                 Enviar
               </button>{" "}
             </div>
-          </div>
-        </form>
-      )}
+          </form>
+        )}
+      </div>
     </>
   );
 };

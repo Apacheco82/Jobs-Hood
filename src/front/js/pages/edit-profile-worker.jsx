@@ -140,6 +140,7 @@ export const EditProfileWorker = () => {
             </div>
           )}
           {formView && (
+            <div className="container d-flex justify-content-center">
             <div className="card card-form p-5 m-5">
               <form onSubmit={handleSubmit}>
                 <div className="row my-3">
@@ -253,6 +254,7 @@ export const EditProfileWorker = () => {
                   <LinkButton className="btn-secondary" direction="/worker/profile" text="Cancelar" altColor={true} />
                 </div>
               </form>
+            </div>
             </div>
           )}
         </div>

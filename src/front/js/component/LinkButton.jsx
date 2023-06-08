@@ -7,7 +7,7 @@ const LinkButton = ({direction, text, type, altColor}) => {
   const buttonClass = altColor ? "btn btn-secondary" : "btn btn-success";
 
   return (
-    <div>
+    <div className="d-flex justify-content-center">
         <Link to={`${direction}`}>
       <button id="link-button" type={type} className={buttonClass}>
         {text}

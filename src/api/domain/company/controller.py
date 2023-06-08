@@ -32,3 +32,15 @@ def edit_user_company(user_id,info):
         return user 
     return None
  
+def batch(data):
+    #print(data)
+    array = []
+    for c in data:
+        #print("LA C", c)
+        result = Repository.register_company(c, #se crea una empresa haciendo referencia a los campos de Company
+        c['address'], 
+        c['province'], 
+        c['cif']
+        )
+        array.append(result.serialize())
+    return array

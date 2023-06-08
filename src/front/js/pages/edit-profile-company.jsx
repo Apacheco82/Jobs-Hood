@@ -29,7 +29,7 @@ export const EditProfileCompany = () => {
     description: store.user.description,
   });
   const [formView, setFormView] = useState(true);
-  const [currentImage, setCurrentImage] = useState(store.user.avatar)
+  const [currentImage, setCurrentImage] = useState(store.user.avatar);
 
   const handleChange = (event) => {
     if (event.target.files) {
@@ -92,7 +92,7 @@ export const EditProfileCompany = () => {
         editedCompany.address = store.user.company.address;
         editedCompany.province = store.user.company.province;
         editedCompany.cif = store.user.company.cif;
-        editedCompany.description = store.user.description
+        editedCompany.description = store.user.description;
       }
     } else {
       //si no cambia el email
@@ -132,109 +132,115 @@ export const EditProfileCompany = () => {
             </div>
           )}
           {formView && (
-            <div className="card card-form p-5 m-5">
-              <form onSubmit={handleSubmit}>
-                <div className="row my-3">
-                  <div className="col">
-                    <Avatar
-                      handleChange={handleChange}
-                      fileUrl={fileUrl || currentImage}
-                      file={file}
-                    />
+            <div className="container d-flex justify-content-center">
+              <div className="card card-form p-5 m-5">
+                <form onSubmit={handleSubmit}>
+                  <div className="row my-3">
+                    <div className="col">
+                      <Avatar
+                        handleChange={handleChange}
+                        fileUrl={fileUrl || currentImage}
+                        file={file}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="row align-items-start my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-company"
-                      className="form-label"
-                    >
-                      Nombre de la Empresa
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      defaultValue={store.user.name}
-                      type="text"
-                      name="name"
-                      title="Please enter a valid name"
-                      className="form-control rounded-0"
-                      maxLength="80"
-                    />
-                  </div>
+                  <div className="row align-items-start my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-company"
+                        className="form-label"
+                      >
+                        Nombre de la Empresa
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        defaultValue={store.user.name}
+                        type="text"
+                        name="name"
+                        title="Please enter a valid name"
+                        className="form-control rounded-0"
+                        maxLength="80"
+                      />
+                    </div>
 
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-company"
-                      className="form-label"
-                    >
-                      Dirección
-                    </label>
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-company"
+                        className="form-label"
+                      >
+                        Dirección
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        defaultValue={store.user.company.address}
+                        type="text"
+                        name="address"
+                        className="form-control rounded-0"
+                        maxLength="100"
+                      />
+                    </div>
+                  </div>
+                  <div className="row align-items-start my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-company"
+                        className="form-label"
+                      >
+                        Dirección Email
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        defaultValue={store.user.email}
+                        type="email"
+                        name="email"
+                        className="form-control rounded-0"
+                        maxLength="250"
+                      />
+                    </div>
+                  </div>
+                  <div className="row align-items-start my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-worker"
+                        className="form-label"
+                      >
+                        Descripción
+                      </label>
+                      <textarea
+                        onChange={handleChange}
+                        defaultValue={store.user.description}
+                        name="description"
+                        className="form-control rounded-0"
+                        maxLength="500"
+                        rows="3"
+                      />
+                    </div>
+                  </div>
+                  <div className="row align-items-end my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-company"
+                        className="form-label"
+                      >
+                        Provincia
+                      </label>
+                      <Province handleChange={handleChange} name="province" />
+                    </div>
+                  </div>
+                  <div className="d-flex">
                     <input
-                      onChange={handleChange}
-                      defaultValue={store.user.company.address}
-                      type="text"
-                      name="address"
-                      className="form-control rounded-0"
-                      maxLength="100"
+                      type="submit"
+                      className="btn btn-success"
+                      value="Guardar Cambios"
+                    ></input>
+                    <LinkButton
+                      direction="/company/profile"
+                      text="Cancelar"
+                      altColor={true}
                     />
                   </div>
-                </div>
-                <div className="row align-items-start my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-company"
-                      className="form-label"
-                    >
-                      Dirección Email
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      defaultValue={store.user.email}
-                      type="email"
-                      name="email"
-                      className="form-control rounded-0"
-                      maxLength="250"
-                    />
-                  </div>
-                </div>
-                <div className="row align-items-start my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-worker"
-                      className="form-label"
-                    >
-                      Descripción
-                    </label>
-                    <textarea
-                      onChange={handleChange}
-                      defaultValue={store.user.description}
-                      name="description"
-                      className="form-control rounded-0"
-                      maxLength="500"
-                      rows="3"
-                    />
-                  </div>
-                </div>              
-                <div className="row align-items-end my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-company"
-                      className="form-label"
-                    >
-                      Provincia
-                    </label>
-                    <Province handleChange={handleChange} name="province" />
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <input
-                    type="submit"
-                    className="btn btn-success"
-                    value="Guardar Cambios"
-                  ></input>
-                  <LinkButton direction="/company/profile" text="Cancelar" altColor={true}/>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           )}
         </div>

@@ -14,7 +14,7 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
 
   return (
     <>
-       <div className="col-9 mt-2 d-flex justify-content-start">
+      <div className="container container-answer mt-2 container-fluid d-flex justify-content-start">
       {!view ? (
         <button onClick={openForm} type="button" className="btn btn-success">
           Responder
@@ -25,7 +25,7 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
         </button>
       )}
       </div>
-
+      <div className="container container-answer d-flex justify-content-start mt-2">
       {view && (
         <form
           action=""
@@ -33,9 +33,9 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
           onChange={answerChange}
           onSubmit={answerSubmit}
         >
-          <div className="col-12 mt-2 d-flex justify-content-center">
-            <div className="card card-stars p-2">
-              <div className="mb-3">
+      
+            <div className="card card-stars d-flex justify-content-start">
+              <div className="card-body">
                 <label htmlFor="valoracion" className="form-label">
                   Responder al usuario
                 </label>
@@ -52,9 +52,10 @@ const WriteAnswer = ({answerChange, answerSubmit, questionId}) => {
                 Enviar
               </button>{" "}
             </div>
-          </div>
+         
         </form>
       )}
+      </div>
     </>
   );
 };

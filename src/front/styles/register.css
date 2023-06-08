@@ -10,9 +10,7 @@
   padding-bottom: 50px;
 }
 
-#titulo-principal {
-  font-family: 'Lato', sans-serif;
-}
+#titulo-principal {}
 
 #titulo-web {
   color: #1B5C3F;
@@ -37,7 +35,7 @@
   color: #1B5C3F;
   font-size: 25px;
   font-weight: 600;
-  font-family: 'Noto Serif Armenian', serif;
+
   position: absolute;
   top: 40%;
   left: 50%;

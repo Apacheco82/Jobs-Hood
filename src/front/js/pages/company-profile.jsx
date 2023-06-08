@@ -14,6 +14,7 @@ import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
 import "../../styles/company-profile.css";
 import Alert from "../component/Alert.jsx";
+import {useLocation} from "react-router-dom";
 
 export const CompanyProfile = () => {
   const params = useParams();
@@ -44,6 +45,9 @@ export const CompanyProfile = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [className, setClassName] = useState("");
+  const location = useLocation();
+
+  //console.log(location);
 
   const handleShow = () => {
     setShow(!show);
@@ -76,6 +80,9 @@ export const CompanyProfile = () => {
         if (role === "User" && !userHasReview) {
           setCanWrite(true);
         }
+      } else {
+        actions.setPreviousLocation(location);
+        //console.log(location)
       }
       setSpinner(false);
     } catch (error) {
@@ -124,16 +131,21 @@ export const CompanyProfile = () => {
 
   const handlePassword = async (e) => {
     e.preventDefault();
-    if (password.new_password !== password.password_check) { //si las contraseñas no coinciden
+    setSpinner(true);
+    if (password.new_password !== password.password_check) {
+      //si las contraseñas no coinciden
+      setSpinner(false);
       setSmall(true);
       setTimeout(() => {
         setSmall(false);
       }, 2000);
-    } 
-    else if (password.new_password.length < 8 || password.password_check.length < 8) { //si no tienen 8 caracteres
+    } else if (
+      password.new_password.length < 8 ||
+      password.password_check.length < 8
+    ) {
+      //si no tienen 8 caracteres
       setError(true);
-    }
-    else {
+    } else {
       const response = await changePassword(password);
       if (!response.error) {
         setPassOk(true);
@@ -147,9 +159,9 @@ export const CompanyProfile = () => {
           setPassWrong(false);
         }, 2000);
       }
+      setSpinner(false);
     }
   };
-  
 
   return (
     <>
@@ -203,39 +215,38 @@ export const CompanyProfile = () => {
 
             <Tab.Content>
               <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
-                <div className="container">
-                  <div className="row m-5">
-                    <div className="col-md-4">
-                      <AverageRating reviews={review} />
-                    </div>
-
-                    <div className="col-md-8">
-                      {!token && (
+                <div className="container container-home">
+                  <div className="row m-1 d-flex justify-content-center">
+                    <AverageRating reviews={review} />
+                  </div>
+                  <div className="row m-1 d-flex justify-content-center">
+                    {!token && (
+                      <div className="d-flex justify-content-center">
                         <LinkButton
                           direction={"/login"}
                           text={"Inicia sesión para poder dar tu opinión"}
                           type={"button"}
                         />
-                      )}
+                      </div>
+                    )}
 
-                      {canWrite && (
-                        <WriteReview
-                          reviewChange={reviewChange}
-                          reviewSubmit={reviewSubmit}
-                        />
-                      )}
-                      {review.map((review, index) => (
-                        <Review
-                          key={index}
-                          userID={review.author_id}
-                          text={review.text}
-                          user_name={review.user_name}
-                          opinion={false}
-                          rating={review.rating}
-                          data={review.data_create}
-                        />
-                      ))}
-                    </div>
+                    {canWrite && (
+                      <WriteReview
+                        reviewChange={reviewChange}
+                        reviewSubmit={reviewSubmit}
+                      />
+                    )}
+                    {review.map((review, index) => (
+                      <Review
+                        key={index}
+                        userID={review.author_id}
+                        text={review.text}
+                        user_name={review.user_name}
+                        opinion={false}
+                        rating={review.rating}
+                        data={review.data_create}
+                      />
+                    ))}
                   </div>
                 </div>
               </Tab.Pane>
