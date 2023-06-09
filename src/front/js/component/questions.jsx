@@ -4,27 +4,22 @@ import {Link} from "react-router-dom";
 const Questions = ({text, user_name, data, userID, question, lawyer_id}) => {
   return (
 
-    <div className="card card-stars mt-1">
-      <div className="card-body">
-        <div className="row">
-          <div className="col-12">
-            <div className="text-left">
-              <p>{text}</p>
-              <Link to={`/worker/${userID}`}>
-                <p>{user_name}</p>
-              </Link>
-              {question && (
-                <Link to={`/lawyer/${lawyer_id}`}>
-                  <p className="card-text">Ver pregunta</p>
-                </Link>
-              )}
-              <p className="card-datetime">{data}</p>
-            </div>
+      <div className="card card-stars p-3 mt-1 text-left">
+        <p className="card-text">{text}</p>
+        <Link to={`/worker/${userID}`}>
+          <p className="card-text">{user_name}</p>
+        </Link>
+        {question && (
+          <div className="card-text">
+            <Link to={`/lawyer/${lawyer_id}`}>
+              <p>Ver pregunta</p>
+            </Link>
           </div>
-        </div>
+        )}
+
+        <p className="card-text card-datetime">{data}</p>
       </div>
-    </div>
-    
+ 
   );
 };
 

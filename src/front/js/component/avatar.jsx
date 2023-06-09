@@ -12,8 +12,8 @@ export const Avatar = ({handleChange, fileUrl, file}) => {
             <img className="imagenContacto" src={fileUrl}></img>
           </div>
         </div>
-        <div className="row">
-          <div className="col">
+
+          <div className="col-12 d-flex justify-content-center">
 
             <label className="file" htmlFor="file">
               <span className="file_text">Elija una imagen</span>
@@ -21,7 +21,7 @@ export const Avatar = ({handleChange, fileUrl, file}) => {
             </label>
             <input id="file" type="file"onChange={handleChange}></input>
           </div>
-        </div>
+
       </div>
     );
   };

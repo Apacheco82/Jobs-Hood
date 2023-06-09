@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { loginUser, getUserPrivate } from "../services";
-import { useParams } from "react-router-dom";
+import React, {useState, useEffect, useContext} from "react";
+import {Context} from "../store/appContext.js";
+import {useNavigate} from "react-router-dom";
+import {loginUser, getUserPrivate} from "../services";
+import {useParams} from "react-router-dom";
 import LinkButton from "../component/LinkButton.jsx";
 import Spinner from "../component/Spinner.jsx";
-import { Navbar } from "../component/navbar.js";
+import {Navbar} from "../component/navbar.js";
 import Alert from "../component/Alert.jsx";
 import "../../styles/login.css";
 
@@ -14,6 +15,8 @@ export const Login = (props) => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [className, setClassName] = useState("");
+  const {store, actions} = useContext(Context);
+  const [location, setLocation] = useState();
 
   const [login, setLogin] = useState({
     email: "",
@@ -22,8 +25,14 @@ export const Login = (props) => {
 
   const navigate = useNavigate();
 
-  const handleChange = ({ target }) => {
-    setLogin({ ...login, [target.name]: target.value }); // se setean los cambios en el usestate de Login
+  useEffect(() => {
+    if (store && store.previousLocation) {
+      setLocation(store.previousLocation.pathname);
+    }
+  }, []);
+
+  const handleChange = ({target}) => {
+    setLogin({...login, [target.name]: target.value}); // se setean los cambios en el usestate de Login
   };
 
   const handleSubmit = async (event) => {
@@ -38,15 +47,22 @@ export const Login = (props) => {
         setAlert(true);
         setClassName("success");
         setMessage("Login correcto");
-        setTimeout(() => {
-          if (user.company) {
-            navigate("/company/profile");
-          } else if (user.lawyer) {
-            navigate("/lawyer/profile");
-          } else {
-            navigate("/worker/profile");
-          }
-        }, 1500);
+
+        if (location) {
+          setTimeout(() => {
+            navigate(location);
+          }, 1500);
+        } else {
+          setTimeout(() => {
+            if (user.company) {
+              navigate("/company/profile");
+            } else if (user.lawyer) {
+              navigate("/lawyer/profile");
+            } else {
+              navigate("/worker/profile");
+            }
+          }, 1500);
+        }
       } else {
         setAlert(true);
         setClassName("danger");
@@ -68,12 +84,20 @@ export const Login = (props) => {
         <>
           <div className="login">
             <Navbar />
-            <h1 className="titulo-1 text-center my-5">Iniciar Sesión en <strong className="titulo-2">Jobs Hood!</strong></h1>
-            <div className="container-login mt-4">
+            <h1 className="titulo-1 text-center my-5">
+              Inicia Sesión en <strong className="titulo-2">Jobs Hood!</strong>
+            </h1>
+            <div className="container container-login mt-4">
               <div className="card card-form p-5 m-5">
-                <img className="logo-login  " src={"https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"}></img>
+              <div className="container mb-3 logo-container">
+                <img
+                  className="logo"
+                  src={
+                    "https://res.cloudinary.com/dcgc2tppo/image/upload/v1685178940/logoweb_np1qti.png"
+                  }
+                ></img>
+                </div>
                 <form onChange={handleChange} onSubmit={handleSubmit}>
-
                   {alert && (
                     <div className=" justify-content-center m-3">
                       <Alert className={className} message={message} />
@@ -111,26 +135,26 @@ export const Login = (props) => {
                     <input
                       type="submit"
                       value="Iniciar Sesión"
-                      className="btn btn-success mt-3"
+                      className="btn btn-success p-2 mt-3"
                     ></input>
                   </div>
                 </form>
               </div>
-              <div className="row">
-            <div className="login-question">
-                <Alert
-                  className={"success"}
-                  message="¿No estás registrado? Crea tu cuenta para poder acceder a
+              <div className="row p-3">
+          
+                  <Alert
+                    className={"success"}
+                    message="¿No estás registrado? Crea tu cuenta para poder acceder a
                   nuestros servicios"
-                />
+                  />
+            
+              
+                  <LinkButton
+                    direction={"/register"}
+                    text={"Ir a la página de registro"}
+                  />
+              
               </div>
-              <div className="login-button">
-                <LinkButton
-                  direction={"/register"}
-                  text={"Ir a la página de registro"}
-                />
-              </div>
-            </div>
             </div>
           </div>
         </>

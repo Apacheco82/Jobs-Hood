@@ -1,12 +1,12 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import StarRatings from 'react-star-ratings';
+import StarRatings from "react-star-ratings";
 
 const Review = (props) => {
-  
   return (
     <div className="col-8 mt-2 d-flex justify-content-center">
       <div className="card card-stars p-3">
+        
         <StarRatings
           rating={props.rating}
           numberOfStars={5}

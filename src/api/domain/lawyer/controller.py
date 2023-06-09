@@ -31,3 +31,16 @@ def edit_user_lawyer(user_id,info):
         edited_lawyer = Repository.edit_user_lawyer(info, lawyer)
         return user 
     return None
+
+def batch(data):
+    #print(data)
+    array = []
+    for c in data:
+        #print("LA C", c)
+        result = Repository.register_lawyer(c, #se crea una empresa haciendo referencia a los campos de Company
+        c['address'], 
+        c['province'], 
+        c['col_number']
+        )
+        array.append(result.serialize())
+    return array

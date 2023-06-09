@@ -38,3 +38,10 @@ def edit_user_lawyer():
        return jsonify(access_token), 200
     else:
         return Response.response_error("Error al guardar los datos", 400) 
+
+@lawyer_bp.route("/batch", methods= ["POST"])
+def batch():
+    data = request.get_json()
+    #print(data)
+    response = Controller.batch(data)
+    return response

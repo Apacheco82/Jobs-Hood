@@ -29,7 +29,7 @@ export const EditProfileLawyer = () => {
     description: store.user.description,
   });
   const [formView, setFormView] = useState(true);
-  const [currentImage, setCurrentImage] = useState(store.user.avatar)
+  const [currentImage, setCurrentImage] = useState(store.user.avatar);
 
   const handleChange = (event) => {
     if (event.target.files) {
@@ -91,7 +91,7 @@ export const EditProfileLawyer = () => {
         editedLawyer.address = store.user.lawyer.address;
         editedLawyer.province = store.user.lawyer.province;
         editedLawyer.col_number = store.user.lawyer.col_number;
-        editedLawyer.description = store.user.description
+        editedLawyer.description = store.user.description;
       }
     } else {
       //si no cambia el email
@@ -131,114 +131,119 @@ export const EditProfileLawyer = () => {
             </div>
           )}
           {formView && (
-            <div className="card card-form p-5 m-5">
-              <form onSubmit={handleSubmit}>
-                <div className="row my-3">
-                  <div className="col">
-                    <Avatar
-                      handleChange={handleChange}
-                      fileUrl={fileUrl || currentImage}
-                      file={file}
-                    />
+            <div className="container d-flex justify-content-center">
+              <div className="card card-form p-5 m-5">
+                <form onSubmit={handleSubmit}>
+                  <div className="row my-3">
+                    <div className="col">
+                      <Avatar
+                        handleChange={handleChange}
+                        fileUrl={fileUrl || currentImage}
+                        file={file}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="row align-items-start my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-lawyer"
-                      className="form-label"
-                    >
-                      Nombre del abogado o Buffette
-                    </label>
+                  <div className="row align-items-start my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-lawyer"
+                        className="form-label"
+                      >
+                        Nombre del abogado o Buffette
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        defaultValue={store.user.name}
+                        type="text"
+                        name="name"
+                        title="Please enter a valid name"
+                        className="form-control rounded-0"
+                        maxLength="80"
+                      />
+                    </div>
+
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-lawyer"
+                        className="form-label"
+                      >
+                        Dirección
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        defaultValue={store.user.lawyer.address}
+                        type="text"
+                        name="address"
+                        className="form-control rounded-0"
+                        maxLength="100"
+                      />
+                    </div>
+                  </div>
+                  <div className="row align-items-start my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-lawyer"
+                        className="form-label"
+                      >
+                        Dirección Email
+                      </label>
+                      <input
+                        onChange={handleChange}
+                        defaultValue={store.user.email}
+                        type="email"
+                        name="email"
+                        className="form-control rounded-0"
+                        maxLength="250"
+                      />
+                    </div>
+                  </div>
+                  <div className="row align-items-start my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-worker"
+                        className="form-label"
+                      >
+                        Descripción
+                      </label>
+                      <textarea
+                        onChange={handleChange}
+                        defaultValue={store.user.description}
+                        name="description"
+                        className="form-control rounded-0"
+                        maxLength="500"
+                        rows="3"
+                      />
+                    </div>
+                  </div>
+                  <div className="row align-items-end my-3">
+                    <div className="col">
+                      <label
+                        htmlFor="form-register-lawyer"
+                        className="form-label"
+                      >
+                        Provincia
+                      </label>
+                      <Province handleChange={handleChange} name="province" />
+                    </div>
+                  </div>
+                  <div className="d-flex">
                     <input
-                      onChange={handleChange}
-                      defaultValue={store.user.name}
-                      type="text"
-                      name="name"
-                      title="Please enter a valid name"
-                      className="form-control rounded-0"
-                      maxLength="80"
+                      type="submit"
+                      className="btn btn-success"
+                      value="Guardar Cambios"
+                    ></input>
+                    <LinkButton
+                      direction="/lawyer/profile"
+                      text="Cancelar"
+                      altColor={true}
                     />
                   </div>
-  
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-lawyer"
-                      className="form-label"
-                    >
-                      Dirección
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      defaultValue={store.user.lawyer.address}
-                      type="text"
-                      name="address"
-                      className="form-control rounded-0"
-                      maxLength="100"
-                    />
-                  </div>
-                </div>
-                <div className="row align-items-start my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-lawyer"
-                      className="form-label"
-                    >
-                      Dirección Email
-                    </label>
-                    <input
-                      onChange={handleChange}
-                      defaultValue={store.user.email}
-                      type="email"
-                      name="email"
-                      className="form-control rounded-0"
-                      maxLength="250"
-                    />
-                  </div>
-                </div>
-                <div className="row align-items-start my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-worker"
-                      className="form-label"
-                    >
-                      Descripción
-                    </label>
-                    <textarea
-                      onChange={handleChange}
-                      defaultValue={store.user.description}
-                      name="description"
-                      className="form-control rounded-0"
-                      maxLength="500"
-                      rows="3"
-                    />
-                  </div>
-                </div>
-                <div className="row align-items-end my-3">
-                  <div className="col">
-                    <label
-                      htmlFor="form-register-lawyer"
-                      className="form-label"
-                    >
-                      Provincia
-                    </label>
-                    <Province handleChange={handleChange} name="province" />
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <input
-                    type="submit"
-                    className="btn btn-success"
-                    value="Guardar Cambios"
-                  ></input>
-                  <LinkButton direction="/lawyer/profile" text="Cancelar" altColor={true}/>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           )}
         </div>
       )}
     </>
   );
-  
 };

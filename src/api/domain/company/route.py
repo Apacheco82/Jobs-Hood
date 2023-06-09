@@ -37,3 +37,10 @@ def edit_user_company():
        return jsonify(access_token), 200
     else:
         return Response.response_error("Error al guardar los datos", 400) 
+
+@company_bp.route("/batch", methods= ["POST"])
+def batch():
+    data = request.get_json()
+    #print(data)
+    response = Controller.batch(data)
+    return response

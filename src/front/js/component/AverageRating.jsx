@@ -13,7 +13,7 @@ const AverageRating = ({ reviews }) => {
     const averageRating = calculateAverageRating(reviews);
 
     return (
-        <div className=" average-rating card card-filter p-2" style={{width: "18rem"}}>
+        <div className=" average-rating card card-filter p-1 mb-0" style={{width: "20rem"}}>
             <h6>Valoración media</h6>
             <StarRatings
               rating={averageRating}

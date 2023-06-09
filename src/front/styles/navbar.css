@@ -8,8 +8,8 @@
 
 .navbar {
     background-color: rgba(255, 255, 255, 0.445);
-    -webkit-box-shadow: 1px 6px 6px 1px rgba(162,165,168,0.51); 
-box-shadow: 1px 6px 6px 1px rgba(162,165,168,0.51);
+    -webkit-box-shadow: 1px 6px 6px 1px rgba(162, 165, 168, 0.51);
+    box-shadow: 1px 6px 6px 1px rgba(162, 165, 168, 0.51);
 
 }
 
@@ -28,7 +28,7 @@ a {
     font-size: 16px;
     transition: all 250ms;
     overflow: hidden;
-    font-family: 'Lato', sans-serif;}
+}
 
 .btn-navbar::before {
     content: "";
@@ -51,3 +51,16 @@ a {
 .btn-navbar:hover::before {
     width: 100%;
 }
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    text-decoration: none;
+    color: black !important;
+  }
+  .navbar a:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+  

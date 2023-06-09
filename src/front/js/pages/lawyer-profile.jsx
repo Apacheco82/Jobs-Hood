@@ -19,6 +19,7 @@ import {Navbar} from "../component/navbar.js";
 import Modal from "../component/Modal.jsx";
 import "../../styles/lawyer-profile.css";
 import Alert from "../component/Alert.jsx";
+import {useLocation} from "react-router-dom";
 
 export const LawyerProfile = () => {
   const params = useParams();
@@ -58,6 +59,7 @@ export const LawyerProfile = () => {
   const [alert, setAlert] = useState(false);
   const [message, setMessage] = useState("");
   const [className, setClassName] = useState("");
+  const location = useLocation();
 
   const handleShow = () => {
     setShow(!show);
@@ -94,6 +96,9 @@ export const LawyerProfile = () => {
         if (role === "User") {
           setCanAsk(true);
         }
+      } else {
+        actions.setPreviousLocation(location);
+        //console.log(location)
       }
       setSpinner(false);
     } catch (error) {
@@ -184,16 +189,19 @@ export const LawyerProfile = () => {
 
   const handlePassword = async (e) => {
     e.preventDefault();
-    if (password.new_password !== password.password_check) { //si las contraseñas no coinciden
+    if (password.new_password !== password.password_check) {
+      //si las contraseñas no coinciden
       setSmall(true);
       setTimeout(() => {
         setSmall(false);
       }, 2000);
-    } 
-    else if (password.new_password.length < 8 || password.password_check.length < 8) { //si no tienen 8 caracteres
+    } else if (
+      password.new_password.length < 8 ||
+      password.password_check.length < 8
+    ) {
+      //si no tienen 8 caracteres
       setError(true);
-    }
-    else {
+    } else {
       const response = await changePassword(password);
       if (!response.error) {
         setPassOk(true);
@@ -220,7 +228,7 @@ export const LawyerProfile = () => {
             <Navbar />
             <div className="container container-fluid d-flex justify-content-center align-items-center">
               <div className="card card-form p-5 m-5">
-              {alert && (
+                {alert && (
                   <div className="d-flex justify-content-center m-5">
                     <Alert className={className} message={message} />
                   </div>
@@ -265,38 +273,38 @@ export const LawyerProfile = () => {
 
             <Tab.Content>
               <Tab.Pane eventKey="#nav-home" active={activeKey === "#nav-home"}>
-                <div className="container">
-                  <div className="row m-5">
-                    <div className="col-md-4">
-                      <AverageRating reviews={review} />
-                    </div>
-
-                    <div className="col-md-8">
-                      {!token && (
+                <div className="container container-home">
+                  <div className="row m-1 d-flex justify-content-center">
+                    <AverageRating reviews={review} />
+                  </div>
+                  <div className="row m-1 d-flex justify-content-center">
+                    {!token && (
+                      <div className="d-flex justify-content-center">
                         <LinkButton
                           direction={"/login"}
                           text={"Inicia sesión para poder dar tu opinión"}
                           type={"button"}
                         />
-                      )}
-                      {canWrite && (
-                        <WriteReview
-                          reviewChange={reviewChange}
-                          reviewSubmit={reviewSubmit}
-                        />
-                      )}
-                      {review.map((review, index) => (
-                        <Review
-                          key={index}
-                          userID={review.author_id}
-                          text={review.text}
-                          opinion={false}
-                          user_name={review.user_name}
-                          rating={review.rating}
-                          data={review.data_create}
-                        />
-                      ))}
-                    </div>
+                      </div>
+                    )}
+
+                    {canWrite && (
+                      <WriteReview
+                        reviewChange={reviewChange}
+                        reviewSubmit={reviewSubmit}
+                      />
+                    )}
+                    {review.map((review, index) => (
+                      <Review
+                        key={index}
+                        userID={review.author_id}
+                        text={review.text}
+                        opinion={false}
+                        user_name={review.user_name}
+                        rating={review.rating}
+                        data={review.data_create}
+                      />
+                    ))}
                   </div>
                 </div>
               </Tab.Pane>
@@ -305,16 +313,18 @@ export const LawyerProfile = () => {
                 eventKey="#nav-questions"
                 active={activeKey === "#nav-questions"}
               >
-                <div className="container">
+         
                   <div className="container justify-content-center">
-                    <div className="row d-flex justify-content-center m-5">
-                      <div className="card-question col-9 p-1 mt-2">
+                    <div className="row m-1 d-flex justify-content-center">
+             
                         {!token && (
+                           <div className="d-flex justify-content-center">
                           <LinkButton
                             direction={"/login"}
                             text={"Inicia sesión para preguntarle al abogado"}
                             type={"button"}
                           />
+                           </div>
                         )}
 
                         {canAsk && (
@@ -327,7 +337,7 @@ export const LawyerProfile = () => {
                         {question.map((question, index) => (
                           <div
                             key={index}
-                            className="card-question col-9 p-1 mt-2"
+                            className="card-question col-9 p-1 mt-2 d-flex flex-column align-items-center"
                           >
                             <Questions
                               text={question.text}
@@ -349,10 +359,10 @@ export const LawyerProfile = () => {
                             )}
                           </div>
                         ))}
-                      </div>
+                      
                     </div>
                   </div>
-                </div>
+              
               </Tab.Pane>
             </Tab.Content>
           </div>

@@ -1,6 +1,9 @@
 from api.models.db import db
 from datetime import datetime
+import pytz
 
+def current_time():
+    return datetime.now(pytz.timezone('Europe/Madrid'))
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -8,7 +8,7 @@ const ButtonsNavbar = () => {
                 <Link to="/register">
                     <button type="button" className="btn-navbar d-flex ">
                         <span className="material-symbols-outlined mx-1">
-                            edit
+                            person_add
                         </span>Registrarme
                     </button>
                 </Link>
@@ -16,7 +16,7 @@ const ButtonsNavbar = () => {
                 <Link to="/login">
                     
                     <button type="button" className="btn-navbar d-flex ">
-                    <span className="material-symbols-outlined mx-1">account_circle</span> Iniciar sesión
+                    <span className="material-symbols-outlined mx-1">login</span> Iniciar sesión
                     </button>
                 </Link>
             </ul>

@@ -1,5 +1,4 @@
 import React from "react";
-import Draggable from 'react-draggable';
 import "../../styles/modal.css"
 
 const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWrong, passOk, error}) => {
@@ -20,7 +19,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
 
       {show && (
         <div className="modal modal-backdrop d-block" tabIndex="-1" onClick={closeOnOutsideClick}>
-            <Draggable>
+      
           <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
             <div className="modal-content">
               <div className="modal-header">
@@ -96,7 +95,7 @@ const Modal = ({handlePassword, passwordChange, handleShow, show, small, passWro
               </div>
             </div>
           </div>
-          </Draggable>
+          
         </div>
       )}
     </>

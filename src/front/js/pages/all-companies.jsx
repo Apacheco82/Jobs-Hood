@@ -133,6 +133,7 @@ export const AllCompanies = () => {
                   totalPages={totalPages}
                   currentPage={currentPage}
                   handlePageChange={handlePageChange}
+                  basePath="/companies" 
                 />
               </div>
             </div>
