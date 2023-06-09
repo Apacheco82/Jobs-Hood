@@ -90,6 +90,16 @@ input:focus {
 
 }
 
+a {
+  text-decoration: none;
+  color: #1B5C3F
+}
+
+a:hover {
+  text-decoration: none;
+  color: #1B5C3F
+}
+
 div {
   border: 1px solid red
 }

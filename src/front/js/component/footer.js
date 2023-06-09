@@ -24,13 +24,13 @@ export const Footer = () => (
 			<div className="priv_contact">
 				<div className="privacy">
 					<Link to="/privacy">
-						<h6>Política de privacidad</h6> 
+						Política de privacidad 
 					</Link>
 				</div>
 
 				<div className="contact">
 					<Link to="/contact">
-						<h6>Contacto</h6>  
+						Contacto
 					</Link>
 				</div>
 			</div>
