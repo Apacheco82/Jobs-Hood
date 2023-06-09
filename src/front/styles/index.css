@@ -100,13 +100,6 @@ a:hover {
   color: #1B5C3F
 }
 
-div {
-  border: 1px solid red
-}
-
-.row {
-  border: 1px solid blue
-}
 
 body {
   font-family: 'Lato', sans-serif;
