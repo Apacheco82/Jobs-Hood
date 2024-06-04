@@ -3,6 +3,9 @@ Este proyecto es una aplicación web desarrollada en React.js. Se llama Jobs Hoo
 
 Los usuarios podrán registrarse en la web como empleados, empresas o abogados y podrán participar de las funcionalidades de la red social.
 
+<img src="jobshood.png">
+
+### Esquema de la base de datos
 
 ![api jobshood ](API_JOBS_HOOD.png) 
 
